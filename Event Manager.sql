@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 22, 2017 at 08:14 PM
+-- Generation Time: Oct 23, 2017 at 07:11 PM
 -- Server version: 5.6.35
 -- PHP Version: 7.1.8
 
@@ -24,7 +24,8 @@ USE `Event Manager`;
 
 CREATE TABLE `Category` (
   `Category_ID` int(5) UNSIGNED NOT NULL,
-  `Name` varchar(20) NOT NULL
+  `Name` varchar(20) NOT NULL,
+  `Created_By_User_ID` int(5) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -37,28 +38,56 @@ CREATE TABLE `Events` (
   `Event_ID` int(5) UNSIGNED NOT NULL,
   `Name` varchar(40) NOT NULL,
   `Description` text NOT NULL,
-  `Date` date NOT NULL,
-  `Start_Time` time NOT NULL,
-  `End_Time` time NOT NULL,
-  `Venue_ID` int(5) NOT NULL,
+  `Organiser_User_ID` int(5) UNSIGNED NOT NULL,
+  `Start_DateTime` datetime NOT NULL,
+  `End_DateTime` datetime NOT NULL,
+  `Venue_ID` int(5) UNSIGNED NOT NULL,
   `Total_Tickets` int(5) UNSIGNED NOT NULL,
   `Ticket_Price` decimal(5,2) UNSIGNED NOT NULL,
   `Is_Active` tinyint(1) NOT NULL,
   `Media_File_Path` text NOT NULL,
-  `Medi_File_Type` varchar(4) NOT NULL,
-  `Category_ID` int(5) UNSIGNED NOT NULL
+  `Media_File_Type` varchar(5) NOT NULL,
+  `Category_ID` int(5) UNSIGNED NOT NULL,
+  `Num_Thumbs_Up` int(5) UNSIGNED NOT NULL,
+  `Num_Thumbs_Down` int(5) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Interests`
+-- Table structure for table `Event_Tag`
 --
 
-CREATE TABLE `Interests` (
-  `Intrest_ID` int(5) UNSIGNED NOT NULL,
+CREATE TABLE `Event_Tag` (
+  `Event_ID` int(5) UNSIGNED NOT NULL,
+  `Tag_ID` int(5) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Review`
+--
+
+CREATE TABLE `Review` (
+  `Review_ID` int(5) UNSIGNED NOT NULL,
+  `Event_ID` int(5) UNSIGNED NOT NULL,
   `User_ID` int(5) UNSIGNED NOT NULL,
-  `Name` varchar(40) NOT NULL
+  `Rating` int(1) UNSIGNED NOT NULL,
+  `Review` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Tag`
+--
+
+CREATE TABLE `Tag` (
+  `Tag_ID` int(10) UNSIGNED NOT NULL,
+  `Name` varchar(40) NOT NULL,
+  `Category_ID` int(5) UNSIGNED NOT NULL,
+  `Created_by_User_ID` int(5) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -82,7 +111,7 @@ CREATE TABLE `Tickets` (
 
 CREATE TABLE `Ticket_Type` (
   `Ticket_Type_ID` int(5) UNSIGNED NOT NULL,
-  `Name` varchar(40) NOT NULL,
+  `Name` varchar(30) NOT NULL,
   `Created_by_User_ID` int(5) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -97,11 +126,23 @@ CREATE TABLE `User` (
   `Admin_Priveleges` tinyint(1) NOT NULL,
   `Name` varchar(40) NOT NULL,
   `Username` varchar(20) NOT NULL,
+  `Password` varchar(20) NOT NULL,
   `Email` varchar(20) NOT NULL,
   `Address` text NOT NULL,
   `Company` varchar(20) NOT NULL,
-  `Phone_Number` varchar(15) NOT NULL,
-  `Paypal_ID` text NOT NULL
+  `Phone_Number` varchar(12) NOT NULL,
+  `Paypal_Address` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `User_Tag`
+--
+
+CREATE TABLE `User_Tag` (
+  `User_ID` int(5) UNSIGNED NOT NULL,
+  `Tag_ID` int(5) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -115,7 +156,9 @@ CREATE TABLE `Venue` (
   `Name` varchar(40) NOT NULL,
   `Address` text NOT NULL,
   `Postcode` varchar(8) NOT NULL,
-  `City` varchar(12) NOT NULL
+  `City` varchar(12) NOT NULL,
+  `Phone_Number` varchar(12) NOT NULL,
+  `Created_By_User_ID` int(5) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -127,23 +170,39 @@ CREATE TABLE `Venue` (
 --
 ALTER TABLE `Category`
   ADD PRIMARY KEY (`Category_ID`),
-  ADD UNIQUE KEY `Name` (`Name`),
-  ADD UNIQUE KEY `Name_2` (`Name`);
+  ADD KEY `Created_By_User_ID` (`Created_By_User_ID`);
 
 --
 -- Indexes for table `Events`
 --
 ALTER TABLE `Events`
   ADD PRIMARY KEY (`Event_ID`),
-  ADD KEY `events_category_id` (`Category_ID`);
+  ADD KEY `events_category_id` (`Category_ID`),
+  ADD KEY `Created_By_User_ID` (`Organiser_User_ID`),
+  ADD KEY `Venue_ID` (`Venue_ID`);
 
 --
--- Indexes for table `Interests`
+-- Indexes for table `Event_Tag`
 --
-ALTER TABLE `Interests`
-  ADD PRIMARY KEY (`Intrest_ID`),
-  ADD UNIQUE KEY `Interest Name` (`Name`),
-  ADD KEY `interests_user_id` (`User_ID`);
+ALTER TABLE `Event_Tag`
+  ADD KEY `Event_ID` (`Event_ID`),
+  ADD KEY `Tag_ID` (`Tag_ID`);
+
+--
+-- Indexes for table `Review`
+--
+ALTER TABLE `Review`
+  ADD PRIMARY KEY (`Review_ID`),
+  ADD KEY `review_user_id` (`User_ID`),
+  ADD KEY `Event_ID` (`Event_ID`);
+
+--
+-- Indexes for table `Tag`
+--
+ALTER TABLE `Tag`
+  ADD PRIMARY KEY (`Tag_ID`),
+  ADD KEY `Created_by_User_ID` (`Created_by_User_ID`),
+  ADD KEY `Category_ID` (`Category_ID`);
 
 --
 -- Indexes for table `Tickets`
@@ -151,28 +210,35 @@ ALTER TABLE `Interests`
 ALTER TABLE `Tickets`
   ADD PRIMARY KEY (`Ticket_ID`),
   ADD KEY `tickets_event_id` (`Event_ID`),
-  ADD KEY `tickets_use_id` (`User_ID`);
+  ADD KEY `tickets_use_id` (`User_ID`),
+  ADD KEY `Ticket_Type_ID` (`Ticket_Type_ID`);
 
 --
 -- Indexes for table `Ticket_Type`
 --
 ALTER TABLE `Ticket_Type`
   ADD PRIMARY KEY (`Ticket_Type_ID`),
-  ADD UNIQUE KEY `Ticket Type End` (`Name`),
   ADD KEY `ticket_type_creator_id` (`Created_by_User_ID`);
 
 --
 -- Indexes for table `User`
 --
 ALTER TABLE `User`
-  ADD PRIMARY KEY (`User_ID`),
-  ADD UNIQUE KEY `Username` (`Username`);
+  ADD PRIMARY KEY (`User_ID`);
+
+--
+-- Indexes for table `User_Tag`
+--
+ALTER TABLE `User_Tag`
+  ADD KEY `Tag_ID` (`Tag_ID`),
+  ADD KEY `User_ID` (`User_ID`);
 
 --
 -- Indexes for table `Venue`
 --
 ALTER TABLE `Venue`
-  ADD PRIMARY KEY (`Venue_ID`);
+  ADD PRIMARY KEY (`Venue_ID`),
+  ADD KEY `Created_By_User_ID` (`Created_By_User_ID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -189,10 +255,15 @@ ALTER TABLE `Category`
 ALTER TABLE `Events`
   MODIFY `Event_ID` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `Interests`
+-- AUTO_INCREMENT for table `Review`
 --
-ALTER TABLE `Interests`
-  MODIFY `Intrest_ID` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `Review`
+  MODIFY `Review_ID` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `Tag`
+--
+ALTER TABLE `Tag`
+  MODIFY `Tag_ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `Tickets`
 --
@@ -218,22 +289,46 @@ ALTER TABLE `Venue`
 --
 
 --
+-- Constraints for table `Category`
+--
+ALTER TABLE `Category`
+  ADD CONSTRAINT `category_ibfk_1` FOREIGN KEY (`Created_By_User_ID`) REFERENCES `User` (`User_ID`);
+
+--
 -- Constraints for table `Events`
 --
 ALTER TABLE `Events`
-  ADD CONSTRAINT `events_category_id` FOREIGN KEY (`Category_ID`) REFERENCES `Category` (`Category_ID`);
+  ADD CONSTRAINT `events_category_id` FOREIGN KEY (`Category_ID`) REFERENCES `Category` (`Category_ID`),
+  ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`Organiser_User_ID`) REFERENCES `User` (`User_ID`),
+  ADD CONSTRAINT `events_ibfk_2` FOREIGN KEY (`Venue_ID`) REFERENCES `Venue` (`Venue_ID`);
 
 --
--- Constraints for table `Interests`
+-- Constraints for table `Event_Tag`
 --
-ALTER TABLE `Interests`
-  ADD CONSTRAINT `interests_user_id` FOREIGN KEY (`User_ID`) REFERENCES `User` (`User_ID`);
+ALTER TABLE `Event_Tag`
+  ADD CONSTRAINT `event_tag_ibfk_1` FOREIGN KEY (`Event_ID`) REFERENCES `Events` (`Event_ID`),
+  ADD CONSTRAINT `event_tag_ibfk_2` FOREIGN KEY (`Tag_ID`) REFERENCES `Tag` (`Tag_ID`);
+
+--
+-- Constraints for table `Review`
+--
+ALTER TABLE `Review`
+  ADD CONSTRAINT `review_ibfk_1` FOREIGN KEY (`Event_ID`) REFERENCES `Events` (`Event_ID`),
+  ADD CONSTRAINT `review_user_id` FOREIGN KEY (`User_ID`) REFERENCES `User` (`User_ID`);
+
+--
+-- Constraints for table `Tag`
+--
+ALTER TABLE `Tag`
+  ADD CONSTRAINT `tag_ibfk_1` FOREIGN KEY (`Created_by_User_ID`) REFERENCES `User` (`User_ID`),
+  ADD CONSTRAINT `tag_ibfk_2` FOREIGN KEY (`Category_ID`) REFERENCES `Category` (`Category_ID`);
 
 --
 -- Constraints for table `Tickets`
 --
 ALTER TABLE `Tickets`
   ADD CONSTRAINT `tickets_event_id` FOREIGN KEY (`Event_ID`) REFERENCES `Events` (`Event_ID`),
+  ADD CONSTRAINT `tickets_ibfk_1` FOREIGN KEY (`Ticket_Type_ID`) REFERENCES `Ticket_Type` (`Ticket_Type_ID`),
   ADD CONSTRAINT `tickets_use_id` FOREIGN KEY (`User_ID`) REFERENCES `User` (`User_ID`);
 
 --
@@ -241,3 +336,16 @@ ALTER TABLE `Tickets`
 --
 ALTER TABLE `Ticket_Type`
   ADD CONSTRAINT `ticket_type_creator_id` FOREIGN KEY (`Created_by_User_ID`) REFERENCES `User` (`User_ID`);
+
+--
+-- Constraints for table `User_Tag`
+--
+ALTER TABLE `User_Tag`
+  ADD CONSTRAINT `user_tag_ibfk_1` FOREIGN KEY (`Tag_ID`) REFERENCES `Tag` (`Tag_ID`),
+  ADD CONSTRAINT `user_tag_ibfk_2` FOREIGN KEY (`User_ID`) REFERENCES `User` (`User_ID`);
+
+--
+-- Constraints for table `Venue`
+--
+ALTER TABLE `Venue`
+  ADD CONSTRAINT `venue_ibfk_1` FOREIGN KEY (`Created_By_User_ID`) REFERENCES `User` (`User_ID`);
