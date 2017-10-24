@@ -1,22 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.7.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Oct 24, 2017 at 02:56 PM
--- Server version: 5.6.34-log
--- PHP Version: 7.1.5
+-- Host: localhost
+-- Generation Time: Oct 24, 2017 at 06:36 PM
+-- Server version: 5.6.35
+-- PHP Version: 7.1.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `event manager`
@@ -67,6 +59,8 @@ CREATE TABLE `events` (
   `End_DateTime` datetime NOT NULL,
   `Venue_ID` int(5) UNSIGNED NOT NULL,
   `Total_Tickets` int(5) UNSIGNED NOT NULL,
+  `Ticket_Sale_Start_DateTime` datetime NOT NULL,
+  `Ticket_Sale_End_DateTime` datetime NOT NULL,
   `Ticket_Price` decimal(5,2) UNSIGNED NOT NULL DEFAULT '0.00',
   `Is_Active` tinyint(1) NOT NULL,
   `Media_File_Path` text NOT NULL,
@@ -80,10 +74,10 @@ CREATE TABLE `events` (
 -- Dumping data for table `events`
 --
 
-INSERT INTO `events` (`Event_ID`, `Name`, `Description`, `Organiser_User_ID`, `Start_DateTime`, `End_DateTime`, `Venue_ID`, `Total_Tickets`, `Ticket_Price`, `Is_Active`, `Media_File_Path`, `Media_File_Type`, `Category_ID`, `Num_Thumbs_Up`, `Num_Thumbs_Down`) VALUES
-(1, 'Hackstart 2017', 'What\'s the plan for Saturday?\r\nCheck out:\r\n\r\n\"Hackstart\"\r\n\r\nAre you a beginner or advanced in coding? Well, this one\'s for all students interested in tech.\r\n\r\nHackstart is an 8 hour event designed for 14-19 year olds who are hoping to explore the field of Computer Science. \r\nWorkshops and tech talks, with topics ranging from machine learning to game development , will be run throughout the day by students at UCL.\r\n\r\nGet your hands on some coding tasks, learn some theoretical computer science, and speak to our current students about Computer Science and UCL.\r\n\r\nIt\'s a win-win! See you there!', 1, '2017-10-25 11:30:00', '2017-10-25 13:00:00', 1, 2, 0.00, 1, 'C:\\Users\\gimaf\\Documents\\UCL\\Motivez\\Images\\Hackstart2017', 'JPEG', 9, 1, 0),
-(2, 'Commerzbank Internship Talk', 'What\'s the plan for Monday?\r\n\r\nCheck out: Commerzbank Internship Talk\r\n\r\nFind out what a career in finance looks like!\r\n\r\nWe will be interviewing a senior director of Commerzbank about what work is really like in a bank\r\n\r\nThere will be a 30-minute networking session afterwards with free drinks. You can get a potential internship from this', 1, '2017-10-25 13:00:00', '2017-10-25 18:00:00', 2, 5, 0.00, 1, 'C:\\Users\\gimaf\\Documents\\UCL\\Motivez\\Images\\Commerzbank', 'PNG', 4, 2, 1),
-(3, 'Black in Engineering', 'What\'s the plan for Thursday?\r\n\r\nCheck out: Black in Engineering, Redressing the balance of ethnic minority students\r\n\r\nEngineering has a conversion problem. Why is only 7% of the workforce from Black and Minority Ethnic (BME) backgrounds, yet around 23% of UK engineering students are from a BME background? Research from the Royal Academy of Engineering [1] shows stark differences in employment outcomes between engineering graduates of white and minority ethnic origin. There was a 20 percentage point difference between the proportion of white engineering graduates entering full-time employment (71%) and their black and minority ethnic (BME) counterparts (51%) after 6 months.\r\n\r\nThere is evidence to suggest that students from BME backgrounds may not always have as much social capital to draw on as their white counterparts. Also, current student recruitment is often targeted at universities with lower proportions of BME students.\r\nYou are invited to join EqualEngineers, in partnership with UCL, to explore some questions around barriers within education attainment and barriers at the transition from education to employment. A panel of leading experts in engineering education, industry and diversity and inclusion advocacy will share their thoughts and opinions on the barriers facing students. Audience participation will be sought for sharing ideas and insights into possible solutions people can do at both the individual and organisational levels to help redress the balance.\r\n[1] “Employment outcomes of engineering graduates: key factors and diversity characteristics”, Royal Academy of Engineering, November 2016 http://www.raeng.org.uk/publications/reports/employment-outcomes-of-engineering-graduates-key-f\r\nPanel:\r\nDr Mark McBride-Wright CEng MIChemE, Founder & Managing Director of EqualEngineers\r\nDr Michael Sulu, Research Associate, Advanced Centre for Biochemical Engineering, UCL\r\nDr Nike Folayan, Chair of the Association for Black & Minority Ethnic Engineers (AFBE-UK)\r\nVivienne Aiyela CIPD, Senior Diversity & Inclusion Consultant\r\nDr Victor Olisa QPM, Visiting Fellow at London School of Economics and Political Science\r\n\r\nSchedule:\r\n6:00pm Guests arrive and network.\r\n6:30pm Panel discussion starts\r\n7:15pm Q&A / Audience input for solutions\r\n7:45pm Networking till close\r\n8:30pm Event close', 1, '2017-10-24 21:00:00', '2017-10-24 22:00:00', 2, 100, 5.00, 0, 'C:\\Users\\gimaf\\Documents\\UCL\\Motivez\\Images\\Blackinengineering', 'JPEG', 10, 5, 2);
+INSERT INTO `events` (`Event_ID`, `Name`, `Description`, `Organiser_User_ID`, `Start_DateTime`, `End_DateTime`, `Venue_ID`, `Total_Tickets`, `Ticket_Sale_Start_DateTime`, `Ticket_Sale_End_DateTime`, `Ticket_Price`, `Is_Active`, `Media_File_Path`, `Media_File_Type`, `Category_ID`, `Num_Thumbs_Up`, `Num_Thumbs_Down`) VALUES
+(1, 'Hackstart 2017', 'What\'s the plan for Saturday?\r\nCheck out:\r\n\r\n\"Hackstart\"\r\n\r\nAre you a beginner or advanced in coding? Well, this one\'s for all students interested in tech.\r\n\r\nHackstart is an 8 hour event designed for 14-19 year olds who are hoping to explore the field of Computer Science. \r\nWorkshops and tech talks, with topics ranging from machine learning to game development , will be run throughout the day by students at UCL.\r\n\r\nGet your hands on some coding tasks, learn some theoretical computer science, and speak to our current students about Computer Science and UCL.\r\n\r\nIt\'s a win-win! See you there!', 1, '2017-10-25 11:30:00', '2017-10-25 13:00:00', 1, 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.00', 1, 'C:\\Users\\gimaf\\Documents\\UCL\\Motivez\\Images\\Hackstart2017', 'JPEG', 9, 1, 0),
+(2, 'Commerzbank Internship Talk', 'What\'s the plan for Monday?\r\n\r\nCheck out: Commerzbank Internship Talk\r\n\r\nFind out what a career in finance looks like!\r\n\r\nWe will be interviewing a senior director of Commerzbank about what work is really like in a bank\r\n\r\nThere will be a 30-minute networking session afterwards with free drinks. You can get a potential internship from this', 1, '2017-10-25 13:00:00', '2017-10-25 18:00:00', 2, 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.00', 1, 'C:\\Users\\gimaf\\Documents\\UCL\\Motivez\\Images\\Commerzbank', 'PNG', 4, 2, 1),
+(3, 'Black in Engineering', 'What\'s the plan for Thursday?\r\n\r\nCheck out: Black in Engineering, Redressing the balance of ethnic minority students\r\n\r\nEngineering has a conversion problem. Why is only 7% of the workforce from Black and Minority Ethnic (BME) backgrounds, yet around 23% of UK engineering students are from a BME background? Research from the Royal Academy of Engineering [1] shows stark differences in employment outcomes between engineering graduates of white and minority ethnic origin. There was a 20 percentage point difference between the proportion of white engineering graduates entering full-time employment (71%) and their black and minority ethnic (BME) counterparts (51%) after 6 months.\r\n\r\nThere is evidence to suggest that students from BME backgrounds may not always have as much social capital to draw on as their white counterparts. Also, current student recruitment is often targeted at universities with lower proportions of BME students.\r\nYou are invited to join EqualEngineers, in partnership with UCL, to explore some questions around barriers within education attainment and barriers at the transition from education to employment. A panel of leading experts in engineering education, industry and diversity and inclusion advocacy will share their thoughts and opinions on the barriers facing students. Audience participation will be sought for sharing ideas and insights into possible solutions people can do at both the individual and organisational levels to help redress the balance.\r\n[1] “Employment outcomes of engineering graduates: key factors and diversity characteristics”, Royal Academy of Engineering, November 2016 http://www.raeng.org.uk/publications/reports/employment-outcomes-of-engineering-graduates-key-f\r\nPanel:\r\nDr Mark McBride-Wright CEng MIChemE, Founder & Managing Director of EqualEngineers\r\nDr Michael Sulu, Research Associate, Advanced Centre for Biochemical Engineering, UCL\r\nDr Nike Folayan, Chair of the Association for Black & Minority Ethnic Engineers (AFBE-UK)\r\nVivienne Aiyela CIPD, Senior Diversity & Inclusion Consultant\r\nDr Victor Olisa QPM, Visiting Fellow at London School of Economics and Political Science\r\n\r\nSchedule:\r\n6:00pm Guests arrive and network.\r\n6:30pm Panel discussion starts\r\n7:15pm Q&A / Audience input for solutions\r\n7:45pm Networking till close\r\n8:30pm Event close', 1, '2017-10-24 21:00:00', '2017-10-24 22:00:00', 2, 100, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '5.00', 0, 'C:\\Users\\gimaf\\Documents\\UCL\\Motivez\\Images\\Blackinengineering', 'JPEG', 10, 5, 2);
 
 -- --------------------------------------------------------
 
@@ -123,7 +117,8 @@ CREATE TABLE `review` (
 
 INSERT INTO `review` (`Review_ID`, `Event_ID`, `User_ID`, `Rating`, `Review`) VALUES
 (1, 1, 1, 5, 'The event was amazing last year! I\'m definitely looking forward to this :)'),
-(2, 2, 1, 3, 'After attending this event last month, I secured a competitive internship at Commerzbank. This is a great opportunity!');
+(2, 2, 1, 3, 'After attending this event last month, I secured a competitive internship at Commerzbank. This is a great opportunity!'),
+(3, 3, 1, 4, 'This will be perfect for those interested in learning about the diversity in engineering. Particularly, the contributions of the black community in the engineering industry to celebrate Black History Month.');
 
 -- --------------------------------------------------------
 
@@ -152,7 +147,10 @@ INSERT INTO `tag` (`Tag_ID`, `Name`, `Category_ID`, `Created_by_User_ID`) VALUES
 (7, 'MVP', 3, 1),
 (8, 'Pivot', 3, 1),
 (9, 'Founder', 3, 1),
-(10, 'Programming', 9, 1);
+(10, 'Programming', 9, 1),
+(11, 'Internships', 4, 1),
+(12, 'Diversity', 9, 1),
+(13, 'Marketing Hacks', 5, 1);
 
 -- --------------------------------------------------------
 
@@ -166,6 +164,15 @@ CREATE TABLE `tickets` (
   `User_ID` int(5) UNSIGNED NOT NULL,
   `Ticket_Type_ID` int(5) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tickets`
+--
+
+INSERT INTO `tickets` (`Ticket_ID`, `Event_ID`, `User_ID`, `Ticket_Type_ID`) VALUES
+(1, 1, 1, 1),
+(2, 2, 1, 2),
+(3, 3, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -231,7 +238,17 @@ CREATE TABLE `user_tag` (
 INSERT INTO `user_tag` (`User_ID`, `Tag_ID`) VALUES
 (1, 1),
 (1, 2),
-(1, 3);
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 6),
+(1, 7),
+(1, 8),
+(1, 9),
+(1, 10),
+(1, 11),
+(1, 12),
+(1, 13);
 
 -- --------------------------------------------------------
 
@@ -255,7 +272,8 @@ CREATE TABLE `venue` (
 
 INSERT INTO `venue` (`Venue_ID`, `Name`, `Address`, `Postcode`, `City`, `Phone_Number`, `Created_By_User_ID`) VALUES
 (1, 'UCL Roberts Building', 'Malet Place Engineering Building', 'WC1E 7JG', 'London', '02076797062', 1),
-(2, 'UCL Foster Court', 'Foster Court B28 - Public Cluster \r\nGower St, Bloomsbury', 'WC1E 6BT', 'London', '02076797062', 1);
+(2, 'UCL Foster Court', 'Foster Court B28 - Public Cluster \r\nGower St, Bloomsbury', 'WC1E 6BT', 'London', '02076797062', 1),
+(3, 'UCL Cruciform', 'Cruciform\r\nGower St, Bloomsbury', 'WC1E 6BT', 'London', '02076797039', 1);
 
 --
 -- Indexes for dumped tables
@@ -355,17 +373,17 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `review`
 --
 ALTER TABLE `review`
-  MODIFY `Review_ID` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Review_ID` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `tag`
 --
 ALTER TABLE `tag`
-  MODIFY `Tag_ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `Tag_ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `Ticket_ID` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `Ticket_ID` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `ticket_type`
 --
@@ -380,7 +398,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `venue`
 --
 ALTER TABLE `venue`
-  MODIFY `Venue_ID` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Venue_ID` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- Constraints for dumped tables
 --
@@ -446,8 +464,3 @@ ALTER TABLE `user_tag`
 --
 ALTER TABLE `venue`
   ADD CONSTRAINT `venue_ibfk_1` FOREIGN KEY (`Created_By_User_ID`) REFERENCES `user` (`User_ID`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
