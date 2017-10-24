@@ -1,6 +1,19 @@
+/*1) Users can register with the system and create accounts.*/
+
+--Creates a new user.
+INSERT INTO `user` (`User_ID`, `Admin_Priveleges`, `Name`, `Username`, `Password`, `Email`, `Address`, `Company`, `Phone_Number`, `Paypal_Address`) VALUES
+(1, 1, 'George', 'George', 'George', 'gimafidon@live.co.uk', 'Gower Street', 'Motivez', '07943497163', 'gimafidon@live.co.uk');
+
+/*2) A user may create an event, setting suitable conditions and features of the event including the description, location, date, categorisation, number of tickets available and end date.*/
+
+--Creates an event.
+INSERT INTO `events` (`Event_ID`, `Name`, `Description`, `Organiser_User_ID`, `Start_DateTime`, `End_DateTime`, `Venue_ID`, `Total_Tickets`, `Ticket_Price`, `Is_Active`, `Media_File_Path`, `Media_File_Type`, `Category_ID`, `Num_Thumbs_Up`, `Num_Thumbs_Down`) VALUES
+(1, 'Hackstart 2017', 'What\'s the plan for Saturday?\r\nCheck out:\r\n\r\n\"Hackstart\"\r\n\r\nAre you a beginner or advanced in coding? Well, this one\'s for all students interested in tech.\r\n\r\nHackstart is an 8 hour event designed for 14-19 year olds who are hoping to explore the field of Computer Science. \r\nWorkshops and tech talks, with topics ranging from machine learning to game development , will be run throughout the day by students at UCL.\r\n\r\nGet your hands on some coding tasks, learn some theoretical computer science, and speak to our current students about Computer Science and UCL.\r\n\r\nIt\'s a win-win! See you there!', 1, '2017-10-25 11:30:00', '2017-10-25 13:00:00', 1, 2, 0.00, 1, 'C:\\Users\\gimaf\\Documents\\UCL\\Motivez\\Images\\Hackstart2017', 'JPEG', 9, 1, 0);
+
+
 /*3) A user can search the system for categories of events and can browse events within certain categories or timeframes.*/
 
---This query will return Technolgy events happening in a specific week.
+--This query will return Technology events happening in a specific week.
 SELECT e.Name, e.Description
 FROM events e
 JOIN category c ON e.Category_ID = c.Category_ID
