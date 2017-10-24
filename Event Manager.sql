@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 23, 2017 at 07:11 PM
+-- Generation Time: Oct 24, 2017 at 03:15 PM
 -- Server version: 5.6.35
 -- PHP Version: 7.1.8
 
@@ -43,7 +43,7 @@ CREATE TABLE `Events` (
   `End_DateTime` datetime NOT NULL,
   `Venue_ID` int(5) UNSIGNED NOT NULL,
   `Total_Tickets` int(5) UNSIGNED NOT NULL,
-  `Ticket_Price` decimal(5,2) UNSIGNED NOT NULL,
+  `Ticket_Price` decimal(5,2) UNSIGNED NOT NULL DEFAULT '0.00',
   `Is_Active` tinyint(1) NOT NULL,
   `Media_File_Path` text NOT NULL,
   `Media_File_Type` varchar(5) NOT NULL,
@@ -224,7 +224,8 @@ ALTER TABLE `Ticket_Type`
 -- Indexes for table `User`
 --
 ALTER TABLE `User`
-  ADD PRIMARY KEY (`User_ID`);
+  ADD PRIMARY KEY (`User_ID`),
+  ADD UNIQUE KEY `Username` (`Username`);
 
 --
 -- Indexes for table `User_Tag`
