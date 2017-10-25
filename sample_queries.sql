@@ -23,7 +23,7 @@ AND e.Start_DateTime > '2017-10-23 00:00:00';
 
 /*4) A user can book a ticket for an event. The system will manage the ticket sales until the set end time. No further ticket sales will be permitted if the event is full or if the end time for ticket sales of that event has been reached.*/
 
---Returns the end of ticket sale time for a specific event so that the sytem can compare it with the current time
+--Returns the end of ticket sale time for a specific event so that the system can compare it with the current time
 SELECT Ticket_Sale_End_DateTime
 FROM events
 WHERE Event_ID = 1;
