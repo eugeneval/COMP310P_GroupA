@@ -2,7 +2,7 @@
 <html>
     <head>
         <link href="styling.css" rel="stylesheet">
-        <title>main</title>
+        <title>Eventi</title>
     </head>
     <body>
         blah

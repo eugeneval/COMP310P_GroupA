@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
     <head>
         <link href="styling.css" rel="stylesheet">
-        <title>Login</title>
+        <title>Eventi - Login</title>
     </head>
     <body>
         <header>
