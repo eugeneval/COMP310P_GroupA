@@ -45,10 +45,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
         elseif ($result == false) {
-            $loginError = "SQL query error!";
+            $loginError = "SQL query error: ".mysqli_error($conn);
         }
         else {
-            $loginError = "Unknown error";
+            $loginError = "Unknown Error";
         }
     }
     //New user creation
@@ -62,11 +62,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         else {
             $result = mysqli_query($conn, $sql);
 
-            if ($result) {
+            if ($result == true) {
                 $loginError = "User created!";
             }
-            elseif (!$result) {
-                $loginError = "SQL query error";
+            elseif ($result == false) {
+                $loginError = "SQL query error: ".mysqli_error($conn);
             }
             else {
                 $loginError = "Unknow Error";
