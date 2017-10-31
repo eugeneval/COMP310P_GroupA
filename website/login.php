@@ -13,16 +13,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phone = $_POST["phone"];
     $paypal = $_POST["paypal"];
 
+    //SQL server connection details
     $dbservername = "sql2.freesqldatabase.com";
     $dbusername = "sql2202195";
     $dbpassword = "iJ5%nN6%";
     $dbname = "sql2202195";
 
+    //Connect to server
     $conn = mysqli_connect($dbservername, $dbusername, $dbpassword, $dbname);
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
 
+    //Existing user validation
     if ($username != "") {
         $sql = "SELECT Password FROM user WHERE username = '$username'";
         $result = mysqli_query($conn, $sql);
@@ -48,9 +51,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $loginError = "Unknown error";
         }
     }
+    //New user creation
     else if ($usernameNew != "") {
-        $sql = "INSERT INTO `user` (`Name`, `Username`, `Password`, `Email`, `Address`, `Company`, `Phone_Number`, `Paypal_Address`) VALUES
-        ('$name', '$usernameNew', '$password', '$email', '$address', '$company', '$phone', '$paypal');";
+        $sql = "INSERT INTO `user` (`Name`, `Username`, `Password`, `Email`, `Address`, `Company`, `Phone_Number`, `Paypal_Address`)
+        VALUES ('$name', '$usernameNew', '$password', '$email', '$address', '$company', '$phone', '$paypal');";
 
         if ($password != $passwordConfirm){
             $loginError = "Passwords do not match!";
