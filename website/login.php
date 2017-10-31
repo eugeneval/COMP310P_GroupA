@@ -1,17 +1,24 @@
+<!--
+
+TODO:
+- Protect against sql injection
+
+-->
+
 <?php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $name = $_POST["name"];
-    $username = $_POST["username"];
-    $usernameNew = $_POST["usernameNew"];
-    $password = $_POST["password"];
-    $passwordConfirm = $_POST["passwordConfirm"];
-    $email = $_POST["email"];
-    $address = $_POST["address"];
-    $company = $_POST["company"];
-    $phone = $_POST["phone"];
-    $paypal = $_POST["paypal"];
+    $name = test_input($_POST["name"]);
+    $username = test_input($_POST["username"]);
+    $usernameNew = test_input($_POST["usernameNew"]);
+    $password = test_input($_POST["password"]);
+    $passwordConfirm = test_input($_POST["passwordConfirm"]);
+    $email = test_input($_POST["email"]);
+    $address = test_input($_POST["address"]);
+    $company = test_input($_POST["company"]);
+    $phone = test_input($_POST["phone"]);
+    $paypal = test_input($_POST["paypal"]);
 
     //SQL server connection details
     $dbservername = "sql2.freesqldatabase.com";
@@ -77,6 +84,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     mysqli_close($conn);
 
+}
+
+function test_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
 }
  ?>
 
