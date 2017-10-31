@@ -16,3 +16,8 @@
 * Research P5.js
 * Create pages
     * Note: cannot yet create backend as we have not been taught how
+
+## Changes to sql database:
+
+#### 31st Oct
+* Changed admin_priveleges to be 0 by default
