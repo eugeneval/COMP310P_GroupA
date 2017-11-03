@@ -2,8 +2,8 @@
 -- version 4.7.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Oct 24, 2017 at 06:36 PM
+-- Host: localhost:8889
+-- Generation Time: Nov 03, 2017 at 01:10 PM
 -- Server version: 5.6.35
 -- PHP Version: 7.1.8
 
@@ -202,7 +202,7 @@ INSERT INTO `ticket_type` (`Ticket_Type_ID`, `Name`, `Created_by_User_ID`) VALUE
 
 CREATE TABLE `user` (
   `User_ID` int(5) UNSIGNED NOT NULL,
-  `Admin_Priveleges` tinyint(1) NOT NULL,
+  `Admin_Priveleges` tinyint(1) NOT NULL DEFAULT '0',
   `Name` varchar(40) NOT NULL,
   `Username` varchar(20) NOT NULL,
   `Password` varchar(20) NOT NULL,
@@ -393,7 +393,7 @@ ALTER TABLE `ticket_type`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `User_ID` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `User_ID` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `venue`
 --
