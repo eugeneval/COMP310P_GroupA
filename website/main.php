@@ -6,6 +6,6 @@
     </head>
     <body>
       <script src="libraries/p5.js"></script>
-      <script src="main1.js"></script>
+      <script src="javascript/main1.js"></script>
     </body>
 </html>
