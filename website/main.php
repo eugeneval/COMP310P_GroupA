@@ -5,7 +5,7 @@
         <title>Eventi</title>
     </head>
     <body>
-      <script src="p5.js"></script>
+      <script src="libraries/p5.js"></script>
       <script src="main1.js"></script>
     </body>
 </html>
