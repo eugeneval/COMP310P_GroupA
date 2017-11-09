@@ -1,10 +1,3 @@
-<!--
-
-TODO:
-- Protect against sql injection
-
--->
-
 <?php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -21,10 +14,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $paypal = test_input($_POST["paypal"]);
 
     //SQL server connection details
-    $dbservername = "sql2.freesqldatabase.com";
-    $dbusername = "sql2202195";
-    $dbpassword = "iJ5%nN6%";
-    $dbname = "sql2202195";
+    $dbservername = "localhost";
+    $dbusername = "root";
+    $dbpassword = "root";
+    $dbname = "event manager";
 
     //Connect to server
     $conn = mysqli_connect($dbservername, $dbusername, $dbpassword, $dbname);
