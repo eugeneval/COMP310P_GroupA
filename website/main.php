@@ -5,6 +5,7 @@
         <title>Eventi</title>
     </head>
     <body>
-        blah
+      <script src="p5.js"></script>
+      <script src="main1.js"></script>
     </body>
 </html>
