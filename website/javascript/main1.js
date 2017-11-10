@@ -1,40 +1,64 @@
-var num = 2000;
-var range = 6;
+var NUMSINES = 20; // how many of these things can we do at once?
+var sines = new Array(NUMSINES); // an array to hold all the current angles
+var rad; // an initial radius value for the central sine
+var i; // a counter variable
 
-var ax = [];
-var ay = [];
+// play with these to get a sense of what's going on:
+var fund = 0.005; // the speed of the central sine
+var ratio = 1; // what multiplier for speed is each additional sine?
+var alpha = 50; // how opaque is the tracing system
 
+var trace = false; // are we tracing?
 
 function setup() {
   createCanvas(710, 400);
-  for ( var i = 0; i < num; i++ ) {
-    ax[i] = width / 2;
-    ay[i] = height / 2;
+
+  rad = height/4; // compute radius for central circle
+  background(204); // clear the screen
+
+  for (var i = 0; i<sines.length; i++) {
+    sines[i] = PI; // start EVERYBODY facing NORTH
   }
-  frameRate(30);
 }
 
 function draw() {
-  background(51);
-
-  // Shift all elements 1 place to the left
-  for ( var i = 1; i < num; i++ ) {
-    ax[i - 1] = ax[i];
-    ay[i - 1] = ay[i];
+  if (!trace) {
+    background(204); // clear screen if showing geometry
+    stroke(0, 255); // black pen
+    noFill(); // don't fill
   }
 
-  // Put a new value at the end of the array
-  ax[num - 1] += random(-range, range);
-  ay[num - 1] += random(-range, range);
+  // MAIN ACTION
+  push(); // start a transformation matrix
+  translate(width/2, height/2); // move to middle of screen
 
-  // Constrain all points to the screen
-  ax[num - 1] = constrain(ax[num - 1], 0, width);
-  ay[num - 1] = constrain(ay[num - 1], 0, height);
+  for (var i = 0; i<sines.length; i++) {
+    var erad = 0; // radius for small "point" within circle... this is the 'pen' when tracing
+    // setup for tracing
+    if (trace) {
+      stroke(0, 0, 255*(float(i)/sines.length), alpha); // blue
+      fill(0, 0, 255, alpha/2); // also, um, blue
+      erad = 5.0*(1.0-float(i)/sines.length); // pen width will be related to which sine
+    }
+    var radius = rad/(i+1); // radius for circle itself
+    rotate(sines[i]); // rotate circle
+    if (!trace) ellipse(0, 0, radius*2, radius*2); // if we're simulating, draw the sine
+    push(); // go up one level
+    translate(0, radius); // move to sine edge
+    if (!trace) ellipse(0, 0, 5, 5); // draw a little circle
+    if (trace) ellipse(0, 0, erad, erad); // draw with erad if tracing
+    pop(); // go down one level
+    translate(0, radius); // move into position for next sine
+    sines[i] = (sines[i]+(fund+(fund*i*ratio)))%TWO_PI; // update angle based on fundamental
+  }
 
-  // Draw a line connecting the points
-  for ( var j = 1; j < num; j++ ) {
-    var val = j / num * 204.0 + 51;
-    stroke(val);
-    line(ax[j - 1], ay[j - 1], ax[j], ay[j]);
+  pop(); // pop down final transformation
+
+}
+
+function keyReleased() {
+  if (key==' ') {
+    trace = !trace;
+    background(255);
   }
 }
