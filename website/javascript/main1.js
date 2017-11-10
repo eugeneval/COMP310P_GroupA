@@ -1,4 +1,4 @@
-var NUMSINES = 20; // how many of these things can we do at once?
+var NUMSINES = 5; // how many of these things can we do at once?
 var sines = new Array(NUMSINES); // an array to hold all the current angles
 var rad; // an initial radius value for the central sine
 var i; // a counter variable
@@ -14,7 +14,7 @@ function setup() {
   createCanvas(710, 400);
 
   rad = height/4; // compute radius for central circle
-  background(204); // clear the screen
+  background(51); // clear the screen
 
   for (var i = 0; i<sines.length; i++) {
     sines[i] = PI; // start EVERYBODY facing NORTH
@@ -23,7 +23,7 @@ function setup() {
 
 function draw() {
   if (!trace) {
-    background(204); // clear screen if showing geometry
+    background(51); // clear screen if showing geometry
     stroke(0, 255); // black pen
     noFill(); // don't fill
   }
