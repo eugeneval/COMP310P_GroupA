@@ -2,7 +2,7 @@
 <html>
     <head>
       <title>Eventi</title>
-        <h1>Eventi</h1>
+        <img src="resources/Logo.png" style="width:302px;height:86px;"/>
           <link href="styling.css" rel="stylesheet">
             <script src="libraries/p5.min.js"></script>
     </head>

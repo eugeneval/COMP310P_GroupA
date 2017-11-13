@@ -1,12 +1,16 @@
 body {
     font-family: helvetica, sans-serif;
-    background: rgb(51,51,51);
+    background: #666;
     text-align: center;
 }
 
 header {
-    background: rgb(51,51,51);
+    background: #666;
 }
 h1 {
   text-align: center;
+}
+
+head {
+  background: #666;
 }
