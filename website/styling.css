@@ -5,12 +5,33 @@ body {
 }
 
 header {
+<<<<<<< HEAD
     background: #666;
+=======
+    background: rgb(181, 162, 131);
+>>>>>>> 86bda93ed1781dd3b50efdfaa862daee99a0302f
 }
 h1 {
   text-align: center;
 }
 
+<<<<<<< HEAD
 head {
   background: #666;
+=======
+li {
+
+}
+
+.sidebar {
+    float: left;
+    width: 20%;
+    background: rgb(181, 181, 181);
+}
+
+.eventsList {
+    float: right;
+    width: 80%;
+    background: rgb(230, 230, 230);
+>>>>>>> 86bda93ed1781dd3b50efdfaa862daee99a0302f
 }
