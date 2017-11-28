@@ -3,8 +3,8 @@
 require 'functions.php';
 
 $loginError = "";
-$formPassword = "";
-$formUsername = "";
+$password = "";
+$usernameNew = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "INSERT INTO `user` (`Name`, `Username`, `Password`, `Email`, `Address`, `Company`, `Phone_Number`, `Paypal_Address`, `Admin_Priveleges`)
         VALUES ('$name', '$usernameNew', '$password', '$email', '$address', '$company', '$phone', '$paypal', $adminPriveleges);";
 
-        // TODO: move password matching to creation pages
+        // NOTE: password confirmation is also done on creation pages, this is a backup
         if ($password != $passwordConfirm){
             $loginError = "Passwords do not match!";
         }
@@ -41,8 +41,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($result == true) {
                 $loginError = "New user succesfully created!";
-                $formUsername = $usernameNew;
-                $formPassword = $password;
             }
             elseif ($result == false) {
                 $loginError = "SQL query error: ".mysqli_error($conn);
@@ -80,8 +78,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </p>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
             <h3>Please enter your details:</h3>
-            <input type="text" placeholder="Username" name="username" value="<?php echo $formUsername;?>" required/>
-            <input type="password" placeholder="Password" name="password" value="<?php echo $formPassword;?>" required/>
+            <input type="text" placeholder="Username" name="username" value="<?php echo $usernameNew;?>" required/>
+            <input type="password" placeholder="Password" name="password" value="<?php echo $password;?>" required/>
             <input type="submit" />
         </form>
         <h3>Or, create an account:</h3>

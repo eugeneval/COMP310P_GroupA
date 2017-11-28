@@ -16,9 +16,9 @@
             <br />
             <input type="text" placeholder="Your Chosen Username" maxlength="20" required name="usernameNew"/>
             <br />
-            <input type="password" placeholder="Your Password" maxlength="20" required name="password"/>
+            <input type="password" placeholder="Your Password" maxlength="20" required name="password" id="password" onchange='check_pass();'/>
             <br />
-            <input type="password" placeholder="Confirm Password" maxlength="20" required name="passwordConfirm"/>
+            <input type="password" placeholder="Confirm Password" maxlength="20" required name="passwordConfirm" id="confirm_password" onchange='check_pass();'/>
             <br />
             <input type="email" placeholder="Your Email" maxlength="20" required name="email"/>
             <br />
@@ -30,8 +30,10 @@
             <br />
             <input type="text" placeholder="Paypal" name="paypal"/>
             <br />
-            <input type="submit" />
+            <input type="submit" id="submit" disabled/>
             <input type="hidden" name="adminPrivelges" value=0 />
         </form>
+        <p id="passwordMatch"></p>
     </body>
+    <script src="javascript/login.js"></script>
 </html>
