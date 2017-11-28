@@ -1,5 +1,7 @@
 <?php
 
+require 'functions.php';
+
 $loginError = "";
 $formPassword = "";
 $formUsername = "";
@@ -32,13 +34,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     //Existing user validation
     if ($username != "") {
-        login($conn, $username, $password);
+        $loginError = login($conn, $username, $password);
     }
     //New user creation
     else if ($usernameNew != "") {
         $sql = "INSERT INTO `user` (`Name`, `Username`, `Password`, `Email`, `Address`, `Company`, `Phone_Number`, `Paypal_Address`, `Admin_Priveleges`)
         VALUES ('$name', '$usernameNew', '$password', '$email', '$address', '$company', '$phone', '$paypal', $adminPriveleges);";
 
+        // TODO: move password matching to creation pages
         if ($password != $passwordConfirm){
             $loginError = "Passwords do not match!";
         }
@@ -64,40 +67,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
-function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
-
-function login($conn, $username, $password) {
-
-    $sql = "SELECT Password FROM user WHERE username = '$username'";
-    $result = mysqli_query($conn, $sql);
-
-    $row = mysqli_fetch_assoc($result);
-    $passwordFromSQL = $row['Password'];
-
-    if (mysqli_num_rows($result) == 0) {
-        $loginError = "That username does not exist!";
-    }
-    elseif ($passwordFromSQL != $password) {
-        $loginError = "That password is incorrect!";
-    }
-    elseif ($passwordFromSQL == $password) {
-        #$loginError = "Successful login!";
-        header('Location: main.php');
-        exit();
-    }
-    elseif ($result == false) {
-        $loginError = "SQL query error: ".mysqli_error($conn);
-    }
-    else {
-        $loginError = "Unknown Error";
-    }
-
-}
  ?>
 
 <!DOCTYPE html>
