@@ -1,5 +1,11 @@
 <?php
 
+require 'functions.php';
+
+$loginError = "";
+$password = "";
+$usernameNew = "";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $name = test_input($_POST["name"]);
@@ -12,50 +18,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $company = test_input($_POST["company"]);
     $phone = test_input($_POST["phone"]);
     $paypal = test_input($_POST["paypal"]);
-
-    //SQL server connection details
-    $dbservername = "localhost";
-    $dbusername = "root";
-    $dbpassword = "root";
-    $dbname = "event manager";
+    $adminPriveleges = $_POST["adminPrivelges"];
 
     //Connect to server
-    $conn = mysqli_connect($dbservername, $dbusername, $dbpassword, $dbname);
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
+    $conn = db_connect();
 
     //Existing user validation
     if ($username != "") {
-        $sql = "SELECT Password FROM user WHERE username = '$username'";
-        $result = mysqli_query($conn, $sql);
-
-        $row = mysqli_fetch_assoc($result);
-        $passwordFromSQL = $row['Password'];
-
-        if (mysqli_num_rows($result) == 0) {
-            $loginError = "That username does not exist!";
-        }
-        elseif ($passwordFromSQL != $password) {
-            $loginError = "That password is incorrect!";
-        }
-        elseif ($passwordFromSQL == $password) {
-            #$loginError = "Successful login!";
-            header('Location: main.php');
-            exit();
-        }
-        elseif ($result == false) {
-            $loginError = "SQL query error: ".mysqli_error($conn);
-        }
-        else {
-            $loginError = "Unknown Error";
-        }
+        $loginError = login($conn, $username, $password);
     }
     //New user creation
     else if ($usernameNew != "") {
-        $sql = "INSERT INTO `user` (`Name`, `Username`, `Password`, `Email`, `Address`, `Company`, `Phone_Number`, `Paypal_Address`)
-        VALUES ('$name', '$usernameNew', '$password', '$email', '$address', '$company', '$phone', '$paypal');";
+        $sql = "INSERT INTO `user` (`Name`, `Username`, `Password`, `Email`, `Address`, `Company`, `Phone_Number`, `Paypal_Address`, `Admin_Priveleges`)
+        VALUES ('$name', '$usernameNew', '$password', '$email', '$address', '$company', '$phone', '$paypal', $adminPriveleges);";
 
+        // NOTE: password confirmation is also done on creation pages, this is a backup
         if ($password != $passwordConfirm){
             $loginError = "Passwords do not match!";
         }
@@ -63,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $result = mysqli_query($conn, $sql);
 
             if ($result == true) {
-                $loginError = "User created!";
+                $loginError = "New user succesfully created!";
             }
             elseif ($result == false) {
                 $loginError = "SQL query error: ".mysqli_error($conn);
@@ -79,12 +56,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
-function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
  ?>
 
 <!DOCTYPE html>
@@ -107,32 +78,19 @@ function test_input($data) {
         </p>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
             <h3>Please enter your details:</h3>
-            <input type="text" placeholder="Username" name="username" required/>
-            <input type="password" placeholder="Password" name="password" required/>
+            <input type="text" placeholder="Username" name="username" value="<?php echo $usernameNew;?>" required/>
+            <input type="password" placeholder="Password" name="password" value="<?php echo $password;?>" required/>
             <input type="submit" />
         </form>
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-            <h3>Or create a new account:</h3>
-            <input type="text" placeholder="Your Name" maxlength="40" required name="name"/>
-            <br />
-            <input type="text" placeholder="Your Chosen Username" maxlength="20" required name="usernameNew"/>
-            <br />
-            <input type="password" placeholder="Your Password" maxlength="20" required name="password"/>
-            <br />
-            <input type="password" placeholder="Confirm Password" maxlength="20" required name="passwordConfirm"/>
-            <br />
-            <input type="email" placeholder="Your Email" maxlength="20" required name="email"/>
-            <br />
-            <input type="text" placeholder="Your Address" required name="address"/>
-            <br />
-            <input type="text" placeholder="Your Company" maxlength="20" required name="company"/>
-            <br />
-            <input type="tel" placeholder="Your Phone Number" maxlength="12" required name="phone"/>
-            <br />
-            <input type="text" placeholder="Paypal" name="paypal"/>
-            <br />
-            <input type="submit" />
+        <h3>Or, create an account:</h3>
+        <form action="create_new_user.php">
+            <input type="submit" value="Join Eventi as a User" />
         </form>
+        <form action="create_new_organiser.php">
+            <button>Join Eventi as an Organiser</button>
+        </form>
+
+
 
     </body>
 </html>
