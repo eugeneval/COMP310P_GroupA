@@ -1,5 +1,9 @@
 <?php
 
+$loginError = "";
+$formPassword = "";
+$formUsername = "";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $name = test_input($_POST["name"]);
@@ -27,29 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     //Existing user validation
     if ($username != "") {
-        $sql = "SELECT Password FROM user WHERE username = '$username'";
-        $result = mysqli_query($conn, $sql);
-
-        $row = mysqli_fetch_assoc($result);
-        $passwordFromSQL = $row['Password'];
-
-        if (mysqli_num_rows($result) == 0) {
-            $loginError = "That username does not exist!";
-        }
-        elseif ($passwordFromSQL != $password) {
-            $loginError = "That password is incorrect!";
-        }
-        elseif ($passwordFromSQL == $password) {
-            #$loginError = "Successful login!";
-            header('Location: main.php');
-            exit();
-        }
-        elseif ($result == false) {
-            $loginError = "SQL query error: ".mysqli_error($conn);
-        }
-        else {
-            $loginError = "Unknown Error";
-        }
+        login($conn, $username, $password);
     }
     //New user creation
     else if ($usernameNew != "") {
@@ -63,7 +45,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $result = mysqli_query($conn, $sql);
 
             if ($result == true) {
-                $loginError = "User created!";
+                $loginError = "New user succesfully created!";
+                $formUsername = $usernameNew;
+                $formPassword = $password;
             }
             elseif ($result == false) {
                 $loginError = "SQL query error: ".mysqli_error($conn);
@@ -84,6 +68,34 @@ function test_input($data) {
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
+}
+
+function login($conn, $username, $password) {
+
+    $sql = "SELECT Password FROM user WHERE username = '$username'";
+    $result = mysqli_query($conn, $sql);
+
+    $row = mysqli_fetch_assoc($result);
+    $passwordFromSQL = $row['Password'];
+
+    if (mysqli_num_rows($result) == 0) {
+        $loginError = "That username does not exist!";
+    }
+    elseif ($passwordFromSQL != $password) {
+        $loginError = "That password is incorrect!";
+    }
+    elseif ($passwordFromSQL == $password) {
+        #$loginError = "Successful login!";
+        header('Location: main.php');
+        exit();
+    }
+    elseif ($result == false) {
+        $loginError = "SQL query error: ".mysqli_error($conn);
+    }
+    else {
+        $loginError = "Unknown Error";
+    }
+
 }
  ?>
 
@@ -111,28 +123,7 @@ function test_input($data) {
             <input type="password" placeholder="Password" name="password" required/>
             <input type="submit" />
         </form>
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-            <h3>Or create a new account:</h3>
-            <input type="text" placeholder="Your Name" maxlength="40" required name="name"/>
-            <br />
-            <input type="text" placeholder="Your Chosen Username" maxlength="20" required name="usernameNew"/>
-            <br />
-            <input type="password" placeholder="Your Password" maxlength="20" required name="password"/>
-            <br />
-            <input type="password" placeholder="Confirm Password" maxlength="20" required name="passwordConfirm"/>
-            <br />
-            <input type="email" placeholder="Your Email" maxlength="20" required name="email"/>
-            <br />
-            <input type="text" placeholder="Your Address" required name="address"/>
-            <br />
-            <input type="text" placeholder="Your Company" maxlength="20" required name="company"/>
-            <br />
-            <input type="tel" placeholder="Your Phone Number" maxlength="12" required name="phone"/>
-            <br />
-            <input type="text" placeholder="Paypal" name="paypal"/>
-            <br />
-            <input type="submit" />
-        </form>
+
 
     </body>
 </html>
