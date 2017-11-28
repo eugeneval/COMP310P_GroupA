@@ -20,17 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $paypal = test_input($_POST["paypal"]);
     $adminPriveleges = $_POST["adminPrivelges"];
 
-    //SQL server connection details
-    $dbservername = "localhost";
-    $dbusername = "root";
-    $dbpassword = "root";
-    $dbname = "event manager";
-
     //Connect to server
-    $conn = mysqli_connect($dbservername, $dbusername, $dbpassword, $dbname);
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
+    $conn = db_connect();
 
     //Existing user validation
     if ($username != "") {

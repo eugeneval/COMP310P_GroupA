@@ -32,6 +32,22 @@ function login($conn, $username, $password) {
     else {
         return "Unknown Error";
     }
+}
+
+function db_connect() {
+
+    //SQL server connection details
+    $dbservername = "localhost";
+    $dbusername = "root";
+    $dbpassword = "root";
+    $dbname = "event manager";
+
+    //Connect to server
+    $conn = mysqli_connect($dbservername, $dbusername, $dbpassword, $dbname);
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    return $conn;
 
 }
 
