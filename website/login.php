@@ -16,6 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $company = test_input($_POST["company"]);
     $phone = test_input($_POST["phone"]);
     $paypal = test_input($_POST["paypal"]);
+    $adminPriveleges = $_POST["adminPrivelges"];
 
     //SQL server connection details
     $dbservername = "localhost";
@@ -35,8 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     //New user creation
     else if ($usernameNew != "") {
-        $sql = "INSERT INTO `user` (`Name`, `Username`, `Password`, `Email`, `Address`, `Company`, `Phone_Number`, `Paypal_Address`)
-        VALUES ('$name', '$usernameNew', '$password', '$email', '$address', '$company', '$phone', '$paypal');";
+        $sql = "INSERT INTO `user` (`Name`, `Username`, `Password`, `Email`, `Address`, `Company`, `Phone_Number`, `Paypal_Address`, 'Admin_Priveleges')
+        VALUES ('$name', '$usernameNew', '$password', '$email', '$address', '$company', '$phone', '$paypal', $adminPriveleges);";
 
         if ($password != $passwordConfirm){
             $loginError = "Passwords do not match!";
@@ -123,6 +124,14 @@ function login($conn, $username, $password) {
             <input type="password" placeholder="Password" name="password" required/>
             <input type="submit" />
         </form>
+        <h3>Or, create an account:</h3>
+        <form action="create_new_user.php">
+            <input type="submit" value="Join Eventi as a User" />
+        </form>
+        <form action="create_new_organiser.php">
+            <button>Join Eventi as an Organiser</button>
+        </form>
+
 
 
     </body>
