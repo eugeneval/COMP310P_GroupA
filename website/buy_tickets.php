@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>Eventi - Tickets</title>
+        <link href="styling.css" rel="stylesheet">
     </head>
     <body>
         <header>

@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title>Eventi - User Profile</title>
         <!-- TODO: make title reflect currentl user -->
+        <link href="styling.css" rel="stylesheet">
     </head>
     <body>
         <header>

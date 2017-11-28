@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title>Eventi - Manage Event</title>
         <!-- TODO: make title reflect currently selected event -->
+        <link href="styling.css" rel="stylesheet">
     </head>
     <body>
         <header>

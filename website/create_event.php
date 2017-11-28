@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>Eventi - Create Event</title>
+        <link href="styling.css" rel="stylesheet">
     </head>
     <body>
         <header>
