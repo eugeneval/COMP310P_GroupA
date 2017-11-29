@@ -1,5 +1,4 @@
 <?php
-
 //SQL server connection details
 $dbservername = "localhost";
 $dbusername = "root";
@@ -15,24 +14,46 @@ if (!$conn) {
 $sql = "SELECT Name, Description
 FROM events";
 $result = mysqli_query($conn, $sql);
-
-
-
  ?>
 
 <!DOCTYPE html>
 <html>
     <head>
-<<<<<<< HEAD
       <title>Eventi</title>
+      <style>
+          body, html {
+              height: 100%;
+              margin: 0;
+              text-align: center;
+
+              /* The image used */
+              background-image: url("/resources/Snow-mountains-background-1.jpg");
+
+              /* Full height */
+              height: 100%;
+
+              /* Center and scale the image nicely */
+              background-position: center;
+              background-repeat: no-repeat;
+              background-size: cover;
+          }
+          head {
+            text-align: center;
+
+          }
+          img {
+            text-align: center;
+          }
+      </style>
+
         <img src="resources/Logo.png" style="width:302px;height:86px;"/>
-          <link href="styling.css" rel="stylesheet">
+          <!--<link href="styling.css" rel="stylesheet">-->
             <script src="libraries/p5.min.js"></script>
-=======
+
         <title>Eventi</title>
         <link href="styling.css" rel="stylesheet">
         <script src="libraries/p5.min.js"></script>
->>>>>>> 86bda93ed1781dd3b50efdfaa862daee99a0302f
+
     </head>
     <body>
         <header>
@@ -59,6 +80,5 @@ $result = mysqli_query($conn, $sql);
                 }
              ?>
         </div>
-
     </body>
 </html>
