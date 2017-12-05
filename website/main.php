@@ -1,21 +1,12 @@
 <?php
 
-//SQL server connection details
-$dbservername = "localhost";
-$dbusername = "root";
-$dbpassword = "root";
-$dbname = "event manager";
+require 'functions.php';
+$username = checkCurrentUser();
 
-//Connect to server
-$conn = mysqli_connect($dbservername, $dbusername, $dbpassword, $dbname);
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
+$conn = db_connect();
 $sql = "SELECT Name, Description
 FROM events";
 $result = mysqli_query($conn, $sql);
-
 
 
  ?>
@@ -31,9 +22,10 @@ $result = mysqli_query($conn, $sql);
         <header>
             <h1>Eventi</h1>
             <h4>Welcome to Eventi, the intelligent assistant for young professionals!</h4>
-            <div class="menubar">
-                <li><a href="login.php">Logout</a></li>
-            </div>
+            <ul>
+                <li class="menubar">Logged in as: <?php echo $username; ?></li>
+                <li class="menubar"><a href="login.php">Logout</a></li>
+            </ul>
         </header>
         <div class="sidebar">
             <li>One</li>
