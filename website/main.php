@@ -41,7 +41,8 @@ $result = mysqli_query($conn, $sql);
     </head>
     <body>
         <header>
-            <h1>Eventi</h1>
+          <header>
+            <img src="resources/Logo.png" style="width:302px;height:86px;"/>
             <h4>Welcome to Eventi, the intelligent assistant for young professionals!</h4>
             <ul>
                 <li class="menubar">Logged in as: <?php echo $username; ?></li>
