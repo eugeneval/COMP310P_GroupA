@@ -10,7 +10,7 @@ $username = checkCurrentUser();
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Eventi - Create Eve nt</title>
+        <title>Eventi - Create Event</title>
         <link href="styling.css" rel="stylesheet">
     </head>
     <body>
