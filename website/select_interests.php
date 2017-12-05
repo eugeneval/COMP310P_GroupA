@@ -36,8 +36,8 @@ $username = checkCurrentUser();
                   <li><input type="checkbox" name="Personal Development" value="Personal Development"> Arts</li>
                   <li><input type="checkbox" name="Technology" value="Arts"> Technology</li>
                   <li><input type="checkbox" name="Workshops" value="Workshops"> Arts</li>
-                  <p><input type="submit" value="Submit" disabled></p>
               </ul>
+              <p><input type="submit" value="Submit" disabled></p>
               <input type="submit" value="Skip choosing interests" />
               <input type="hidden" name="skippedInterests" value=1 />
          </form>
