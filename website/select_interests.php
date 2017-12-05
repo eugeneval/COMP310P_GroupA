@@ -24,22 +24,22 @@ $username = checkCurrentUser();
          </header>
          Select all of your interests for Eventi:
          <form method="post" action='main.php'>
-                <p></p>
-                <ul>
-                    <li><input type="checkbox" name="Arts" value="Arts"> Arts</li>
-                    <li><input type="checkbox" name="Business" value="Business"> Business</li>
-                    <li><input type="checkbox" name="Entrepreneurship" value="Entrepreneurship"> Entrepreneurship</li>
-                    <li><input type="checkbox" name="Finance" value="Finance"> Finance</li>
-                    <li><input type="checkbox" name="Marketing" value="Marketing"> Marketing</li>
-                    <li><input type="checkbox" name="Networking" value="Networking"> Networking</li>
-                    <li><input type="checkbox" name="Performance" value="Performance"> Performance</li>
-                    <li><input type="checkbox" name="Personal Development" value="Personal Development"> Arts</li>
-                    <li><input type="checkbox" name="Technology" value="Arts"> Technology</li>
-                    <li><input type="checkbox" name="Workshops" value="Workshops"> Arts</li>
-                    <p><input type="submit" value="Submit" disabled></p>
-
-             <input type="submit" value="Skip choosing interests" />
-             <input type="hidden" name="skippedInterests" value=1 />
+              <p></p>
+              <ul>
+                  <li><input type="checkbox" name="Arts" value="Arts"> Arts</li>
+                  <li><input type="checkbox" name="Business" value="Business"> Business</li>
+                  <li><input type="checkbox" name="Entrepreneurship" value="Entrepreneurship"> Entrepreneurship</li>
+                  <li><input type="checkbox" name="Finance" value="Finance"> Finance</li>
+                  <li><input type="checkbox" name="Marketing" value="Marketing"> Marketing</li>
+                  <li><input type="checkbox" name="Networking" value="Networking"> Networking</li>
+                  <li><input type="checkbox" name="Performance" value="Performance"> Performance</li>
+                  <li><input type="checkbox" name="Personal Development" value="Personal Development"> Arts</li>
+                  <li><input type="checkbox" name="Technology" value="Arts"> Technology</li>
+                  <li><input type="checkbox" name="Workshops" value="Workshops"> Arts</li>
+                  <p><input type="submit" value="Submit" disabled></p>
+              </ul>
+              <input type="submit" value="Skip choosing interests" />
+              <input type="hidden" name="skippedInterests" value=1 />
          </form>
      </body>
  </html>
