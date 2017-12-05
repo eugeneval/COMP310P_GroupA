@@ -22,7 +22,7 @@ function login($conn, $username, $password) {
         return "That password is incorrect!";
     }
     elseif ($passwordFromSQL == $password) {
-        #$loginError = "Successful login!";
+        setUserCookie($username);
         header('Location: main.php');
         exit();
     }
@@ -32,6 +32,24 @@ function login($conn, $username, $password) {
     else {
         return "Unknown Error";
     }
+}
+
+function checkCurrentUser() {
+
+    if (isset($_COOKIE["username"])) {
+        setUserCookie($_COOKIE["username"]); # reset expery timer
+        return $_COOKIE["username"];
+    } else {
+        setcookie("loggedout", True, time() + 10);
+        header('Location: login.php');
+        exit();
+    }
+
+}
+
+function setUserCookie($username) {
+    $expireTime = time() + 60*15; # 15 minutes before relogin is required
+    setcookie("username", $username, $expireTime);
 }
 
 function db_connect() {
