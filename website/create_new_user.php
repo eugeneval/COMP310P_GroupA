@@ -12,21 +12,21 @@
         </header>
         <form method="post" action="login.php">
             <h3>Or create a new account:</h3>
-            <input type="text" placeholder="Your Name" maxlength="40" required name="name"/>
+            <input type="text" placeholder="Full Name" maxlength="40" required name="name"/>
             <br />
-            <input type="text" placeholder="Your Chosen Username" maxlength="20" required name="usernameNew"/>
+            <input type="text" placeholder="Chosen Username" maxlength="20" required name="usernameNew"/>
             <br />
-            <input type="password" placeholder="Your Password" maxlength="20" required name="password" id="password" onchange='check_pass();'/>
+            <input type="password" placeholder="Password" maxlength="20" required name="password" id="password" onchange='check_pass();'/>
             <br />
             <input type="password" placeholder="Confirm Password" maxlength="20" required name="passwordConfirm" id="confirm_password" onchange='check_pass();'/>
             <br />
-            <input type="email" placeholder="Your Email" maxlength="20" required name="email"/>
+            <input type="email" placeholder="Email Address" maxlength="20" required name="email"/>
             <br />
-            <input type="text" placeholder="Your Address" required name="address"/>
+            <input type="text" placeholder="Company Address" required name="address"/>
             <br />
-            <input type="text" placeholder="Your Company" maxlength="20" required name="company"/>
+            <input type="text" placeholder="Company Name" maxlength="20" required name="company"/>
             <br />
-            <input type="tel" placeholder="Your Phone Number" maxlength="12" required name="phone"/>
+            <input type="tel" placeholder="Phone Number" maxlength="12" required name="phone"/>
             <br />
             <input type="text" placeholder="Paypal" name="paypal"/>
             <br />

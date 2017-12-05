@@ -22,21 +22,18 @@ $username = checkCurrentUser();
                  <li class="menubar"><a href="login.php">Logout</a></li>
              </ul>
          </header>
-         Select all of your interests for Eventi:
+         <p>Select all of your interests for Eventi: </p>
          <form method="post" action='main.php'>
-              <p></p>
-              <ul>
-                  <li><input type="checkbox" name="Arts" value="Arts"> Arts</li>
-                  <li><input type="checkbox" name="Business" value="Business"> Business</li>
-                  <li><input type="checkbox" name="Entrepreneurship" value="Entrepreneurship"> Entrepreneurship</li>
-                  <li><input type="checkbox" name="Finance" value="Finance"> Finance</li>
-                  <li><input type="checkbox" name="Marketing" value="Marketing"> Marketing</li>
-                  <li><input type="checkbox" name="Networking" value="Networking"> Networking</li>
-                  <li><input type="checkbox" name="Performance" value="Performance"> Performance</li>
-                  <li><input type="checkbox" name="Personal Development" value="Personal Development"> Arts</li>
-                  <li><input type="checkbox" name="Technology" value="Arts"> Technology</li>
-                  <li><input type="checkbox" name="Workshops" value="Workshops"> Arts</li>
-              </ul>
+              Arts    <input type="checkbox" name="Arts" value="Arts"><br />
+              Business     <input type="checkbox" name="Business" value="Business"><br />
+              Entrepreneurship     <input type="checkbox" name="Entrepreneurship" value="Entrepreneurship"><br />
+              Finance <input type="checkbox" name="Finance" value="Finance"><br />
+              Marketing <input type="checkbox" name="Marketing" value="Marketing"><br />
+              Networking <input type="checkbox" name="Networking" value="Networking"><br />
+              Performance <input type="checkbox" name="Performance" value="Performance"><br />
+              Personal Development <input type="checkbox" name="Personal Development" value="Personal Development"><br / />
+              Technology <input type="checkbox" name="Technology" value="Arts"><br />
+              Workshops <input type="checkbox" name="Workshops" value="Workshops"><br />
               <p><input type="submit" value="Submit" disabled></p>
               <input type="submit" value="Skip choosing interests" />
               <input type="hidden" name="skippedInterests" value=1 />
