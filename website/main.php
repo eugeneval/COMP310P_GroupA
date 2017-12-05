@@ -4,6 +4,27 @@ require 'functions.php';
 $username = checkCurrentUser();
 
 $conn = db_connect();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_POST["skippedInterests"] == 1) {
+        setcookie("skippedInterests", True, time() + 60*60*24);
+    }
+
+}
+
+// Redirect to selecting interests page if the user doesn't have any once every 24 hours.
+if (!isset($_COOKIE["skippedInterests"])) {
+    $sql = "SELECT * FROM user u
+    JOIN user_tag ut ON u.User_ID = ut.User_ID
+    WHERE u.Username = '$username'";
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) == 0) {
+        header('Location: select_interests.php');
+        exit();
+    }
+}
+
+
 $sql = "SELECT Name, Description
 FROM events";
 $result = mysqli_query($conn, $sql);
