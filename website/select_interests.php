@@ -24,9 +24,9 @@ $username = checkCurrentUser();
          </header>
          <p>Select all of your interests for Eventi: </p>
          <form method="post" action='main.php'>
-              Arts    <input type="checkbox" name="Arts" value="Arts"><br />
-              Business     <input type="checkbox" name="Business" value="Business"><br />
-              Entrepreneurship     <input type="checkbox" name="Entrepreneurship" value="Entrepreneurship"><br />
+              Arts <input type="checkbox" name="Arts" value="Arts"><br />
+              Business <input type="checkbox" name="Business" value="Business"><br />
+              Entrepreneurship <input type="checkbox" name="Entrepreneurship" value="Entrepreneurship"><br />
               Finance <input type="checkbox" name="Finance" value="Finance"><br />
               Marketing <input type="checkbox" name="Marketing" value="Marketing"><br />
               Networking <input type="checkbox" name="Networking" value="Networking"><br />
