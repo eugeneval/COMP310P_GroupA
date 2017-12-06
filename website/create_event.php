@@ -24,16 +24,12 @@ $username = checkCurrentUser();
         </header>
         <form action="user_profile.php" method="POST">
             <fieldset>
-                <legend>Event Description</legend>
-                <p>Description</p><textarea name="message" rows="8" cols="29"></textarea><br />
-            </fieldset>
-            <br />
-            <fieldset>
                 <legend>Event Details</legend>
                 <p>Event Name</p> <input type="text" name="event_name">
+                <p>Description</p><textarea name="message" rows="8" cols="29"></textarea>
                 <p>Start Date/Time</p> <input type="datetime-local" name="start_date_time">
                 <p>End Date/Time</p> <input type="datetime-local" name="end_date_time">
-                <p>Video URL</p> <input type="text" name="video_url">
+                <p>Video URL</p> <input type="url" name="video_url" pattern="https?://.+" required />
                 <p>Location</p> <input type="text" name="location">
             </fieldset>
             <br />
@@ -45,6 +41,7 @@ $username = checkCurrentUser();
                     <option value="1">1</option>
                 </select>
                 <p>Ticket Name</p> <input type="text" name="ticket_name">
+                <p>Ticket Price</p> <input type="number" name="ticket_price" min="0.00" max="100.00" step="0.01" />
                 <p>Ticket Start Date/Time</p> <input type="datetime-local" name="ticket_date_time">
                 <p>Ticket End Date/Time</p> <input type="datetime-local" name="ticket_date_time">
                 <p>Quantity</p> <input type="number" name="ticket_quantity" min="1" max="500">
