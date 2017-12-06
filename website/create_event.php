@@ -85,11 +85,13 @@ $username = checkCurrentUser();
             <br />
             <fieldset>
                 <legend>Upload Event Image</legend>
-                <input type="button" name="image" value="Choose Image" disabled>
+                <input type='file' />
+                <br><img id="myImg" src="#"  />
             </fieldset>
             <br />
             <input type="submit" value="Save"><n/>
             <input type="reset" value="Clear">
+            <script src="create_event.js"></script>
         </form>
 
 
