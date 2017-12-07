@@ -1,21 +1,12 @@
 # COMP310P_GroupA
 
-### Details for connecting to freesqldatabase:
+## Cookies:
 
-|   |       |
-| :------------- | :------------- |
-| Host:    |    sql2.freesqldatabase.com |
-| Database name:   |   sql2202195 |
-| Database user:    |  sql2202195 |
-| Database password: | iJ5%nN6% |
-|Port number:    |    3306 |
-
-
-## TODO
-
-* Research P5.js
-* Create pages
-    * Note: cannot yet create backend as we have not been taught how
+| Cookie Name   | Contents    | Allowed Values | Expiry Time |
+| :----------| :---------- | :---------- | :-----------| :------------- |
+| username  | Current user's username | valid username | 15 minutes, refreshed every time a new page is visited |
+| adminPriveleges | Current user's adminPriveleges | True | 15 minutes, refreshed every time a new page is visited |
+| skippedInterests | Whether the user has skipped the select interests page | True | 24 hours from skipping the interests page |
 
 ## Changes to sql database:
 
