@@ -38,6 +38,7 @@ $result = mysqli_query($conn, $sql);
         <title>Eventi</title>
         <link href="styling.css" rel="stylesheet">
         <script src="libraries/p5.min.js"></script>
+        <script src="libraries/js.cookie.js"></script>
     </head>
     <body>
         <header>
@@ -50,6 +51,9 @@ $result = mysqli_query($conn, $sql);
             </ul>
         </header>
         <div class="sidebar">
+            <form action='create_event.php' onsubmit="return check_admin()">
+                <input type="submit" value="Create New Event" id="newEvent"/>
+            </form>
             <li>One</li>
             <li>Two</li>
             <li>Three</li>
@@ -68,4 +72,5 @@ $result = mysqli_query($conn, $sql);
         </div>
 
     </body>
+    <script src="javascript/login.js"></script>
 </html>
