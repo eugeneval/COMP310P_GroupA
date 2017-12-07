@@ -8,8 +8,13 @@ header {
     background: rgb(181, 162, 131);
     text-align: center;
 }
+
 h1 {
 
+}
+
+img.form_icons {
+    height: 1em;
 }
 
 .menubar {
