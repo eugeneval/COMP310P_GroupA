@@ -7,3 +7,12 @@ function check_pass() {
         document.getElementById('passwordMatch').innerHTML = "Passwords do not match!";
     }
 }
+
+function check_admin() {
+    if (Cookies.get('adminPriveleges') == true) {
+        return true;
+    } else {
+        alert("Sorry - you cannot create a new event. Register as an organiser!");
+        return false;
+    }
+}

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Nov 03, 2017 at 01:10 PM
+-- Generation Time: Dec 07, 2017 at 04:28 PM
 -- Server version: 5.6.35
 -- PHP Version: 7.1.8
 
@@ -218,7 +218,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`User_ID`, `Admin_Priveleges`, `Name`, `Username`, `Password`, `Email`, `Address`, `Company`, `Phone_Number`, `Paypal_Address`) VALUES
-(1, 1, 'George', 'George', 'George', 'gimafidon@live.co.uk', 'Gower Street', 'Motivez', '07943497163', 'gimafidon@live.co.uk');
+(1, 1, 'George', 'George', 'George', 'gimafidon@live.co.uk', 'Gower Street', 'Motivez', '07943497163', 'gimafidon@live.co.uk'),
+(2, 1, 'Eugene Valetsky', 'eugval', 'eugeneval', 'eugval@gmail.com', '31 John Islip Street', 'Tiny Triangle', '07799117574', ''),
+(3, 0, 'John Doe', 'doe', 'john', 'john@doe.com', '1 The Street', 'Big Bucks Inc', '0123456789', '');
 
 -- --------------------------------------------------------
 
@@ -393,7 +395,7 @@ ALTER TABLE `ticket_type`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `User_ID` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `User_ID` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `venue`
 --

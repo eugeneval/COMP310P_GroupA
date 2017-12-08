@@ -9,7 +9,7 @@ function test_input($data) {
 
 function login($conn, $username, $password) {
 
-    $sql = "SELECT Password FROM user WHERE username = '$username'";
+    $sql = "SELECT Password, Admin_Priveleges FROM user WHERE username = '$username'";
     $result = mysqli_query($conn, $sql);
 
     $row = mysqli_fetch_assoc($result);
@@ -22,7 +22,12 @@ function login($conn, $username, $password) {
         return "That password is incorrect!";
     }
     elseif ($passwordFromSQL == $password) {
-        #$loginError = "Successful login!";
+        if ($row['Admin_Priveleges'] == 1) {
+            $admin = True;
+        } else {
+            $admin = False;
+        }
+        setUserCookie($username, $admin);
         header('Location: main.php');
         exit();
     }
@@ -33,6 +38,28 @@ function login($conn, $username, $password) {
         return "Unknown Error";
     }
 }
+
+function checkCurrentUser() {
+
+    if (isset($_COOKIE["username"])) {
+        setUserCookie($_COOKIE["username"], isset($_COOKIE["adminPriveleges"])); # reset expiry timer
+        return $_COOKIE["username"];
+    } else {
+        setcookie("loggedout", True, time() + 10);
+        header('Location: login.php');
+        exit();
+    }
+
+}
+
+function setUserCookie($username, $admin) {
+    $expireTime = time() + 60*15; # 15 minutes before relogin is required
+    setcookie("username", $username, $expireTime);
+    if ($admin) {
+        setcookie("adminPriveleges", True, $expireTime);
+    }
+}
+
 
 function db_connect() {
 

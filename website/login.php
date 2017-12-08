@@ -5,6 +5,11 @@ require 'functions.php';
 $loginError = "";
 $password = "";
 $usernameNew = "";
+setcookie("username", "", time()-1);
+
+if (isset($_COOKIE["loggedout"])) {
+    $loginError = "Sorry, you have been logged out due to inactivity.";
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -71,9 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </header>
         <p>
             <?php
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo $loginError;
-            }
              ?>
         </p>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
@@ -87,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="submit" value="Join Eventi as a User" />
         </form>
         <form action="create_new_organiser.php">
-            <button>Join Eventi as an Organiser</button>
+            <input type="submit" value="Join Eventi as an Organiser" />
         </form>
 
 

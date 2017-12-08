@@ -1,21 +1,33 @@
 <?php
 
-//SQL server connection details
-$dbservername = "localhost";
-$dbusername = "root";
-$dbpassword = "root";
-$dbname = "event manager";
+require 'functions.php';
+$username = checkCurrentUser();
 
-//Connect to server
-$conn = mysqli_connect($dbservername, $dbusername, $dbpassword, $dbname);
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+$conn = db_connect();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_POST["skippedInterests"] == 1) {
+        setcookie("skippedInterests", True, time() + 60*60*24);
+    }
+
 }
+
+// Redirect to selecting interests page if the user doesn't have any once every 24 hours.
+if (!isset($_COOKIE["skippedInterests"])) {
+    $sql = "SELECT * FROM user u
+    JOIN user_tag ut ON u.User_ID = ut.User_ID
+    WHERE u.Username = '$username'";
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) == 0) {
+        header('Location: select_interests.php');
+        exit();
+    }
+}
+
 
 $sql = "SELECT Name, Description
 FROM events";
 $result = mysqli_query($conn, $sql);
-
 
 
  ?>
@@ -32,17 +44,26 @@ $result = mysqli_query($conn, $sql);
         <title>Eventi</title>
         <link href="styling.css" rel="stylesheet">
         <script src="libraries/p5.min.js"></script>
+<<<<<<< HEAD
 >>>>>>> 86bda93ed1781dd3b50efdfaa862daee99a0302f
+=======
+        <script src="libraries/js.cookie.js"></script>
+>>>>>>> 3d39e0f09a363b7cd1ac59d6c40a91437e1fb814
     </head>
     <body>
         <header>
-            <h1>Eventi</h1>
+          <header>
+            <img src="resources/Logo.png" style="width:302px;height:86px;"/>
             <h4>Welcome to Eventi, the intelligent assistant for young professionals!</h4>
-            <div class="menubar">
-                <li><a href="login.php">Logout</a></li>
-            </div>
+            <ul>
+                <li class="menubar">Logged in as: <?php echo $username; ?></li>
+                <li class="menubar"><a href="login.php">Logout</a></li>
+            </ul>
         </header>
         <div class="sidebar">
+            <form action='create_event.php' onsubmit="return check_admin()">
+                <input type="submit" value="Create New Event" id="newEvent"/>
+            </form>
             <li>One</li>
             <li>Two</li>
             <li>Three</li>
@@ -61,4 +82,5 @@ $result = mysqli_query($conn, $sql);
         </div>
 
     </body>
+    <script src="javascript/login.js"></script>
 </html>
