@@ -4,13 +4,6 @@
         <meta charset="utf-8">
         <title>Eventi - New Organiser</title>
         <link href="styling.css" rel="stylesheet">
-        <style>
-        /**/ NOTE: for some reason this stops working if you move it to styling.css.
-        /**/ TODO: figure out why.
-        img.form_icons {
-            height: 1em;
-        }
-        </style>
     </head>
     <body>
         <header>
