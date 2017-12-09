@@ -15,7 +15,7 @@ $username = checkCurrentUser();
     </head>
     <body>
         <header>
-            <img src="resources/Logo.png" style="width:302px;height:86px;"/>
+            <a href="main.php"><img src="resources/Logo.png" style="width:302px;height:86px;"/></a>
             <h4>Welcome to Eventi, the intelligent assistant for young professionals!</h4>
             <ul>
                 <li class="menubar">Logged in as: <?php echo $username; ?></li>
