@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $eventCreation = "SQL query error: ".mysqli_error($conn);
     }
     else {
-        $eventCreation = "Unknow Error";
+        $eventCreation = "Unknown Error";
     }
     mysqli_close($conn);
 }
@@ -59,7 +59,7 @@ if (mysqli_num_rows($result) == 0) {
     </head>
     <body>
         <header>
-            <img src="resources/Logo.png" style="width:302px;height:86px;"/>
+            <a href="main.php"><img src="resources/Logo.png" style="width:302px;height:86px;"/></a>
             <h4>Welcome to Eventi, the intelligent assistant for young professionals!</h4>
             <ul>
                 <li class="menubar">Logged in as: <?php echo $username; ?></li>
