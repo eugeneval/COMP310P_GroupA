@@ -25,7 +25,7 @@ if (!isset($_COOKIE["skippedInterests"])) {
 }
 
 
-$sql = "SELECT Name, Description
+$sql = "SELECT *
 FROM events";
 $result = mysqli_query($conn, $sql);
 
@@ -63,6 +63,9 @@ $result = mysqli_query($conn, $sql);
                 if (mysqli_num_rows($result) > 0) {
                     while($row = mysqli_fetch_assoc($result)) {
                         echo "<p>".$row['Name']."<br /><small>".$row['Description']."</small></p>";
+                        echo "<form action='event_details.php' onclick=\"return  eventCookie(".$row['Event_ID'].")\">
+                        <input type=\"submit\" value=\"Event Details\" />
+                        </form>";
                     }
                 }
                 else {
@@ -73,4 +76,5 @@ $result = mysqli_query($conn, $sql);
 
     </body>
     <script src="javascript/login.js"></script>
+    <script src="javascript/navigation.js"></script>
 </html>
