@@ -54,7 +54,7 @@ if (mysqli_num_rows($result) == 0) {
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Eventi - <?php echo $event_name; ?></title>
+        <title>Eventi - <?php echo $row['Name']; ?></title>
         <link href="styling.css" rel="stylesheet">
     </head>
     <body>
