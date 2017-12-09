@@ -6,6 +6,7 @@ $loginError = "";
 $password = "";
 $usernameNew = "";
 setcookie("username", "", time()-1);
+setcookie("adminPriveleges", "", time()-1);
 
 if (isset($_COOKIE["loggedout"])) {
     $loginError = "Sorry, you have been logged out due to inactivity.";

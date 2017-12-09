@@ -3,11 +3,6 @@
 require 'functions.php';
 $username = checkCurrentUser();
 
-$conn = db_connect();
-$sql = "SELECT Password, Admin_Priveleges FROM user WHERE username = '$username'";
-$result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_assoc($result);
-
 ?>
 
 <!DOCTYPE html>
@@ -28,20 +23,35 @@ $row = mysqli_fetch_assoc($result);
             </ul>
         </header>
 
-        <table style="width:100%">
-        <tr>
-          <th>Event Name</th>
-          <th>Tickets Available</th>
-          <th>Tickets Sold</th>
-          <th>Sub-Total</th>
-        </tr>
-        <tr>
-          <td>????</td>
-          <td>????</td>
-          <td>????</td>
-          <td>????</td>
-        </tr>
-      </table>
+        <?php
+        $conn = db_connect();
+        $sql = "SELECT Name, Total_Tickets, Ticket_Price, Num_Thumbs_Up FROM events;";
+        $result = mysqli_query($conn, $sql);
+
+        if($result){
+        echo '<table style="width:100%">
+                <tr>
+                  <th>Event Name</th>
+                  <th>Tickets Available</th>
+                  <th>Ticket Price</th>
+                  <th>Thumbs Up</th>
+                </tr>';
+        while($row = mysqli_fetch_array($result)){
+          echo'<tr>
+                  <td>'.$row['Name'].'</td>
+                  <td>'.$row['Total_Tickets'].'</td>
+                  <td>'.$row['Ticket_Price'].'</td>
+                  <td>'.$row['Num_Thumbs_Up'].'</td>';
+          echo '</tr>';
+         }
+         echo '</table>';
+       }
+       else{
+         echo "Database not found";
+         echo mysqli_error($conn);
+       }
+       mysqli_close();
+      ?>
 
     </body>
 </html>
