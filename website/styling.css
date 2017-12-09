@@ -123,3 +123,16 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+/*User_Profile - Underline*/
+
+#profile {
+  border-bottom: 2px dashed black;
+}
+
+#profile_name {
+  border-top: 2px dashed black;
+  border-bottom: 2px dashed black;
+  width: 300px;
+
+}
