@@ -38,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     else if ($usernameNew != "") {
         $sql = "INSERT INTO `user` (`Name`, `Username`, `Password`, `Email`, `Address`, `Company`, `Phone_Number`, `Paypal_Address`, `Admin_Priveleges`)
         VALUES ('$name', '$usernameNew', '$password', '$email', '$address', '$company', '$phone', '$paypal', $adminPriveleges);";
+        // TODO: change to prepared statement
 
         // NOTE: password confirmation is also done on creation pages, this is a backup
         if ($password != $passwordConfirm){

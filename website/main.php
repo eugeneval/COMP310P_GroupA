@@ -22,6 +22,7 @@ if (!isset($_COOKIE["skippedInterests"])) {
         header('Location: select_interests.php');
         exit();
     }
+    // TODO: change to preprared query
 }
 
 
