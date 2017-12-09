@@ -5,32 +5,17 @@ body {
 }
 
 header {
-<<<<<<< HEAD
-    background: #666;
-=======
     background: rgb(181, 162, 131);
-<<<<<<< HEAD
->>>>>>> 86bda93ed1781dd3b50efdfaa862daee99a0302f
-=======
     text-align: center;
->>>>>>> 3d39e0f09a363b7cd1ac59d6c40a91437e1fb814
 }
 
 h1 {
 
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-head {
-  background: #666;
-=======
-li {
-=======
 img.form_icons {
     height: 1em;
 }
->>>>>>> 3d39e0f09a363b7cd1ac59d6c40a91437e1fb814
 
 .menubar {
     display: inline;
@@ -47,5 +32,4 @@ img.form_icons {
     float: right;
     width: 80%;
     background: rgb(230, 230, 230);
->>>>>>> 86bda93ed1781dd3b50efdfaa862daee99a0302f
 }

@@ -36,10 +36,9 @@ $result = mysqli_query($conn, $sql);
 <html>
     <head>
       <title>Eventi</title>
-        <img src="resources/Logo.png" style="width:302px;height:86px;"/>
-          <link href="styling.css" rel="stylesheet">
-            <script src="libraries/p5.min.js"></script>
-              <script src="libraries/js.cookie.js"></script>
+      <link href="styling.css" rel="stylesheet">
+      <script src="libraries/p5.min.js"></script>
+      <script src="libraries/js.cookie.js"></script>
     </head>
     <body>
         <header>
