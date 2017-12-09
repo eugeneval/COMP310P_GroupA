@@ -25,10 +25,67 @@ $username = checkCurrentUser();
         </header>
         <h3>Profile</h3>
         <!--Store and Fetch Profile Picture in PHP and SQL-->
-        <h4>Edit Interests</h4>
-        <h4>Attending</h4>
+        <h4><u>Edit Interests</u></h4>
+        <?php
 
-        <h4>Email Notifications</h4>
+        $conn = db_connect();
+
+        //!!!!!!!!!!!!!!!!!!!!!!!!!SQL Query Not Working!!!!!!!!
+        $sql = "SELECT  c.Name FROM Category c JOIN user u ON u.User_ID = Created_By_User_ID.User_ID
+        JOIN user_category uc ON uc.User_ID = u.User_ID WHERE u.username = '$username';";
+        $result = mysqli_query($conn, $sql);
+
+        if($result){
+          echo '<table style="width:100%">
+                  <tr>
+                    <th>Interests</th>
+                  </tr>';
+        while($row = mysqli_fetch_array($result)){
+          echo'<tr>
+                  <td>'.$row['Name'].'</td>';
+          echo '</tr>';
+         }
+         echo '</table>';
+       }
+       else{
+         echo "Database not found";
+         echo mysqli_error($conn);
+       }
+       mysqli_close();
+
+      ?>
+
+        <h4><u>Attending</u></h4>
+
+        <?php
+        $conn = db_connect();
+          $sql = "SELECT DISTINCT e.Name, e.Start_DateTime
+          FROM events e
+          JOIN tickets t on t.Event_ID = e.Event_ID
+          JOIN user u ON u.User_ID = t.User_ID
+          WHERE u.username = '$username';";
+        $result = mysqli_query($conn, $sql);
+
+        if($result){
+        echo '<table style="width:100%">
+                <tr>
+                  <th>Event Name</th>
+                </tr>';
+        while($row = mysqli_fetch_array($result)){
+          echo'<tr>
+                  <td>'.$row['Name'].'</td>';
+          echo '</tr>';
+         }
+         echo '</table>';
+       }
+       else{
+         echo "Database not found";
+         echo mysqli_error($conn);
+       }
+       mysqli_close();
+       ?>
+
+        <h4><u>Email Notifications</u></h4>
         <label class="switch">
             <input type="checkbox" checked>
             <span class="slider round"></span>
