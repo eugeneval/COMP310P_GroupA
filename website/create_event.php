@@ -25,11 +25,12 @@ $username = checkCurrentUser();
         <form action="event_details.php" method="POST">
             <fieldset>
                 <legend>Event Details</legend>
-                <p>Event Name</p> <input type="text" name="event_name">
-                <p>Description</p><textarea name="description" rows="8" cols="29"></textarea>
-                <p>Start Date/Time</p> <input type="datetime-local" name="start_date_time">
-                <p>End Date/Time</p> <input type="datetime-local" name="end_date_time">
-                <p>Video URL</p> <input type="url" name="video_url" pattern="https?://.+" required />
+                <p>Event Name</p> <input type="text" name="event_name" required>
+                <p>Description</p><textarea name="description" rows="8" cols="29" required></textarea>
+                <p>Start Date/Time</p> <input type="datetime-local" name="start_date_time" required>
+                <p>End Date/Time</p> <input type="datetime-local" name="end_date_time" required>
+                <!-- TODO: add default times? current year, etc. -->
+                <p>Video URL</p> <input type="url" name="video_url" pattern="https?://.+" />
                 <p>Location</p> <input type="text" name="location">
                 <!-- TODO: location is chosen from existing venues -->
             </fieldset>
