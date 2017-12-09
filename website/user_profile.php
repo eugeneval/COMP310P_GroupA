@@ -25,71 +25,87 @@ $username = checkCurrentUser();
         </header>
         <h3>Profile</h3>
         <!--Store and Fetch Profile Picture in PHP and SQL-->
-        <h4><u>Edit Interests</u></h4>
-        <?php
 
-        $conn = db_connect();
+        <img class="user_image" src="https://i.pinimg.com/736x/5b/9d/50/5b9d5065b8b90cf44433ae5d1e4db0b7.jpg"
+        alt "My Profile Image" width "150" height ="150">
 
-        //!!!!!!!!!!!!!!!!!!!!!!!!!SQL Query Not Working!!!!!!!!
-        $sql = "SELECT  c.Name FROM Category c JOIN user u ON u.User_ID = Created_By_User_ID.User_ID
-        JOIN user_category uc ON uc.User_ID = u.User_ID WHERE u.username = '$username';";
-        $result = mysqli_query($conn, $sql);
+        <div id="profile">
+            <h4><u>Edit Interests</u></h4>
+            <?php
 
-        if($result){
+            $conn = db_connect();
+
+            //!!!!!!!!!!!!!!!!!!!!!!!!!SQL Query Not Working!!!!!!!!
+            $sql = "SELECT  c.Name FROM Category c
+            JOIN user_category uc ON uc.User_ID = u.User_ID
+            JOIN user u ON u.User_ID = uc.User_ID
+
+            WHERE u.username = '$username';";
+            $result = mysqli_query($conn, $sql);
+
+            if($result){
+              echo '<table style="width:100%">
+                      <tr>
+                        <th>Interests</th>
+                      </tr>';
+            while($row = mysqli_fetch_array($result)){
+              echo'<tr>
+                      <td>'.$row['Name'].'</td>';
+              echo '</tr>';
+             }
+             echo '</table>';
+           }
+           else{
+             echo "Database not found";
+             echo mysqli_error($conn);
+           }
+           mysqli_close();
+
+          ?>
+          <br />
+      </div>
+
+      <div id="profile">
+          <h4><u>Attending</u></h4>
+
+          <?php
+          $conn = db_connect();
+            $sql = "SELECT DISTINCT e.Name, e.Start_DateTime
+            FROM events e
+            JOIN tickets t ON t.Event_ID = e.Event_ID
+            JOIN user u ON u.User_ID = t.User_ID
+            WHERE u.username = '$username';";
+          $result = mysqli_query($conn, $sql);
+
+          if($result){
           echo '<table style="width:100%">
                   <tr>
-                    <th>Interests</th>
+                    <th>Event Name</th>
                   </tr>';
-        while($row = mysqli_fetch_array($result)){
-          echo'<tr>
-                  <td>'.$row['Name'].'</td>';
-          echo '</tr>';
+          while($row = mysqli_fetch_array($result)){
+            echo'<tr>
+                    <td>'.$row['Name'].'</td>';
+            echo '</tr>';
+           }
+           echo '</table>';
+          }
+          else{
+           echo "Database not found";
+           echo mysqli_error($conn);
          }
-         echo '</table>';
-       }
-       else{
-         echo "Database not found";
-         echo mysqli_error($conn);
-       }
-       mysqli_close();
+         mysqli_close();
+         ?>
+         <br />
+      </div>
 
-      ?>
-
-        <h4><u>Attending</u></h4>
-
-        <?php
-        $conn = db_connect();
-          $sql = "SELECT DISTINCT e.Name, e.Start_DateTime
-          FROM events e
-          JOIN tickets t on t.Event_ID = e.Event_ID
-          JOIN user u ON u.User_ID = t.User_ID
-          WHERE u.username = '$username';";
-        $result = mysqli_query($conn, $sql);
-
-        if($result){
-        echo '<table style="width:100%">
-                <tr>
-                  <th>Event Name</th>
-                </tr>';
-        while($row = mysqli_fetch_array($result)){
-          echo'<tr>
-                  <td>'.$row['Name'].'</td>';
-          echo '</tr>';
-         }
-         echo '</table>';
-       }
-       else{
-         echo "Database not found";
-         echo mysqli_error($conn);
-       }
-       mysqli_close();
-       ?>
-
+       <div id="profile">
         <h4><u>Email Notifications</u></h4>
         <label class="switch">
             <input type="checkbox" checked>
             <span class="slider round"></span>
         </label>
+        <br /><br />
+        </div>
         <br /><br />
         <button onclick="location.href = 'manage_event.php';" id="button" >Manage Events</button>
         <button onclick="location.href = 'create_event.php';" id="button" >Create Events</button>
