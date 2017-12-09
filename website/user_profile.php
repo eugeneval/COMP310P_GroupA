@@ -36,8 +36,11 @@ $username = checkCurrentUser();
             $conn = db_connect();
 
             //!!!!!!!!!!!!!!!!!!!!!!!!!SQL Query Not Working!!!!!!!!
-            $sql = "SELECT  c.Name FROM Category c JOIN user u ON u.User_ID = Created_By_User_ID.User_ID
-            JOIN user_category uc ON uc.User_ID = u.User_ID WHERE u.username = '$username';";
+            $sql = "SELECT  c.Name FROM Category c
+            JOIN user_category uc ON uc.User_ID = u.User_ID
+            JOIN user u ON u.User_ID = uc.User_ID
+
+            WHERE u.username = '$username';";
             $result = mysqli_query($conn, $sql);
 
             if($result){
@@ -69,7 +72,7 @@ $username = checkCurrentUser();
           $conn = db_connect();
             $sql = "SELECT DISTINCT e.Name, e.Start_DateTime
             FROM events e
-            JOIN tickets t on t.Event_ID = e.Event_ID
+            JOIN tickets t ON t.Event_ID = e.Event_ID
             JOIN user u ON u.User_ID = t.User_ID
             WHERE u.username = '$username';";
           $result = mysqli_query($conn, $sql);
