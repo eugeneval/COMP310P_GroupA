@@ -54,9 +54,9 @@ $result = mysqli_query($conn, $sql);
             <form action='create_event.php' onsubmit="return check_admin()">
                 <input type="submit" value="Create New Event" id="newEvent"/>
             </form>
-            <li>One</li>
-            <li>Two</li>
-            <li>Three</li>
+            <form action='user_profile.php'>
+                <input type="submit" value="Create New Event" />
+            </form>
         </div>
         <div class="eventsList">
             <?php
