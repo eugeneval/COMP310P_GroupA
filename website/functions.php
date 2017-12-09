@@ -70,6 +70,7 @@ function db_connect() {
     $dbname = "event manager";
 
     //Connect to server
+    //todo change mysqli_connect to @mysqli_connect
     $conn = mysqli_connect($dbservername, $dbusername, $dbpassword, $dbname);
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());

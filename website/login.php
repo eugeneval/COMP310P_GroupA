@@ -1,5 +1,5 @@
 <?php
-
+//todo add my sql permissions GRANT INSERT.....
 require 'functions.php';
 
 $loginError = "";

@@ -3,6 +3,10 @@
 require 'functions.php';
 $username = checkCurrentUser();
 
+$conn = db_connect();
+$sql = "SELECT Password, Admin_Priveleges FROM user WHERE username = '$username'";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
 
 ?>
 
@@ -23,6 +27,21 @@ $username = checkCurrentUser();
                 <li class="menubar"><a href="login.php">Logout</a></li>
             </ul>
         </header>
+
+        <table style="width:100%">
+        <tr>
+          <th>Event Name</th>
+          <th>Tickets Available</th>
+          <th>Tickets Sold</th>
+          <th>Sub-Total</th>
+        </tr>
+        <tr>
+          <td>????</td>
+          <td>????</td>
+          <td>????</td>
+          <td>????</td>
+        </tr>
+      </table>
 
     </body>
 </html>
