@@ -55,7 +55,7 @@ $result = mysqli_query($conn, $sql);
                 <input type="submit" value="Create New Event" id="newEvent"/>
             </form>
             <form action='user_profile.php'>
-                <input type="submit" value="Create New Event" />
+                <input type="submit" value="User Profile" />
             </form>
         </div>
         <div class="eventsList">
