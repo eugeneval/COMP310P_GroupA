@@ -12,6 +12,7 @@ $username = checkCurrentUser();
         <title>Eventi - Manage Event</title>
         <!-- TODO: make title reflect currently selected event -->
         <link href="styling.css" rel="stylesheet">
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     </head>
     <body>
         <header>
@@ -25,7 +26,8 @@ $username = checkCurrentUser();
 
         <?php
         $conn = db_connect();
-        $sql = "SELECT Name, Total_Tickets, Ticket_Price, Num_Thumbs_Up FROM events;";
+        $sql = "SELECT e.Name, e.Total_Tickets, e.Ticket_Price, e.Num_Thumbs_Up FROM events e
+          JOIN user u ON e.Organiser_User_ID = u.User_ID WHERE u.Username = '$username';";
         $result = mysqli_query($conn, $sql);
 
         if($result){
@@ -53,6 +55,16 @@ $username = checkCurrentUser();
        mysqli_close();
        //todo create correct SQL statement
       ?>
-
     </body>
+    <br/>
+    <div id="myDiv"></div>
+    <script>
+        var trace1 = {
+        x: [1, 2, 3, 4],
+        y: [10, 15, 13, 17],
+        type: 'scatter'
+        };
+        var data = [trace1];
+        Plotly.newPlot('myDiv', data);
+    </script>
 </html>
