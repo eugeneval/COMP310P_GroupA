@@ -3,6 +3,10 @@
 require 'functions.php';
 $username = checkCurrentUser();
 
+$conn = db_connect();
+$sql = "SELECT * FROM venue;";
+$result = mysqli_query($conn, $sql);
+
 
 ?>
 
@@ -36,10 +40,30 @@ $username = checkCurrentUser();
             </fieldset>
             <br />
             <fieldset>
+                <legend>Location</legend>
+                <p>Select a location:</p>
+                <select name="venue" id='venue' size="1" onchange="newVenue()">
+                    <option selected="true" disabled="disabled"></option>
+                    <option value="new_venue">Create new venue</option>
+                    <?php while($row = mysqli_fetch_assoc($result)) {
+                        echo "<option value=\"".$row['Venue_ID']."\">".$row['Name']."</option>";
+                    }
+                    mysqli_close($conn);?>
+                </select>
+                <div id='new_venue' style="display:none;">
+                <p>Venue Name</p> <input type="text" name="venue_name" />
+                <p>Address</p> <input type="text" name="venue_address" />
+                <p>Postcode</p> <input type="text" name="venue_postcode" />
+                <p>City</p> <input type="text" name="venue_city"  />
+                <p>Phone Number</p> <input type="tel" name="venue_phone" />
+                </div>
+            </fieldset>
+            <br />
+            <fieldset>
                 <legend>Ticket Information</legend>
 
                 <p>Types of Tickets</p>
-                <select name="ticket_type" size="1">
+                <select name="ticket_type" size="1" onchange="newVenue()">
                     <option value="1">1</option>
                 </select>
                 <p>Ticket Name</p> <input type="text" name="ticket_name">
@@ -97,6 +121,6 @@ $username = checkCurrentUser();
             <script src="create_event.js"></script>
         </form>
 
-
+    <script src="javascript/event_creation.js"></script>
     </body>
 </html>
