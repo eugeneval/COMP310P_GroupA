@@ -9,7 +9,7 @@ function test_input($data) {
 
 function login($conn, $username, $password) {
 
-    $sql = "SELECT Password, Admin_Priveleges FROM user WHERE username = '$username'";
+    $sql = "SELECT Password, Admin_Priveleges, User_ID FROM user WHERE username = '$username'";
     $result = mysqli_query($conn, $sql);
 
     $row = mysqli_fetch_assoc($result);
@@ -27,7 +27,7 @@ function login($conn, $username, $password) {
         } else {
             $admin = False;
         }
-        setUserCookie($username, $admin);
+        setUserCookie($username, $row['User_ID'], $admin);
         header('Location: main.php');
         exit();
     }
@@ -41,8 +41,8 @@ function login($conn, $username, $password) {
 
 function checkCurrentUser() {
 
-    if (isset($_COOKIE["username"])) {
-        setUserCookie($_COOKIE["username"], isset($_COOKIE["adminPriveleges"])); # reset expiry timer
+    if (isset($_COOKIE["username"]) && isset($_COOKIE["user_ID"])) {
+        setUserCookie($_COOKIE["username"], $_COOKIE["user_ID"], isset($_COOKIE["adminPriveleges"])); # reset expiry timer
         return $_COOKIE["username"];
     } else {
         setcookie("loggedout", True, time() + 10);
@@ -52,9 +52,10 @@ function checkCurrentUser() {
 
 }
 
-function setUserCookie($username, $admin) {
+function setUserCookie($username, $user_ID, $admin) {
     $expireTime = time() + 60*15; # 15 minutes before relogin is required
     setcookie("username", $username, $expireTime);
+    setcookie("user_ID", $user_ID, $expireTime);
     if ($admin) {
         setcookie("adminPriveleges", True, $expireTime);
     }
