@@ -35,20 +35,11 @@ $result = mysqli_query($conn, $sql);
 <!DOCTYPE html>
 <html>
     <head>
-<<<<<<< HEAD
       <title>Eventi</title>
         <img src="resources/Logo.png" style="width:302px;height:86px;"/>
           <link href="styling.css" rel="stylesheet">
             <script src="libraries/p5.min.js"></script>
-=======
-        <title>Eventi</title>
-        <link href="styling.css" rel="stylesheet">
-        <script src="libraries/p5.min.js"></script>
-<<<<<<< HEAD
->>>>>>> 86bda93ed1781dd3b50efdfaa862daee99a0302f
-=======
-        <script src="libraries/js.cookie.js"></script>
->>>>>>> 3d39e0f09a363b7cd1ac59d6c40a91437e1fb814
+              <script src="libraries/js.cookie.js"></script>
     </head>
     <body>
         <header>
