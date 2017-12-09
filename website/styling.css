@@ -1,16 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 body {
-    font-family: helvetica, sans-serif;
-    background: #666;
+    font-family: 'Roboto', sans-serif;
+    background: #FFF;
     text-align: center;
 }
 
 header {
-    background: #666;
+    background: #FFF;
     text-align: center;
-}
-
-h1 {
-
 }
 
 img.form_icons {
