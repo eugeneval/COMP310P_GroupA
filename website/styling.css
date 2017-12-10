@@ -130,12 +130,5 @@ input:checked + .slider:before {
   border-bottom: 2px dashed black;
 }
 
-#profile_name {
-  margin: 0;
-  border-top: 2px dashed black;
-  border-bottom: 2px dashed black;
-  width: 300px;
-}
-
 .img-circle {
   border-radius: 50%;
