@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else if (!(mysqli_stmt_execute($stmt))) {
             die("Venue SQL query execution error: ".mysqli_error($conn));
         } else {
-            $eventCreation .= "New venue succesfully created!";
+            $eventCreation .= "New venue succesfully created!\n";
             $venue_ID = mysqli_insert_id($conn);
         }
         mysqli_stmt_close($stmt);
