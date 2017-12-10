@@ -36,7 +36,7 @@ $username = checkCurrentUser();
                   <th>Event Name</th>
                   <th>Tickets Available</th>
                   <th>Ticket Price</th>
-                  <th>Thumbs Up</th>
+                  <th>Likes</th>
                 </tr>';
         while($row = mysqli_fetch_array($result)){
           echo '<tr>
