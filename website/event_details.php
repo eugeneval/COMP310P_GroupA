@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 $conn = db_connect();
-$sql = "SELECT * FROM events WHERE Event_ID = '$event_ID'";
+$sql = "SELECT e.Name, v.Name AS 'Venue_Name', v.Address AS 'Venue_Address', v.Postcode AS 'Venue_Postcode', e.Description, e.Start_DateTime, e.End_DateTime FROM events e JOIN venue v ON v.Venue_ID = e.Venue_ID WHERE e.Event_ID = '$event_ID'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 
@@ -93,6 +93,22 @@ if (mysqli_num_rows($result) == 0) {
             </ul>
         </header>
         <p><?php echo $eventCreation ?></p>
-        <?php echo $row['Name']; ?>
+        <div id = event_details_nv>
+            </br><h2><?php echo $row['Name'];?></h2>
+            <h3>At</h3>
+            <h3><?php echo $row['Venue_Name'];?></h3>
+            <h4><?php echo $row['Venue_Address'];?></h4>
+            <h4><?php echo $row['Venue_Postcode'];?></h4>
+        </div>
+        <div id = event_details_d>
+            </br><h3><?php echo $row['Description'];?></h3>
+        </div>
+        <div id = event_details_t>
+            </br><h3>Starting at:</h3>
+            <h3><?php echo $row['Start_DateTime'];?></h3>
+            </br><h3>Finishes at:</h3>
+            <h3><?php echo $row['End_DateTime'];?></h3>
+        </div>
+
     </body>
 </html>
