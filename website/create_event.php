@@ -35,8 +35,6 @@ $result = mysqli_query($conn, $sql);
                 <p>End Date/Time</p> <input type="datetime-local" name="end_date_time" required>
                 <!-- TODO: add default times? current year, etc. -->
                 <p>Video URL</p> <input type="url" name="video_url" pattern="https?://.+" />
-                <p>Location</p> <input type="text" name="location">
-                <!-- TODO: location is chosen from existing venues -->
             </fieldset>
             <br />
             <fieldset>
@@ -84,7 +82,7 @@ $result = mysqli_query($conn, $sql);
             <br />
             <fieldset>
                 <legend>Categorisation</legend>
-
+                <!-- TODO: Categories from database -->
                 <p>Interests</p>
                 <select name="interests" size="1">
                     <option value="Arts">Arts</option>
@@ -99,7 +97,7 @@ $result = mysqli_query($conn, $sql);
                     <option value="Workshops">Workshops</option>
                 </select>
                 <br />
-
+                <!-- TODO: Tags from database -->
                 <p>Tags</p>
                 <select name="tags" size="1">
                     <option value="Meetup">Meetup</option>

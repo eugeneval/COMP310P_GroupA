@@ -10,8 +10,7 @@ $username = checkCurrentUser();
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Eventi - User Profile</title>
-        <!-- TODO: make title reflect currentl user -->
+        <title>Eventi - <?php echo $username; ?></title>
         <link href="styling.css" rel="stylesheet">
     </head>
     <body>
