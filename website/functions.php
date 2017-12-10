@@ -9,11 +9,19 @@ function test_input($data) {
 
 function login($conn, $username, $password) {
 
-    $sql = "SELECT Password, Admin_Priveleges, User_ID FROM user WHERE username = '$username'";
-    $result = mysqli_query($conn, $sql);
-
-    $row = mysqli_fetch_assoc($result);
-    $passwordFromSQL = $row['Password'];
+    $sql = "SELECT Password, Admin_Priveleges, User_ID FROM user WHERE username = ?;";
+    if (!($stmt = mysqli_prepare($conn, $sql))) {
+        die("Event SQL query preparation error: ".mysqli_error($conn));
+    } else if (!(mysqli_stmt_bind_param($stmt, "s", $username))) {
+        die("Event SQL query binding error: ".mysqli_error($conn));
+    } else if (!(mysqli_stmt_execute($stmt))) {
+        die("Event SQL query execution error: ".mysqli_error($conn));
+    } else {
+        $result = mysqli_stmt_get_result($stmt);
+        $row = mysqli_fetch_assoc($result);
+        $passwordFromSQL = $row['Password'];
+        mysqli_stmt_close($stmt);
+    }
 
     if (mysqli_num_rows($result) == 0) {
         return "That username does not exist!";

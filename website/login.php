@@ -36,28 +36,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     //New user creation
     else if ($usernameNew != "") {
-        $sql = "INSERT INTO `user` (`Name`, `Username`, `Password`, `Email`, `Address`, `Company`, `Phone_Number`, `Paypal_Address`, `Admin_Priveleges`)
-        VALUES ('$name', '$usernameNew', '$password', '$email', '$address', '$company', '$phone', '$paypal', $adminPriveleges);";
-        // TODO: change to prepared statement
-
         // password confirmation is also done on creation pages, this is a backup
         if ($password != $passwordConfirm){
             $loginError = "Passwords do not match!";
         }
-        else {
-            $result = mysqli_query($conn, $sql);
 
-            if ($result == true) {
-                $loginError = "New user succesfully created!";
-            }
-            elseif ($result == false) {
-                $loginError = "SQL query error: ".mysqli_error($conn);
-            }
-            else {
-                $loginError = "Unknow Error";
-            }
+        $sql = "INSERT INTO `user` (`Name`, `Username`, `Password`, `Email`, `Address`, `Company`, `Phone_Number`, `Paypal_Address`, `Admin_Priveleges`)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        if (!($stmt = mysqli_prepare($conn, $sql))) {
+            die("User SQL query preparation error: ".mysqli_error($conn));
+        } else if (!(mysqli_stmt_bind_param($stmt, "sssssssss", $name, $usernameNew, $password, $email, $address, $company, $phone, $paypal, $adminPriveleges))) {
+            die("User SQL query binding error: ".mysqli_error($conn));
+        } else if (!(mysqli_stmt_execute($stmt))) {
+            die("User SQL query execution error: ".mysqli_error($conn));
+        } else {
+            $loginError = "New user succesfully created!";
+
         }
 
+        mysqli_stmt_close($stmt);
     }
 
     mysqli_close($conn);
