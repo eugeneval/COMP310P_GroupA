@@ -22,7 +22,6 @@ if (!isset($_COOKIE["skippedInterests"])) {
         header('Location: select_interests.php');
         exit();
     }
-    // TODO: change to preprared query
 }
 
 
@@ -72,6 +71,7 @@ $result = mysqli_query($conn, $sql);
                 else {
                     echo "0 results";
                 }
+                mysqli_close($conn);
              ?>
         </div>
 
