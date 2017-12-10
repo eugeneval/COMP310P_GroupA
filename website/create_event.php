@@ -45,8 +45,7 @@ $result = mysqli_query($conn, $sql);
                     <option value="new_venue">Create new venue</option>
                     <?php while($row = mysqli_fetch_assoc($result)) {
                         echo "<option value=\"".$row['Venue_ID']."\">".$row['Name']."</option>";
-                    }
-                    mysqli_close($conn);?>
+                    } ?>
                 </select>
                 <div id='new_venue' style="display:none;">
                 <p>Venue Name</p> <input type="text" name="venue_name" />
@@ -82,28 +81,30 @@ $result = mysqli_query($conn, $sql);
             <br />
             <fieldset>
                 <legend>Categorisation</legend>
-                <!-- TODO: Categories from database -->
                 <p>Interests</p>
                 <select name="interests" size="1">
-                    <option value="Arts">Arts</option>
-                    <option value="Business">Business</option>
-                    <option value="Entrepreneurship">Entrepreneurship</option>
-                    <option value="Finance">Finance</option>
-                    <option value="Marketing">Marketing</option>
-                    <option value="Networking">Networking</option>
-                    <option value="Performance">Performance</option>
-                    <option value="Personal Development">Personal Development</option>
-                    <option value="Technology">Technology</option>
-                    <option value="Workshops">Workshops</option>
+                    <option selected="true" disabled="disabled"></option>
+                    <?php
+                        $sql = "SELECT * FROM category";
+                        $result = mysqli_query($conn, $sql);
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo "<option value=\"".$row['Category_ID']."\">".$row['Name']."</option>";
+                        }
+                     ?>
                 </select>
                 <br />
-                <!-- TODO: Tags from database -->
+                <!-- TODO: Tags implemented as checkboxes maybe? -->
                 <p>Tags</p>
-                <select name="tags" size="1">
-                    <option value="Meetup">Meetup</option>
-                    <option value="Artificial Intelligence">Artificial Intelligence</option>
-                    <option value="WorkHardPlayHard">WorkHardPlayHard</option>
-
+                <select multiple name="tags" size="10">
+                    <option selected="true" disabled="disabled"></option>
+                    <?php
+                        $sql = "SELECT * FROM tag";
+                        $result = mysqli_query($conn, $sql);
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo "<option value=\"".$row['Tag_ID']."\">".$row['Name']."</option>";
+                        }
+                        mysqli_close($conn);
+                     ?>
                 </select>
                 <br />
             </fieldset>
