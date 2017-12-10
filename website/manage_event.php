@@ -55,7 +55,7 @@ $username = checkCurrentUser();
          echo mysqli_error($conn);
        }
        mysqli_close();
-       //todo create correct SQL statement
+       //TODO create correct SQL statement
       ?>
         </body>
         <br/>
