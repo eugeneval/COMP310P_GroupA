@@ -4,7 +4,6 @@ require 'functions.php';
 $username = checkCurrentUser();
 
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,7 +13,7 @@ $username = checkCurrentUser();
         <link href="styling.css" rel="stylesheet">
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     </head>
-    <body>
+      <body>
         <header>
             <a href="main.php"><img src="resources/Logo.png" style="width:302px;height:86px;"/></a>
             <h4>Welcome to Eventi, the intelligent assistant for young professionals!</h4>
@@ -25,6 +24,7 @@ $username = checkCurrentUser();
         </header>
 
         <?php
+        $row_count = 0;
         $conn = db_connect();
         $sql = "SELECT e.Name, e.Total_Tickets, e.Ticket_Price, e.Num_Thumbs_Up FROM events e
           JOIN user u ON e.Organiser_User_ID = u.User_ID WHERE u.Username = '$username';";
@@ -39,13 +39,17 @@ $username = checkCurrentUser();
                   <th>Thumbs Up</th>
                 </tr>';
         while($row = mysqli_fetch_array($result)){
-          echo'<tr>
+          echo '<tr>
                   <td>'.$row['Name'].'</td>
                   <td>'.$row['Total_Tickets'].'</td>
                   <td>'.$row['Ticket_Price'].'</td>
                   <td>'.$row['Num_Thumbs_Up'].'</td>';
           echo '</tr>';
+          $row_count = $row_count + 1;
+          $Total_Tickets=array();
+          $Total_Tickets[$row_count] =  $row['Total_Tickets'];
          }
+         echo $Total_Tickets[2];
          echo '</table>';
        }
        else{
@@ -55,16 +59,32 @@ $username = checkCurrentUser();
        mysqli_close();
        //todo create correct SQL statement
       ?>
-    </body>
-    <br/>
-    <div id="myDiv"></div>
-    <script>
-        var trace1 = {
-        x: [1, 2, 3, 4],
-        y: [10, 15, 13, 17],
-        type: 'scatter'
-        };
-        var data = [trace1];
+        </body>
+        <br/>
+          <div id="myDiv"></div>
+            <script>
+                for (i = 0; i < <?php echo $row_count?>; i++) {
+                //var xLabel = [i];
+                var xLabel = [];
+                xLabel[i] = i;
+                //alert(xLabel[i]);
+              }
+             /*for (i = 0; i < xLabel.length; i++) {
+                trace1.x[i] = xLabel[i];
+                alert(xLabel.length);
+              }*/
+
+              var trace1 = {
+              x: ['1','2','3'],
+              y: [10, 15, 13],
+              type: 'bar'
+              };
+              for (i = 0; i < xLabel.length; i++){
+                trace1.x[i] = 'Event'+(i+1);
+                <?php $row_count_internal = $row_count_internal + 1;?>;
+                trace1.y[i] = <?php echo $Total_Tickets[$row_count]?>;
+              }
+              var data = [trace1];
         Plotly.newPlot('myDiv', data);
     </script>
 </html>

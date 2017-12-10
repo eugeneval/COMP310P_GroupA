@@ -22,6 +22,8 @@ $username = checkCurrentUser();
                 <li class="menubar"><a href="login.php">Logout</a></li>
             </ul>
         </header>
-
+        <form>
+          <input type="text" name="search" placeholder="Search..">
+        </form>
     </body>
 </html>
