@@ -46,10 +46,8 @@ $username = checkCurrentUser();
                   <td>'.$row['Num_Thumbs_Up'].'</td>';
           echo '</tr>';
           $row_count = $row_count + 1;
-          $Total_Tickets=array();
-          $Total_Tickets[$row_count] =  $row['Total_Tickets'];
+          ${'file' . $row_count} = $row['Total_Tickets'];
          }
-         echo $Total_Tickets[2];
          echo '</table>';
        }
        else{
@@ -64,26 +62,20 @@ $username = checkCurrentUser();
           <div id="myDiv"></div>
             <script>
                 for (i = 0; i < <?php echo $row_count?>; i++) {
-                //var xLabel = [i];
                 var xLabel = [];
                 xLabel[i] = i;
-                //alert(xLabel[i]);
               }
-             /*for (i = 0; i < xLabel.length; i++) {
-                trace1.x[i] = xLabel[i];
-                alert(xLabel.length);
-              }*/
-
               var trace1 = {
               x: ['1','2','3'],
-              y: [10, 15, 13],
+              y: [1, 1, 1],
               type: 'bar'
               };
               for (i = 0; i < xLabel.length; i++){
-                trace1.x[i] = 'Event'+(i+1);
-                <?php $row_count_internal = $row_count_internal + 1;?>;
-                trace1.y[i] = <?php echo $Total_Tickets[$row_count]?>;
+                trace1.x[i] = 'Event'+" "+(i+1);
               }
+              trace1.y[0] = <?php echo $file1;?>;
+              trace1.y[1] = <?php echo $file2;?>;
+              trace1.y[2] = <?php echo $file3;?>;
               var data = [trace1];
         Plotly.newPlot('myDiv', data);
     </script>
