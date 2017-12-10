@@ -72,14 +72,6 @@ $result = mysqli_query($conn, $sql);
             </fieldset>
             <br />
             <fieldset>
-                <legend>Contact Information</legend>
-                <p>Organiser Name</p> <input type="text" name="organiser_name">
-                <p>Organiser Email</p> <input type="text" name="organiser_email">
-                <p>Organiser Phone</p> <input type="text" name="organiser_phone">
-                <!-- TODO: organiser details pulled from organiser account info? -->
-            </fieldset>
-            <br />
-            <fieldset>
                 <legend>Categorisation</legend>
                 <p>Interests</p>
                 <select name="category" size="1">
