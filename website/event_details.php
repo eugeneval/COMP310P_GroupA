@@ -115,7 +115,7 @@ if (mysqli_num_rows($result) == 0) {
             <h3>Finishes at:</h3>
             <h3 style="color: #4CAF50;"><?php echo $row['End_DateTime'];?></h3>
         </div>
-        <form action="buy_tickets.php" method="post">
+        <form action="buy_tickets.php" onsubmit="return eventCookie(<?php echo $row['Event_ID']; ?>)">
             <input type="submit" value="Buy Tickets" ><br>
         </form>
 
