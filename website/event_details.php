@@ -39,8 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $start_date_time = test_input($_POST['start_date_time']);
     $end_date_time = test_input($_POST["end_date_time"]);
     $url = test_input($_POST["url"]);
-    // $location = test_input($_POST["location"]);
-    // TODO: location is chosen from exisitng venues
     $ticket_type = test_input($_POST["ticket_type"]);
     $ticket_name = test_input($_POST["ticket_name"]);
     $ticket_start_date_time = test_input($_POST["ticket_start_date_time"]);

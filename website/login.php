@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         VALUES ('$name', '$usernameNew', '$password', '$email', '$address', '$company', '$phone', '$paypal', $adminPriveleges);";
         // TODO: change to prepared statement
 
-        // NOTE: password confirmation is also done on creation pages, this is a backup
+        // password confirmation is also done on creation pages, this is a backup
         if ($password != $passwordConfirm){
             $loginError = "Passwords do not match!";
         }
