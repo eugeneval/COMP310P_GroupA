@@ -10,6 +10,9 @@
             <a href="main.php"><img src="resources/Logo.png" style="width:302px;height:86px;"/></a>
             <h4>Welcome to Eventi, the intelligent assistant for young professionals!</h4>
         </header>
+        <p>
+            Please note that, as an organiser, your contact details will be publically availaible on events you organise.
+        </p>
         <form method="post" action="login.php">
             <h3>Create a new account:</h3>
             <img src="resources/form_icons/Name.png" class="form_icons"/>
