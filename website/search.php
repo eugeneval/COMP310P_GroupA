@@ -31,35 +31,22 @@ $username = checkCurrentUser();
 
           if(isset($_POST['search'])) {
             $searchq = $_POST['search'];
-            $sql = "SELECT * FROM events WHERE Name LIKE '%$searchq%'
-
-            "
-          }
+            $sql = "SELECT * FROM events WHERE Name LIKE '%$searchq%'"}
+            $result = mysqli_query($conn, $sql);
+            if (mysqli_num_rows($result) > 0) {
+                while($row = mysqli_fetch_assoc($result)) {
+                    echo "<p>".$row['Name']."<br /><small>".$row['Description']."</small></p>";
+                    echo "<form action='event_details.php' onclick=\"return  eventCookie(".$row['Event_ID'].")\">
+                    <input type=\"submit\" value=\"Event Details\" />
+                    </form>";
+                }
+            }
+            else {
+                echo "0 results";
+            }
+            mysqli_close();
           ?>
 
-
-
-          <div class="searchEventsList">
-              <?php
-                  $conn = db_connect();
-                  $sql = "SELECT *
-                  FROM events";
-                  $result = mysqli_query($conn, $sql);
-
-                  if (mysqli_num_rows($result) > 0) {
-                      while($row = mysqli_fetch_assoc($result)) {
-                          echo "<p>".$row['Name']."<br /><small>".$row['Description']."</small></p>";
-                          echo "<form action='event_details.php' onclick=\"return  eventCookie(".$row['Event_ID'].")\">
-                          <input type=\"submit\" value=\"Event Details\" />
-                          </form>";
-                      }
-                  }
-                  else {
-                      echo "0 results";
-                  }
-                  mysqli_close();
-               ?>
-          </div>
         </form>
     </body>
 </html>
