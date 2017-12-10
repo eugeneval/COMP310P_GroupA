@@ -3,6 +3,12 @@
 require 'functions.php';
 $username = checkCurrentUser();
 
+$event_ID = $_COOKIE["event"];
+
+if (!$event_ID) {
+    header('Location: main.php');
+    exit();
+}
 
 ?>
 
@@ -22,6 +28,6 @@ $username = checkCurrentUser();
                 <li class="menubar"><a href="login.php">Logout</a></li>
             </ul>
         </header>
-
+        <?php echo $event_ID; ?>
     </body>
 </html>

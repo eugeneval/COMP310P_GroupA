@@ -72,17 +72,9 @@ $result = mysqli_query($conn, $sql);
             </fieldset>
             <br />
             <fieldset>
-                <legend>Contact Information</legend>
-                <p>Organiser Name</p> <input type="text" name="organiser_name">
-                <p>Organiser Email</p> <input type="text" name="organiser_email">
-                <p>Organiser Phone</p> <input type="text" name="organiser_phone">
-                <!-- TODO: organiser details pulled from organiser account info? -->
-            </fieldset>
-            <br />
-            <fieldset>
                 <legend>Categorisation</legend>
                 <p>Interests</p>
-                <select name="interests" size="1">
+                <select name="category" size="1">
                     <option selected="true" disabled="disabled"></option>
                     <?php
                         $sql = "SELECT * FROM category";
