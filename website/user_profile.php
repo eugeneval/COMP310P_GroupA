@@ -36,11 +36,11 @@ $username = checkCurrentUser();
             $conn = db_connect();
 
             //!!!!!!!!!!!!!!!!!!!!!!!!!SQL Query Not Working!!!!!!!!
-            $sql = "SELECT  c.Name FROM Category c
-            JOIN user_category uc ON uc.User_ID = u.User_ID
-            JOIN user u ON u.User_ID = uc.User_ID
-
-            WHERE u.username = '$username';";
+            $sql = "SELECT  c.Name
+              FROM Category c
+              JOIN user_category uc ON uc.Category_ID = c.Category_ID
+              JOIN user u ON u.User_ID = uc.User_ID
+              WHERE u.username = '$username';";
             $result = mysqli_query($conn, $sql);
 
             if($result){
