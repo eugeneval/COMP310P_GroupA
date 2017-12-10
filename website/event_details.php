@@ -3,10 +3,6 @@
 require 'functions.php';
 $username = checkCurrentUser();
 
-if (!isset($_COOKIE["event"])) {
-    header('Location: main.php');
-    exit();
-}
 $event_ID = $_COOKIE["event"];
 setcookie("event", "", time()-1);
 
@@ -49,13 +45,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ticket_end_date_time = test_input($_POST["ticket_end_date_time"]);
     $ticket_price = test_input($_POST["ticket_price"]);
     $ticket_quantity = test_input($_POST["ticket_quantity"]);
+    $category_ID = test_input($_POST["category"]);
+    // TODO: tags!
 
     $conn = db_connect();
     $sql = "INSERT INTO `events` (`Name`, `Description`, `Start_DateTime`, `End_DateTime`, `Total_Tickets`, `Ticket_Sale_Start_DateTime`, `Ticket_Sale_End_DateTime`, `Ticket_Price`, `Category_ID`, `Organiser_User_ID`, `Venue_ID`)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, '1', ?, ?);";
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     if (!($stmt = mysqli_prepare($conn, $sql))) {
         die("Event SQL query preparation error: ".mysqli_error($conn));
-    } else if (!(mysqli_stmt_bind_param($stmt, "ssssssssss", $event_name, $description, $start_date_time, $end_date_time, $ticket_quantity, $ticket_start_date_time, $ticket_end_date_time, $ticket_price, $_COOKIE["user_ID"],$venue_ID))) {
+    } else if (!(mysqli_stmt_bind_param($stmt, "sssssssssss", $event_name, $description, $start_date_time, $end_date_time, $ticket_quantity, $ticket_start_date_time, $ticket_end_date_time, $ticket_price, $category_ID, $_COOKIE["user_ID"],$venue_ID))) {
         die("Event SQL query binding error: ".mysqli_error($conn));
     } else if (!(mysqli_stmt_execute($stmt))) {
         die("Event SQL query execution error: ".mysqli_error($conn));
@@ -67,6 +65,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_close($conn);
 }
 
+if (!$event_ID) {
+    header('Location: main.php');
+    exit();
+}
 
 $conn = db_connect();
 $sql = "SELECT e.Name, v.Name AS 'Venue_Name', v.Address AS 'Venue_Address', v.Postcode AS 'Venue_Postcode', e.Description, e.Start_DateTime, e.End_DateTime FROM events e JOIN venue v ON v.Venue_ID = e.Venue_ID WHERE e.Event_ID = '$event_ID'";

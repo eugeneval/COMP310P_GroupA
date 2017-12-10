@@ -82,7 +82,7 @@ $result = mysqli_query($conn, $sql);
             <fieldset>
                 <legend>Categorisation</legend>
                 <p>Interests</p>
-                <select name="interests" size="1">
+                <select name="category" size="1">
                     <option selected="true" disabled="disabled"></option>
                     <?php
                         $sql = "SELECT * FROM category";
