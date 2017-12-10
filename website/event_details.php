@@ -99,7 +99,7 @@ if (mysqli_num_rows($result) == 0) {
             </ul>
         </header>
         <p><?php echo $eventCreation ?></p>
-        <div id = event_details_nv>
+        <div id = event_details_nv style="color: #4CAF50;">
             </br><h2><?php echo $row['Name'];?></h2>
             <h3>At</h3>
             <h3><?php echo $row['Venue_Name'];?></h3>
@@ -111,10 +111,13 @@ if (mysqli_num_rows($result) == 0) {
         </div>
         <div id = event_details_t>
             </br><h3>Starting at:</h3>
-            <h3><?php echo $row['Start_DateTime'];?></h3>
-            </br><h3>Finishes at:</h3>
-            <h3><?php echo $row['End_DateTime'];?></h3>
+            <h3 style="color: #4CAF50;"><?php echo $row['Start_DateTime'];?></h3>
+            <h3>Finishes at:</h3>
+            <h3 style="color: #4CAF50;"><?php echo $row['End_DateTime'];?></h3>
         </div>
+        <form action="buy_tickets.php" method="post">
+            <input type="submit" value="Buy Tickets" ><br>
+        </form>
 
     </body>
 </html>
