@@ -3,6 +3,10 @@
 require 'functions.php';
 $username = checkCurrentUser();
 
+if (!isset($_COOKIE["event"])) {
+    header('Location: main.php');
+    exit();
+}
 $event_ID = $_COOKIE["event"];
 setcookie("event", "", time()-1);
 
