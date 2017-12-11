@@ -1,12 +1,23 @@
 <?php
 //Google Map API Key = AIzaSyBHaMCaAdIAJ7IGoxz5TrpkyS-3l1mYIP4
-
+// TODO: leave reviews
 
 require 'functions.php';
 $username = checkCurrentUser();
 
 $event_ID = $_COOKIE["event"];
 setcookie("event", "", time()-1);
+
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    if (isset($_GET['thumbs_up'])) {
+        $conn = db_connect();
+        $sql = "UPDATE events SET Num_Thumbs_Up = Num_Thumbs_Up + 1 WHERE Event_ID = $event_ID";
+        $result = mysqli_query($conn, $sql);
+        mysqli_close($conn);
+    }
+    // IDEA: cannot vote multiple times on the same event
+    // IDEA: can only vote after event conplete?
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($_POST["venue"] == "new_venue") {
@@ -91,7 +102,7 @@ if (!$event_ID) {
 }
 
 $conn = db_connect();
-$sql = "SELECT e.Name, v.Name AS 'Venue_Name', v.Address AS 'Venue_Address', v.Postcode AS 'Venue_Postcode', e.Description, e.Start_DateTime, e.End_DateTime FROM events e JOIN venue v ON v.Venue_ID = e.Venue_ID WHERE e.Event_ID = '$event_ID'";
+$sql = "SELECT e.Name, v.Name AS 'Venue_Name', v.Address AS 'Venue_Address', v.Postcode AS 'Venue_Postcode', e.Description, e.Start_DateTime, e.End_DateTime, e.Num_Thumbs_Up FROM events e JOIN venue v ON v.Venue_ID = e.Venue_ID WHERE e.Event_ID = '$event_ID'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 
@@ -137,6 +148,9 @@ if (mysqli_num_rows($result) == 0) {
             <h4><?php echo $row['Venue_Address'];?></h4>
             <h4><?php echo $row['Venue_Postcode'];?></h4>
         </div>
+        <form action='event_details.php' method="get" onsubmit="return eventCookie(<?php echo $row['Event_ID']; ?>)">
+            <button type="submit" name="thumbs_up"><img src="resources/Thumbs_Up.png" class="form_icons" /><?php echo $row['Num_Thumbs_Up']?></button>
+        </form>
         <div id = event_details_d>
             </br><h3><?php echo $row['Description'];?></h3>
         </div>
@@ -195,5 +209,6 @@ if (mysqli_num_rows($result) == 0) {
         <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHaMCaAdIAJ7IGoxz5TrpkyS-3l1mYIP4&callback=initMap">
         </script>
+        <script src="javascript/navigation.js"></script>
     </body>
 </html>
