@@ -38,28 +38,28 @@ if (mysqli_num_rows($result) == 0) {
             </ul>
         </header>
         <div id = event_details_nv style="color: #4CAF50;">
-            </br><h2><?php echo $row['Name'];?></h2>
+          </br><h2><?php echo $row['Name'];?></h2>
             <h3>At</h3>
-            <h3><?php echo $row['Venue_Name'];?></h3>
+          <h3><?php echo $row['Venue_Name'];?></h3>
         </div>
       </br>
     <h3>Ticket Type</h3>
       <form action="/action_page.php">
-            <select name="Ticket Type">
-                <option value="VIP">VIP</option>
+          <select name="Ticket Type">
+              <option value="VIP">VIP</option>
                 <option value="Standard">Standard</option>
-                <option value="Earlybird">Earlybird</option>
+                  <option value="Earlybird">Earlybird</option>
             </select>
           <br><br>
              <h3>Quantity</h3>
                 <input type="number" name="quantity" min="1" max="5">
-              <h3>Email</h3>
+             <h3>Email</h3>
             <input type="email" name="email">
-            <br><br>
-            First name:<br>
+          <br><br>
+                First name:<br>
             <input type="text" name="firstname" value="First Name">
-            <br>
-            Last name:<br>
+          <br>
+              Last name:<br>
             <input type="text" name="lastname" value="Last Name">
           <br><br>
         <input type="submit" value="Buy Tickets">
