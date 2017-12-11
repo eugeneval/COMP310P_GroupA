@@ -48,10 +48,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ticket_price = test_input($_POST["ticket_price"]);
     $ticket_quantity = test_input($_POST["ticket_quantity"]);
     $category_ID = test_input($_POST["category"]);
-<<<<<<< HEAD
-=======
-    // TODO: tags!
->>>>>>> 4f86cd0cf5c0b14aa3f73fc1af271b94aaba5895
     $tags = $_POST["tags"];
 
     $conn = db_connect();
@@ -69,10 +65,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     mysqli_stmt_close($stmt);
 
-<<<<<<< HEAD
-=======
-    // die(print_r($tags));
->>>>>>> 4f86cd0cf5c0b14aa3f73fc1af271b94aaba5895
     if ($tags) {
         $tag_ID;
         $sql = "INSERT INTO `event_tag` (`Event_ID`, `Tag_ID`) VALUES (?, ?)";
