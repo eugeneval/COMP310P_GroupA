@@ -48,8 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ticket_price = test_input($_POST["ticket_price"]);
     $ticket_quantity = test_input($_POST["ticket_quantity"]);
     $category_ID = test_input($_POST["category"]);
-    // TODO: tags!
-    $tags = $_POST["tags[]"];
+    $tags = $_POST["tags"];
 
     $conn = db_connect();
     $sql = "INSERT INTO `events` (`Name`, `Description`, `Start_DateTime`, `End_DateTime`, `Total_Tickets`, `Ticket_Sale_Start_DateTime`, `Ticket_Sale_End_DateTime`, `Ticket_Price`, `Category_ID`, `Organiser_User_ID`, `Venue_ID`)
@@ -66,25 +65,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     mysqli_stmt_close($stmt);
 
-    $eventCreation .= count($tags);
     if ($tags) {
-        $tag_ID = $tags[0];
+        $tag_ID;
         $sql = "INSERT INTO `event_tag` (`Event_ID`, `Tag_ID`) VALUES (?, ?)";
         if (!($stmt = mysqli_prepare($conn, $sql))) {
             die("Tags SQL query preparation error: ".mysqli_error($conn));
         } else if (!(mysqli_stmt_bind_param($stmt, "ii", $event_ID, $tag_ID))) {
             die("Tags SQL query binding error: ".mysqli_error($conn));
         }
-
-        for ($i=0; $i <= count($tags); $i++) {
-            $tag_ID = $tags[$i];
+        foreach ($tags as $tag_ID) {
             if (!(mysqli_stmt_execute($stmt))) {
                die("Tags SQL query execution error: ".mysqli_error($conn));
+           }
+
         }
         mysqli_stmt_close($stmt);
+
     }
     mysqli_close($conn);
-}
 }
 
 if (!$event_ID) {
