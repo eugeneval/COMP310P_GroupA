@@ -12,7 +12,7 @@ if (!$event_ID) {
 }
 
 $conn = db_connect();
-$sql = "SELECT e.Name, v.Name AS 'Venue_Name' FROM events e JOIN venue v ON v.Venue_ID = e.Venue_ID WHERE e.Event_ID = '$event_ID'";
+$sql = "SELECT e.Name, v.Name AS 'Venue_Name', e.Ticket_Price, e.Total_Tickets, COUNT(t.Ticket_ID) AS 'Tickets_Sold' FROM events e JOIN venue v ON v.Venue_ID = e.Venue_ID JOIN tickets t ON t.Event_ID = e.Event_ID WHERE e.Event_ID = '$event_ID'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 
@@ -44,9 +44,9 @@ if (mysqli_num_rows($result) == 0) {
           <h3><?php echo $row['Venue_Name'];?></h3>
         </div>
       </br>
-    <h3>Ticket Type</h3>
+    <!-- <h3>Ticket Type</h3> -->
       <form action="/action_page.php">
-          <select name="Ticket Type">
+          <!-- <select name="Ticket Type">
               <option value="VIP">VIP</option>
                 <option value="Standard">Standard</option>
                   <option value="Earlybird">Earlybird</option>
@@ -62,9 +62,24 @@ if (mysqli_num_rows($result) == 0) {
           <br>
               Last name:<br>
             <input type="text" name="lastname" value="Last Name">
-          <br><br>
+          <br><br> -->
+          <p>Price per ticket: £<?php echo $row['Ticket_Price']; ?></p>
+          <p>Tickets Remaining: <?php echo ($row['Total_Tickets'] - $row['Tickets_Sold']); ?></p>
+          <p>Select quantity: </p>
+          <input type="number" name="quantity" id="quantity" value="0" max="<?php echo ($row['Total_Tickets'] - $row['Tickets_Sold']); ?>" onchange="ticketPrice()"><br />
+          <p id='total'>Your total: £0</p>
+
         <input type="submit" value="Buy Tickets">
       </form>
 
     </body>
+    <script>
+    ticket_price = <?php echo $row['Ticket_Price'] ?>;
+
+    function ticketPrice() {
+        total = ticket_price * document.getElementById('quantity').value;
+        document.getElementById('total').innerHTML = "Your total: £" + total;
+    }
+
+    </script>
 </html>
