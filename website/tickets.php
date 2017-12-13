@@ -7,7 +7,7 @@ $user_ID = $_COOKIE["user_ID"];
 $conn = db_connect();
 $sql = "SELECT e.Name, e.Ticket_Price, t.Ticket_ID FROM tickets t
 JOIN events e ON t.Event_ID = e.Event_ID
-WHERE t.User_ID = $user_ID;";
+WHERE t.User_ID = $user_ID AND e.End_DateTime > CURRENT_TIMESTAMP;";
 $result = mysqli_query($conn, $sql);
 
 
