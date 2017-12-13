@@ -70,5 +70,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
              </tbody>
          </table>
      </body>
+     <script src="libraries/js.cookie.js"></script>
      <script src="javascript/navigation.js"
  </html>
