@@ -45,7 +45,7 @@ if (mysqli_num_rows($result) == 0) {
         </div>
       </br>
     <!-- <h3>Ticket Type</h3> -->
-      <form action="/action_page.php">
+      <form action="ticket_confirmation.php" method="post" onsubmit="return eventCookie(<?php echo $event_ID ?>)">
           <!-- <select name="Ticket Type">
               <option value="VIP">VIP</option>
                 <option value="Standard">Standard</option>
@@ -66,9 +66,9 @@ if (mysqli_num_rows($result) == 0) {
           <p>Price per ticket: £<?php echo $row['Ticket_Price']; ?></p>
           <p>Tickets Remaining: <?php echo ($row['Total_Tickets'] - $row['Tickets_Sold']); ?></p>
           <p>Select quantity: </p>
-          <input type="number" name="quantity" id="quantity" value="0" max="<?php echo ($row['Total_Tickets'] - $row['Tickets_Sold']); ?>" onchange="ticketPrice()"><br />
+          <input type="number" name="quantity" id="quantity" min="1" max="<?php echo ($row['Total_Tickets'] - $row['Tickets_Sold']); ?>" onchange="ticketPrice()"><br />
           <p id='total'>Your total: £0</p>
-
+          <!-- TODO: add a payment method -->
         <input type="submit" value="Buy Tickets">
       </form>
 
@@ -82,4 +82,5 @@ if (mysqli_num_rows($result) == 0) {
     }
 
     </script>
+    <script src="javascript/navigation.js"></script>
 </html>
