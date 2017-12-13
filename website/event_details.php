@@ -102,7 +102,7 @@ if (!$event_ID) {
 }
 
 $conn = db_connect();
-$sql = "SELECT e.Name, v.Name AS 'Venue_Name', v.Address AS 'Venue_Address', v.Postcode AS 'Venue_Postcode', e.Description, e.Start_DateTime, e.End_DateTime, e.Num_Thumbs_Up, COUNT(t.Ticket_ID) AS 'Tickets_Sold'
+$sql = "SELECT e.Name, v.Name AS 'Venue_Name', v.Address AS 'Venue_Address', v.Postcode AS 'Venue_Postcode', e.Description, e.Start_DateTime, e.End_DateTime, e.Num_Thumbs_Up, e.Total_Tickets, COUNT(t.Ticket_ID) AS 'Tickets_Sold'
 FROM events e
 JOIN venue v ON v.Venue_ID = e.Venue_ID
 JOIN tickets t ON t.Event_ID = e.Event_ID
@@ -137,7 +137,7 @@ if (mysqli_num_rows($result) == 0) {
           }
         </style>
     </head>
-    <body onload="checkTickets(<?php  ?>)">
+    <body>
         <header>
             <a href="main.php"><img src="resources/Logo.png" style="width:302px;height:86px;"/></a>
             <h4>Welcome to Eventi, the intelligent assistant for young professionals!</h4>
@@ -167,8 +167,10 @@ if (mysqli_num_rows($result) == 0) {
             <h3>Finishes at:</h3>
             <h3 style="color: #4CAF50;"><?php echo $row['End_DateTime'];?></h3>
         </div>
-        <form action="buy_tickets.php" onsubmit="return eventCookie(<?php echo $row['Event_ID']; ?>)">
-            <input type="submit" value="Buy Tickets" ><br>
+        <form action="buy_tickets.php" onsubmit="return checkTickets(<?php echo $row['Tickets_Sold'] ?>, <?php echo $row['Total_Tickets']?>, <?php echo $event_ID; ?>)">
+            <h3>Tickets remaining:</h3>
+            <h3 style="color: #4CAF50;"><?php echo ($row['Total_Tickets'] - $row['Tickets_Sold']);?></h3>
+            <input type="submit" value="Buy Tickets" /><br>
         </form>
         <div id="map"></div>
         <script>
@@ -191,7 +193,15 @@ if (mysqli_num_rows($result) == 0) {
       </html>
     </body>
     <script>
-    on
+    function checkTickets(sold, total, event_ID) {
+        if (sold < total) {
+            eventCookie(event_ID);
+            return true;
+        } else {
+            alert("Sorry, this event is sold out!");
+            return false;
+        }
 
+    }
     </script>
 </html>
