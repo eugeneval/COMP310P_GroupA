@@ -25,13 +25,14 @@ $inputs = array(1,1,1,1,1,1);
 
 ////FEED FORWARD//////////////////////////
 //$train_array = perceptron($inputs);
+//$output = $train_array[4];
 //////////////////////////////////////////
 
 ////TRAIN NETWORK/////////////////////////
 $train_array = perceptron($inputs);
 $perceptron_train = perceptron_train($inputs, 1, $train_array[0], $train_array[1], $train_array[2], $train_array[3]);
 //////////////////////////////////////////
-//echo $train_array[4];
+
 ?>
 
 <?php
@@ -66,9 +67,6 @@ $perceptron2out = activate($perceptron2val);
 $perceptron3val = ($perceptron1out*$twoonel1)+($perceptron2out*$twotwol1);
 $perceptron3out = activate($perceptron3val);
 
-//echo $perceptron1out."   ";
-//echo $perceptron2out."   ";
-//echo $perceptron3out;
 $perceptron_array = array($weights1l, $weights2l, $perceptron1out, $perceptron2out, $perceptron3out);
 return $perceptron_array;
 }
@@ -99,17 +97,6 @@ function perceptron_feedforward($inputs, $weights) {
 
 <?php
 
-
-/*
-if ($mysqli->connect_errno) {
-    printf("Connect failed: %s\n", $mysqli->connect_error);
-    exit();
-}
-
-if (!$mysqli->query("SET a=1")) {
-    printf("Errormessage: %s\n", $mysqli->error);
-}*/
-
 function perceptron_train($inputs, $desired_output, $weights1l, $weights2l, $twoonel1, $twotwol1) {
   $learning_rate = 4;
   $perceptron_array = perceptron($inputs);
@@ -125,6 +112,7 @@ function perceptron_train($inputs, $desired_output, $weights1l, $weights2l, $two
       echo $weights1l[0]."  ";
 
   //$weight1l = $mysqli->real_escape_string($weight1l);
+
   $conn = db_connect();
   $sql = "UPDATE ml_w
           SET oneonel1 = $weights1l[0], oneonel2 = $weights1l[1], oneonel3 = $weights1l[2],
@@ -144,13 +132,14 @@ function perceptron_train($inputs, $desired_output, $weights1l, $weights2l, $two
         //echo mysqli_errno($conn);
     }
 
-//$result = mysqli_query($conn, $sql);
+  //$result = mysqli_query($conn, $sql);
 
   $count = count($weights2l);
   for ($i = 0; $i <= $count; $i++) {
       $weights2l[$i] += $learning_rate*$error*$inputs[$i];
   }
   //$weight2l = $mysqli->real_escape_string($weight2l);
+
   echo "yo";
 
   $sql = "UPDATE ml_w
