@@ -37,7 +37,7 @@ $result = mysqli_query($conn, $sql);
                  <th>Ticket</th>
              </thead>
              <tbody>
-                 <?php if (condition) {
+                 <?php if (mysqli_num_rows($result) == 0) {
                      echo "<tr><td>Sorry, you have no tickets at the moment!</td></tr>";
                  } else {
                      while ($row = mysqli_fetch_assoc($result)) {
