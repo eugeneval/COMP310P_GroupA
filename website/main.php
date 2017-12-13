@@ -57,6 +57,9 @@ $result = mysqli_query($conn, $sql);
             <form action='user_profile.php'>
                 <input type="submit" value="User Profile" />
             </form>
+            <form action='tickets.php'>
+                <input type="submit" value="Your Tickets" />
+            </form>
         </div>
         <div class="eventsList">
             <?php
