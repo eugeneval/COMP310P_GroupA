@@ -1,5 +1,5 @@
 <?php
-require 'function.php';
+require 'functions.php';
 require('libraries/fpdf/fpdf.php');
 $ticket_ID = $_COOKIE["ticket"];
 
