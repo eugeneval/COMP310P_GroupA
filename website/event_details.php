@@ -169,7 +169,10 @@ if (mysqli_num_rows($result) == 0) {
         <form action="buy_tickets.php" onsubmit="return checkTickets(<?php echo $row['Tickets_Sold'] ?>, <?php echo $row['Total_Tickets']?>, <?php echo $event_ID; ?>)">
             <h3>Tickets remaining:</h3>
             <h3 style="color: #4CAF50;"><?php echo ($row['Total_Tickets'] - $row['Tickets_Sold']);?></h3>
-            <input type="submit" value="Buy Tickets" /><br>
+            <input type="submit" value="Buy Tickets" /><br />
+        </form>
+        <form action="event_reviews.php" onsubmit="return eventCookie(<?php echo $event_ID; ?>)">
+            <input type="submit" value="See Reviews"  /><br />
         </form>
         <div id="map"></div>
         <script>
