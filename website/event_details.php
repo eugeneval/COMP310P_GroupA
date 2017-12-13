@@ -1,6 +1,5 @@
 <?php
 // Google Map API Key = AIzaSyBHaMCaAdIAJ7IGoxz5TrpkyS-3l1mYIP4
-// TODO: leave reviews
 
 require 'functions.php';
 $username = checkCurrentUser();
