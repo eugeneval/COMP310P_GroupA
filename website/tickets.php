@@ -5,7 +5,7 @@ $username = checkCurrentUser();
 $user_ID = $_COOKIE["user_ID"];
 
 $conn = db_connect();
-$sql = "SELECT e.Name, e.Ticket_Price, t.Ticket_ID FROM tickets t
+$sql = "SELECT e.Name, e.Ticket_Price, t.Ticket_ID, e.Start_DateTime FROM tickets t
 JOIN events e ON t.Event_ID = e.Event_ID
 WHERE t.User_ID = $user_ID AND e.End_DateTime > CURRENT_TIMESTAMP;";
 $result = mysqli_query($conn, $sql);
@@ -32,13 +32,14 @@ $result = mysqli_query($conn, $sql);
          <table>
              <thead>
                  <th>Event</th>
+                 <th>Starts at</th>
                  <th>Price</th>
                  <th>Ticket</th>
              </thead>
              <tbody>
                  <?php
                  while ($row = mysqli_fetch_assoc($result)) {
-                     echo "<tr><td>".$row['Name']."</td><td>".$row['Ticket_Price']."</td><td><form target=\"_blank\" action=\"print_ticket.php\" method=\"post\" onsubmit=\"return ticketCookie(".$row['Ticket_ID'].")\"><input type=\"submit\" value=\"Print Ticket\" /></form></td></tr>";
+                     echo "<tr><td>".$row['Name']."</td><td>".$row['Start_DateTime']."</td><td>".$row['Ticket_Price']."</td><td><form target=\"_blank\" action=\"print_ticket.php\" method=\"post\" onsubmit=\"return ticketCookie(".$row['Ticket_ID'].")\"><input type=\"submit\" value=\"Print Ticket\" /></form></td></tr>";
                  }
                  ?>
              </tbody>

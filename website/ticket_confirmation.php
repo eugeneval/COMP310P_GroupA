@@ -16,7 +16,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = mysqli_query($conn, $sql);
         $newTicket[$i] = mysqli_insert_id($conn);
         if (!$result || $result == false) {
-            // $errorMessage = "Sorry, there was an error processing your tickets. Please try again or contact support.";
             die(mysqli_error($conn));
         }
     }
@@ -43,12 +42,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                  <li class="menubar"><a href="login.php">Logout</a></li>
              </ul>
          </header>
-         <p><?php if ($errorMessage) {echo $errorMessage;} ?></p>
-         <!-- TODO: tidy this up -->
          <p>Congratulations, your purchase was successful.</p>
          <table>
              <thead>
                  <th>Event</th>
+                 <th>Starts at</th>
                  <th>Price</th>
                  <th>Ticket</th>
              </thead>
@@ -63,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                          die(mysqli_error($conn));
                      }
                      $row = mysqli_fetch_assoc($result);
-                     echo "<tr><td>".$row['Name']."</td><td>".$row['Ticket_Price']."</td><td><form target=\"_blank\" action=\"print_ticket.php\" method=\"post\" onsubmit=\"return ticketCookie(".$ticket_ID.")\"><input type=\"submit\" value=\"Print Ticket\" /></form></td></tr>";
+                     echo "<tr><td>".$row['Name']."</td><td>".$row['Start_DateTime']."</td><td>".$row['Ticket_Price']."</td><td><form target=\"_blank\" action=\"print_ticket.php\" method=\"post\" onsubmit=\"return ticketCookie(".$ticket_ID.")\"><input type=\"submit\" value=\"Print Ticket\" /></form></td></tr>";
                  }
                  // TODO: ticket pdf
                  mysqli_close($conn);
