@@ -1,5 +1,4 @@
 <?php
-// TODO: php/sql to actually buy tickets
 
 require 'functions.php';
 $username = checkCurrentUser();
