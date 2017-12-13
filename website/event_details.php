@@ -1,6 +1,5 @@
 <?php
 // Google Map API Key = AIzaSyBHaMCaAdIAJ7IGoxz5TrpkyS-3l1mYIP4
-// TODO: leave reviews
 
 require 'functions.php';
 $username = checkCurrentUser();
@@ -102,7 +101,7 @@ if (!$event_ID) {
 }
 
 $conn = db_connect();
-$sql = "SELECT e.Name, v.Name AS 'Venue_Name', v.Address AS 'Venue_Address', v.Postcode AS 'Venue_Postcode', e.Description, e.Start_DateTime, e.End_DateTime, e.Num_Thumbs_Up, e.Total_Tickets, COUNT(t.Ticket_ID) AS 'Tickets_Sold'
+$sql = "SELECT e.Name, v.Name AS 'Venue_Name', v.Address AS 'Venue_Address', v.Postcode AS 'Venue_Postcode', e.Description, e.Start_DateTime, e.End_DateTime, e.Num_Thumbs_Up, e.Total_Tickets, COUNT(t.Ticket_ID) AS 'Tickets_Sold', CURRENT_TIMESTAMP AS 'Time_Now'
 FROM events e
 JOIN venue v ON v.Venue_ID = e.Venue_ID
 JOIN tickets t ON t.Event_ID = e.Event_ID
@@ -155,7 +154,6 @@ if (mysqli_num_rows($result) == 0) {
             <h4><?php echo $row['Venue_Postcode'];?></h4>
         </div>
         <form action='event_details.php' method="get" onsubmit="return eventCookie(<?php echo $event_ID; ?>)">
-            <!-- FIXME eventCookie doesn't work -->
             <button type="submit" name="thumbs_up"><img src="resources/Thumbs_Up.png" class="form_icons" /><?php echo $row['Num_Thumbs_Up']?></button>
         </form>
         <div id = event_details_d>
@@ -170,7 +168,10 @@ if (mysqli_num_rows($result) == 0) {
         <form action="buy_tickets.php" onsubmit="return checkTickets(<?php echo $row['Tickets_Sold'] ?>, <?php echo $row['Total_Tickets']?>, <?php echo $event_ID; ?>)">
             <h3>Tickets remaining:</h3>
             <h3 style="color: #4CAF50;"><?php echo ($row['Total_Tickets'] - $row['Tickets_Sold']);?></h3>
-            <input type="submit" value="Buy Tickets" /><br>
+            <input type="submit" value="Buy Tickets" /><br />
+        </form>
+        <form action="event_reviews.php" onsubmit="return leaveReview(<?php echo $event_ID; ?>)">
+            <input type="submit" value="See Reviews"  /><br />
         </form>
         <div id="map"></div>
         <script>
@@ -192,6 +193,8 @@ if (mysqli_num_rows($result) == 0) {
         </body>
       </html>
     </body>
+    <script src="libraries/js.cookie.js"></script>
+    <script src="javascript/navigation.js"></script>
     <script>
     function checkTickets(sold, total, event_ID) {
         if (sold < total) {
@@ -203,7 +206,20 @@ if (mysqli_num_rows($result) == 0) {
         }
 
     }
+
+    function leaveReview(event_ID) {
+        var endTime = new Date("<?php echo $row['End_DateTime']?>");
+        var timeNow = new Date("<?php echo $row['Time_Now']?>");
+
+
+        if (timeNow > endTime) {
+            eventCookie(event_ID);
+            return true;
+        } else {
+            alert("Sorry, you cannot leave reviews until an event is over!");
+            return false;
+        }
+
+    }
     </script>
-    <script src="libraries/js.cookie.js"></script>
-    <script src="javascript/navigation.js"></script>
 </html>

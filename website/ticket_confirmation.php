@@ -63,7 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                      $row = mysqli_fetch_assoc($result);
                      echo "<tr><td>".$row['Name']."</td><td>".$row['Start_DateTime']."</td><td>".$row['Ticket_Price']."</td><td><form target=\"_blank\" action=\"print_ticket.php\" method=\"post\" onsubmit=\"return ticketCookie(".$ticket_ID.")\"><input type=\"submit\" value=\"Print Ticket\" /></form></td></tr>";
                  }
-                 // TODO: ticket pdf
                  mysqli_close($conn);
 
                  ?>
