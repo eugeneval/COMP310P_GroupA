@@ -2,7 +2,27 @@
 
 require 'functions.php';
 $username = checkCurrentUser();
+$user_ID = $_COOKIE['user_ID'];
 $event_ID = $_COOKIE['event'];
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $rating = $_POST["rating"];
+    $review = test_input($_POST["review"]);
+
+    $conn = db_connect();
+    $sql = "INSERT INTO `review` (`Event_ID`, `User_ID`, `Rating`, `Review`)
+    VALUES ($event_ID, $user_ID, ?, ?);";
+    if (!($stmt = mysqli_prepare($conn, $sql))) {
+        die("Venue SQL query preparation error: ".mysqli_error($conn));
+    } else if (!(mysqli_stmt_bind_param($stmt, "ss", $rating, $review ))) {
+        die("Venue SQL query binding error: ".mysqli_error($conn));
+    } else if (!(mysqli_stmt_execute($stmt))) {
+        die("Venue SQL query execution error: ".mysqli_error($conn));
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+    }
+}
+
 
 $conn = db_connect();
 $sql = "SELECT Name FROM events WHERE Event_ID = $event_ID";
@@ -50,6 +70,13 @@ mysqli_close($conn);
          }
           ?>
           <h3>Leave a review:</h3>
-
+          <form action="event_reviews.php" method="post" onsubmit="return eventCookie(<?php echo $event_ID ?>)">
+              Rating out of 5:
+              <input type="number" name="rating" min="0" max="5" required /><br />
+              <input type="text" name="review" placeholder="Review" required  /><br />
+              <input type="submit"  />
+          </form>
      </body>
+     <script src="libraries/js.cookie.js"></script>
+     <script src="javascript/navigation.js"></script>
  </html>
