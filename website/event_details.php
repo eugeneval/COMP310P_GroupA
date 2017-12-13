@@ -155,7 +155,6 @@ if (mysqli_num_rows($result) == 0) {
             <h4><?php echo $row['Venue_Postcode'];?></h4>
         </div>
         <form action='event_details.php' method="get" onsubmit="return eventCookie(<?php echo $event_ID; ?>)">
-            <!-- FIXME eventCookie doesn't work -->
             <button type="submit" name="thumbs_up"><img src="resources/Thumbs_Up.png" class="form_icons" /><?php echo $row['Num_Thumbs_Up']?></button>
         </form>
         <div id = event_details_d>
