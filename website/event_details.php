@@ -102,7 +102,11 @@ if (!$event_ID) {
 }
 
 $conn = db_connect();
-$sql = "SELECT e.Name, v.Name AS 'Venue_Name', v.Address AS 'Venue_Address', v.Postcode AS 'Venue_Postcode', e.Description, e.Start_DateTime, e.End_DateTime, e.Num_Thumbs_Up FROM events e JOIN venue v ON v.Venue_ID = e.Venue_ID WHERE e.Event_ID = '$event_ID'";
+$sql = "SELECT e.Name, v.Name AS 'Venue_Name', v.Address AS 'Venue_Address', v.Postcode AS 'Venue_Postcode', e.Description, e.Start_DateTime, e.End_DateTime, e.Num_Thumbs_Up, COUNT(t.Ticket_ID) AS 'Tickets_Sold'
+FROM events e
+JOIN venue v ON v.Venue_ID = e.Venue_ID
+JOIN tickets t ON t.Event_ID = e.Event_ID
+WHERE e.Event_ID = '$event_ID'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 
@@ -133,7 +137,7 @@ if (mysqli_num_rows($result) == 0) {
           }
         </style>
     </head>
-    <body>
+    <body onload="checkTickets(<?php  ?>)">
         <header>
             <a href="main.php"><img src="resources/Logo.png" style="width:302px;height:86px;"/></a>
             <h4>Welcome to Eventi, the intelligent assistant for young professionals!</h4>
@@ -186,4 +190,8 @@ if (mysqli_num_rows($result) == 0) {
         </body>
       </html>
     </body>
+    <script>
+    on
+
+    </script>
 </html>
