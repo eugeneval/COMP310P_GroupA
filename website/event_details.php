@@ -204,4 +204,6 @@ if (mysqli_num_rows($result) == 0) {
 
     }
     </script>
+    <script src="libraries/js.cookie.js"></script>
+    <script src="javascript/navigation.js"></script>
 </html>

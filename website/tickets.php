@@ -49,5 +49,6 @@ $result = mysqli_query($conn, $sql);
              </tbody>
          </table>
      </body>
+     <script src="libraries/js.cookie.js"></script>
      <script src="javascript/navigation.js"></script>
  </html>
