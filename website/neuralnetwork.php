@@ -20,19 +20,19 @@
 );*/
 ////INPUTS////////////////////////////////
 require 'functions.php';
-$inputs = array(1,1,1,1,1,1);
+$inputs = array(-1,-1,-1,0,0,0);
 //////////////////////////////////////////
 
 ////FEED FORWARD//////////////////////////
-//$train_array = perceptron($inputs);
-//$output = $train_array[4];
+$output = perceptron($inputs);
+$final_output = $output[4];
+echo $final_output;
 //////////////////////////////////////////
 
 ////TRAIN NETWORK/////////////////////////
-$train_array = perceptron($inputs);
-$perceptron_train = perceptron_train($inputs, 1, $train_array[0], $train_array[1], $train_array[2], $train_array[3]);
+//$train_array = perceptron($inputs);
+//$perceptron_train = perceptron_train($inputs, 1, $train_array[0], $train_array[1], $train_array[2], $train_array[3]);
 //////////////////////////////////////////
-
 ?>
 
 <?php
