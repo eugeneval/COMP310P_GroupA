@@ -14,12 +14,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     VALUES ($user_ID, $event_ID, 1);";
     for ($i=0; $i < $quantity; $i++) {
         $result = mysqli_query($conn, $sql);
+        $newTicket[$i] = mysqli_insert_id($conn);
         if (!$result || $result == false) {
             // $errorMessage = "Sorry, there was an error processing your tickets. Please try again or contact support.";
             die(mysqli_error($conn));
         }
     }
-    mysqli_close($conn);
+
+} else {
+    header('Location: main.php');
 }
 
 ?>
@@ -40,8 +43,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                  <li class="menubar"><a href="login.php">Logout</a></li>
              </ul>
          </header>
-         <p>
-             <?php if ($errorMessage) {echo $errorMessage;} ?>
-         </p>
+         <p><?php if ($errorMessage) {echo $errorMessage;} ?></p>
+         <p>Congratulations, your purchase was successful.</p>
+         <table>
+             <thead>
+                 <th>Event</th>
+                 <th>Price</th>
+                 <th>Ticket</th>
+             </thead>
+             <tbody>
+                 <?php
+                 foreach ($newTicket as $ticket_ID) {
+                     $sql = "SELECT e.Name, e.Ticket_Price FROM tickets t
+                     JOIN events e ON t.Event_ID = e.Event_ID
+                     WHERE t.Ticket_ID = $ticket_ID ;";
+                     $result = mysqli_query($conn, $sql);
+                     if (!$result || $result == false) {
+                         die(mysqli_error($conn));
+                     }
+                     $row = mysqli_fetch_assoc($result);
+                     echo "<tr><td>".$row['Name']."</td><td>".$row['Ticket_Price']."</td><td></td></tr>";
+                 }
+
+                 mysqli_close($conn);
+
+                 ?>
+             </tbody>
+         </table>
      </body>
  </html>
