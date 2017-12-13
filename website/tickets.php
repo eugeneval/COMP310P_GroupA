@@ -37,10 +37,14 @@ $result = mysqli_query($conn, $sql);
                  <th>Ticket</th>
              </thead>
              <tbody>
-                 <?php
-                 while ($row = mysqli_fetch_assoc($result)) {
-                     echo "<tr><td>".$row['Name']."</td><td>".$row['Start_DateTime']."</td><td>".$row['Ticket_Price']."</td><td><form target=\"_blank\" action=\"print_ticket.php\" method=\"post\" onsubmit=\"return ticketCookie(".$row['Ticket_ID'].")\"><input type=\"submit\" value=\"Print Ticket\" /></form></td></tr>";
+                 <?php if (condition) {
+                     echo "<tr><td>Sorry, you have no tickets at the moment!</td></tr>";
+                 } else {
+                     while ($row = mysqli_fetch_assoc($result)) {
+                         echo "<tr><td>".$row['Name']."</td><td>".$row['Start_DateTime']."</td><td>".$row['Ticket_Price']."</td><td><form target=\"_blank\" action=\"print_ticket.php\" method=\"post\" onsubmit=\"return ticketCookie(".$row['Ticket_ID'].")\"><input type=\"submit\" value=\"Print Ticket\" /></form></td></tr>";
+                     }
                  }
+
                  ?>
              </tbody>
          </table>
