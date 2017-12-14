@@ -6,7 +6,7 @@
 * Authors: Syed Ismail Ahmad - Eugene Valetsky - George Imafidon               *                              *
 *******************************************************************************/
 
-// TODO: php/sql to actually buy tickets
+
 /////////////////////////////////////////
 require 'functions.php';
 $username = checkCurrentUser();

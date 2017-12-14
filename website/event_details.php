@@ -207,7 +207,6 @@ if (mysqli_num_rows($result) == 0) {
     <script src="javascript/navigation.js"></script>
     <script>
     function checkTickets(sold, total, event_ID) {
-        // TODO: shouldn't be able to buy if event over
         var startTime = new Date("<?php echo $row['Ticket_Sale_Start_DateTime']?>");
         var endTime = new Date("<?php echo $row['Ticket_Sale_End_DateTime']?>");
         var timeNow = new Date("<?php echo $row['Time_Now']?>");
