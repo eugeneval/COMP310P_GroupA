@@ -11,7 +11,7 @@
 require 'functions.php';
 $username = checkCurrentUser();
 
-$event_ID = $_SESSION["event"];
+$event_ID = $_COOKIE["event"];
 
 if (!$event_ID) {
     header('Location: main.php');
