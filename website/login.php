@@ -8,6 +8,7 @@ $usernameNew = "";
 setcookie("username", "", time()-1);
 setcookie("user_ID", "", time()-1);
 setcookie("adminPriveleges", "", time()-1);
+// NOTE: should change this to using session instead of cookie but can't make it work.
 
 if (isset($_COOKIE["loggedout"])) {
     $loginError = "Sorry, you have been logged out due to inactivity.";
