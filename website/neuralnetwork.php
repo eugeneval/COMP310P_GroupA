@@ -1,6 +1,12 @@
-
 <?php
-/*CREATE TABLE ml_w (
+/*******************************************************************************
+* NEURAL NETWORK WITH SQL INTEGRATION IN PHP                                   *
+*                                                                              *
+* Version: 1.01                                                                *                                                       *
+* Authors: Syed Ismail Ahmad - Eugene Valetsky - George Imafidon               *                              *
+*******************************************************************************/
+/*
+  CREATE TABLE ml_w (
     id int NOT NULL AUTO_INCREMENT,
     oneonel1 DECIMAL,
     oneonel2 DECIMAL,
@@ -16,17 +22,36 @@
     onetwol6 DECIMAL,
     twoonel1 DECIMAL,
     twotwol1 DECIMAL,
-    PRIMARY KEY (id)
-);*/
+    PRIMARY KEY (id));
+
+//////////////////////////////////////////
+   *INPUT LAYER* ////////////////////////////////////////
+                           //////////////////////////////////////////
+     -----0-----
+                   *HIDDEN LAYER*
+     -----0-----
+                    -----0-----
+     -----0-----                  *OUTPUT LAYER*
+                                   -----0------  *MAGIC*
+     -----0-----
+                    -----0-----
+     -----0-----
+
+     -----0-----           //////////////////////////////////////////
+              //////////////////////////////////////////
+//////////////////////////////////////////
+
+*******************************************************************************/
+
 ////INPUTS////////////////////////////////
 require 'functions.php';
 $inputs = array(-1,-1,-1,0,0,0);
 //////////////////////////////////////////
 
 ////FEED FORWARD//////////////////////////
-$output = perceptron($inputs);
-$final_output = $output[4];
-echo $final_output;
+//$output = perceptron($inputs);
+//$final_output = $output[4];
+//echo $final_output;
 //////////////////////////////////////////
 
 ////TRAIN NETWORK/////////////////////////
@@ -96,20 +121,17 @@ function perceptron_feedforward($inputs, $weights) {
 ?>
 
 <?php
-
 function perceptron_train($inputs, $desired_output, $weights1l, $weights2l, $twoonel1, $twotwol1) {
-  $learning_rate = 4;
+  $learning_rate = 0.02;
   $perceptron_array = perceptron($inputs);
   $guess = $perceptron_array[4];
   $error = $desired_output - $guess;
-  echo $error."  ";
 
   $count = count($weights1l);
       echo $weights1l[0]."  ";
   for ($i = 0; $i <= $count; $i++) {
       $weights1l[$i] += $learning_rate*$error*$inputs[$i];
   }
-      echo $weights1l[0]."  ";
 
   //$weight1l = $mysqli->real_escape_string($weight1l);
 
@@ -138,6 +160,7 @@ function perceptron_train($inputs, $desired_output, $weights1l, $weights2l, $two
   for ($i = 0; $i <= $count; $i++) {
       $weights2l[$i] += $learning_rate*$error*$inputs[$i];
   }
+
   //$weight2l = $mysqli->real_escape_string($weight2l);
 
   echo "yo";
@@ -159,6 +182,5 @@ function perceptron_train($inputs, $desired_output, $weights1l, $weights2l, $two
           WHERE id=1;";
   $result = mysqli_query($conn, $sql);
   mysqli_close($conn);
-
 }
 ?>

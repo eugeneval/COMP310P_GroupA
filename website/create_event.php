@@ -1,13 +1,11 @@
 <?php
-
+////SETUP////////////////////////////////
 require 'functions.php';
 $username = checkCurrentUser();
-
 $conn = db_connect();
 $sql = "SELECT * FROM venue;";
 $result = mysqli_query($conn, $sql);
-
-
+/////////////////////////////////////////
 ?>
 
 <!DOCTYPE html>
