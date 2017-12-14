@@ -51,7 +51,7 @@ $username = checkCurrentUser();
                   <td>'.$row['Total_Tickets'].'</td>
                   <td>'.$row['Ticket_Price'].'</td>
                   <td>'.$row['Num_Thumbs_Up'].'</td>
-                  <td><form action=\'participants_list.php\' onsubmit(return eventCookie('.$row['Event_ID'].'))>
+                  <td><form action=\'participants_list.php\' onsubmit="return eventCookie('.$row['Event_ID'].')">
                   <input type="submit" value="Participants" />
                   </form> </td>';
           echo '</tr>';
@@ -67,10 +67,11 @@ $username = checkCurrentUser();
        mysqli_close();
        //TODO create correct SQL statement
       ?>
-        </body>
-        <br/>
-          <div id="myDiv"></div>
-            <script>
+      </body>
+      <script src="libraries/js.cookie.js"></script>
+      <script src="javascript/login.js"></script>
+      <script src="javascript/navigation.js"></script>
+        <script>
                 for (i = 0; i < <?php echo $row_count?>; i++) {
                 var xLabel = [];
                 xLabel[i] = i;
@@ -89,6 +90,5 @@ $username = checkCurrentUser();
               var data = [trace1];
         Plotly.newPlot('myDiv', data);
     </script>
-    <script src="javascript/login.js"></script>
-    <script src="javascript/navigation.js"></script>
+
 </html>
