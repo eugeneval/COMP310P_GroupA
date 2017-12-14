@@ -31,13 +31,13 @@ $result = mysqli_query($conn, $sql);
                 <li class="menubar"><a href="login.php">Logout</a></li>
             </ul>
         </header>
-        <form action="event_details.php" method="POST">
+        <form action="event_details.php" method="POST" onsubmit="return checkTimes()">
             <fieldset>
                 <legend>Event Details</legend>
                 <p>Event Name</p> <input type="text" name="event_name" required>
                 <p>Description</p><textarea name="description" rows="8" cols="29" required></textarea>
-                <p>Start Date/Time</p> <input type="datetime-local" name="start_date_time" required>
-                <p>End Date/Time</p> <input type="datetime-local" name="end_date_time" required>
+                <p>Start Date/Time</p> <input type="datetime-local" name="start_date_time" required id='event_start'>
+                <p>End Date/Time</p> <input type="datetime-local" name="end_date_time" id='event_end' required>
                 <!-- TODO: add default times? current year, etc. -->
                 <p>Video URL</p> <input type="url" name="video_url" pattern="https?://.+" />
             </fieldset>
@@ -70,9 +70,8 @@ $result = mysqli_query($conn, $sql);
                 </select>
                 <p>Ticket Name</p> <input type="text" name="ticket_name">
                 <p>Ticket Price</p> <input type="number" name="ticket_price" min="0.00" max="100.00" step="0.01" />
-                <p>Ticket Start Date/Time</p> <input type="datetime-local" name="ticket_start_date_time">
-                <p>Ticket End Date/Time</p> <input type="datetime-local" name="ticket_end_date_time">
-                <!-- TODO: JS to prevent end date being before end date -->
+                <p>Ticket Start Date/Time</p> <input type="datetime-local" name="ticket_start_date_time" id='ticket_start'>
+                <p>Ticket End Date/Time</p> <input type="datetime-local" name="ticket_end_date_time" id='ticket_end'>
                 <p>Quantity</p> <input type="number" name="ticket_quantity" min="1" max="500">
                 <br />
             </fieldset>
@@ -115,7 +114,6 @@ $result = mysqli_query($conn, $sql);
             <br />
             <input type="submit" value="Save"><n/>
             <input type="reset" value="Clear">
-            <script src="create_event.js"></script>
         </form>
 
     <script src="javascript/event_creation.js"></script>
