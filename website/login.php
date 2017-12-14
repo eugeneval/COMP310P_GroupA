@@ -1,5 +1,13 @@
 <?php
+/*******************************************************************************
+* Eventi                                                                       *
+*                                                                              *
+* Version: 1.0                                                                 *
+* Authors: Eugene Valetsky - George Imafidon - Syed Ismail Ahmad               *
+*******************************************************************************/
+
 //todo add my sql permissions GRANT INSERT.....
+
 require 'functions.php';
 
 $loginError = "";

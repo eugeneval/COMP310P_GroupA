@@ -1,4 +1,11 @@
 <?php
+/*******************************************************************************
+* Eventi                                                                       *
+*                                                                              *
+* Version: 1.0                                                                 *                                                       *
+* Authors: Syed Ismail Ahmad - Eugene Valetsky - George Imafidon               *                              *
+*******************************************************************************/
+
 ////SETUP////////////////////////////////
 require 'functions.php';
 $username = checkCurrentUser();

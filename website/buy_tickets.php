@@ -1,4 +1,10 @@
 <?php
+/*******************************************************************************
+* Eventi                                                                       *
+*                                                                              *
+* Version: 1.0                                                                 *                                                       *
+* Authors: Syed Ismail Ahmad - Eugene Valetsky - George Imafidon               *                              *
+*******************************************************************************/
 
 // TODO: php/sql to actually buy tickets
 /////////////////////////////////////////
@@ -68,11 +74,7 @@ if (mysqli_num_rows($result) == 0) {
           <p>Price per ticket: £<?php echo $row['Ticket_Price']; ?></p>
           <p>Tickets Remaining: <?php echo ($row['Total_Tickets'] - $row['Tickets_Sold']); ?></p>
           <p>Select quantity: </p>
-<<<<<<< HEAD
-          <input type="number" name="quantity" id="quantity" value="0" max="<?php echo ($row['Total_Tickets'] - $row['Tickets_Sold']); ?>" onchange="ticketPrice()" required><br />
-=======
           <input type="number" name="quantity" id="quantity" min="1" max="<?php echo ($row['Total_Tickets'] - $row['Tickets_Sold']); ?>" onchange="ticketPrice()" required ><br />
->>>>>>> fe80e0dbf633b22d7673c5657a34517e491f6c65
           <p id='total'>Your total: £0</p>
 
         <input type="submit" value="Buy Tickets">

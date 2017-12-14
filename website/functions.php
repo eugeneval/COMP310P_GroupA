@@ -1,4 +1,12 @@
 <?php
+
+/*******************************************************************************
+* Eventi                                                                       *
+*                                                                              *
+* Version: 1.0                                                                 *
+* Authors: Eugene Valetsky - George Imafidon - Syed Ismail Ahmad               *
+*******************************************************************************/
+
 /////COMMENTS////////////////////////////////
 //Email is sent when the emailcheck function is called.
 //This can be embedded into the login and main page of
@@ -112,7 +120,7 @@ function emailCheck() {
         $int_event_time = strtotime($event_time);
         $User_ID = $row['User_ID'];
 
-        if (time() - $int_event_time <= 60*60*24) {
+        if (time() - $int_event_time <= 86400) {
           sendEmail($row['Email']);
         }
         $sql = "UPDATE tickets

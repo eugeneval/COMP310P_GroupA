@@ -5,14 +5,15 @@
 * Version: 1.01                                                                *                                                       *
 * Authors: Syed Ismail Ahmad - Eugene Valetsky - George Imafidon               *                              *
 *******************************************************************************/
+
 /////COMMENTS////////////////////////////
-//This neural network is used to recommend events to Eventi's
+//This neural network classifier is used to recommend events to Eventi's
 //user base. It works by taking six inputs such as age/gender/Interests
 //and from that optimising a neural network tailored to each event. It is
 //a simple multi-layer perceptron based network based on the sign activation
 //function. It has a tuneable training rate which will be optimised once we
-//have tested different configurations. It integrates with a SQL table in which
-//weights are stored and updated.
+//have tested different configurations. It integrates with the ml_w SQL table
+//in which weights are stored and updated.
 /////////////////////////////////////////
 
 /*
@@ -53,15 +54,14 @@
 
 *******************************************************************************/
 
-////INPUTS////////////////////////////////
-require 'functions.php';
-$inputs = array(-1,-1,-1,0,0,0);
+////SETUP/////////////////////////////////
+//require 'functions.php';
+//$inputs = array(-1,-1,-1,0,0,0); ----- Create array with required inputs;
 //////////////////////////////////////////
 
 ////FEED FORWARD//////////////////////////
 //$output = perceptron($inputs);
 //$final_output = $output[4];
-//echo $final_output;
 //////////////////////////////////////////
 
 ////TRAIN NETWORK/////////////////////////
@@ -159,7 +159,6 @@ function perceptron_train($inputs, $desired_output, $weights1l, $weights2l, $two
     }
   else {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-        //echo mysqli_errno($conn);
     }
 
   //$result = mysqli_query($conn, $sql);
@@ -170,8 +169,6 @@ function perceptron_train($inputs, $desired_output, $weights1l, $weights2l, $two
   }
 
   //$weight2l = $mysqli->real_escape_string($weight2l);
-
-  echo "yo";
 
   $sql = "UPDATE ml_w
           SET onetwol1 = $weights2l[0], onetwol2 = $weights2l[1], onetwol3 = $weights2l[2],
