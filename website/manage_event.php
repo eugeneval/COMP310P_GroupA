@@ -32,7 +32,7 @@ $username = checkCurrentUser();
         <?php
         $row_count = 0;
         $conn = db_connect();
-        $sql = "SELECT e.Name, e.Total_Tickets, e.Ticket_Price, e.Num_Thumbs_Up FROM events e
+        $sql = "SELECT e.Name, e.Total_Tickets, e.Ticket_Price, e.Num_Thumbs_Up, e.Event_ID FROM events e
           JOIN user u ON e.Organiser_User_ID = u.User_ID WHERE u.Username = '$username';";
         $result = mysqli_query($conn, $sql);
 
@@ -43,13 +43,17 @@ $username = checkCurrentUser();
                   <th>Tickets Available</th>
                   <th>Ticket Price</th>
                   <th>Likes</th>
+                  <th>Participants</th>
                 </tr>';
         while($row = mysqli_fetch_array($result)){
           echo '<tr>
                   <td>'.$row['Name'].'</td>
                   <td>'.$row['Total_Tickets'].'</td>
                   <td>'.$row['Ticket_Price'].'</td>
-                  <td>'.$row['Num_Thumbs_Up'].'</td>';
+                  <td>'.$row['Num_Thumbs_Up'].'</td>
+                  <td><form action=\'participants_list.php\' onsubmit(return eventCookie('.$row['Event_ID'].'))>
+                  <input type="submit" value="Participants" />
+                  </form> </td>';
           echo '</tr>';
           $row_count = $row_count + 1;
           ${'file' . $row_count} = $row['Total_Tickets'];
@@ -85,4 +89,6 @@ $username = checkCurrentUser();
               var data = [trace1];
         Plotly.newPlot('myDiv', data);
     </script>
+    <script src="javascript/login.js"></script>
+    <script src="javascript/navigation.js"></script>
 </html>
