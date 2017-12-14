@@ -101,7 +101,7 @@ if (!$event_ID) {
 }
 
 $conn = db_connect();
-$sql = "SELECT e.Name, v.Name AS 'Venue_Name', v.Address AS 'Venue_Address', v.Postcode AS 'Venue_Postcode', e.Description, e.Start_DateTime, e.End_DateTime, e.Num_Thumbs_Up, e.Total_Tickets, COUNT(t.Ticket_ID) AS 'Tickets_Sold', CURRENT_TIMESTAMP AS 'Time_Now'
+$sql = "SELECT e.Name, v.Name AS 'Venue_Name', v.Address AS 'Venue_Address', v.Postcode AS 'Venue_Postcode', e.Description, e.Start_DateTime, e.End_DateTime, e.Num_Thumbs_Up, e.Total_Tickets,  e.Ticket_Sale_Start_DateTime, e.Ticket_Sale_End_DateTime, COUNT(t.Ticket_ID)AS 'Tickets_Sold', CURRENT_TIMESTAMP AS 'Time_Now'
 FROM events e
 JOIN venue v ON v.Venue_ID = e.Venue_ID
 JOIN tickets t ON t.Event_ID = e.Event_ID
@@ -197,7 +197,17 @@ if (mysqli_num_rows($result) == 0) {
     <script src="javascript/navigation.js"></script>
     <script>
     function checkTickets(sold, total, event_ID) {
-        if (sold < total) {
+        // TODO: shouldn't be able to buy if event over
+        var startTime = new Date("<?php echo $row['Ticket_Sale_Start_DateTime']?>");
+        var endTime = new Date("<?php echo $row['Ticket_Sale_End_DateTime']?>");
+        var timeNow = new Date("<?php echo $row['Time_Now']?>");
+        if (timeNow > endTime) {
+            alert("Sorry, you can't buy tickets for the event anymore!");
+            return false;
+        } else if (timeNow < startTime) {
+            alert("Sorry, you can't buy tickets for the event yet!");
+            return false;
+        } else if (sold < total) {
             eventCookie(event_ID);
             return true;
         } else {
