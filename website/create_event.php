@@ -2,7 +2,7 @@
 /*******************************************************************************
 * Eventi                                                                       *
 *                                                                              *
-* Version: 1.0                                                                 *                                                 
+* Version: 1.0                                                                 *
 * Authors: Eugene Valetsky - George Imafidon - Syed Ismail Ahmad               *
 *******************************************************************************/
 
@@ -92,6 +92,7 @@ $result = mysqli_query($conn, $sql);
                 </select>
                 <br />
                 <!-- IDEA: Tags implemented as checkboxes maybe? -->
+                <!-- TODO: be able to add new tags -->
                 <p>Tags <br /><small>use ctrl or cmd to select multiple tags</small></p>
                 <select multiple name="tags[]" size="10">
                     <option selected="true" disabled="disabled"></option>
