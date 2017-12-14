@@ -123,6 +123,7 @@ $row = mysqli_fetch_assoc($result);
 if (mysqli_num_rows($result) == 0) {
     $eventCreation .= "This event doesn't exist!";
 }
+mysqli_close($conn);
 /////////////////////////////////////////
 ?>
 
