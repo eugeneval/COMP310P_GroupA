@@ -1,9 +1,9 @@
 <?php
 
 require 'functions.php';
-$username = checkCurrentUser();
+require 'session.php';
 
-$event_ID = $_COOKIE["event"];
+$event_ID = $_SESSION["event"];
 
 if (!$event_ID) {
     header('Location: main.php');
@@ -65,7 +65,7 @@ if (mysqli_num_rows($result) == 0) {
           <p>Price per ticket: £<?php echo $row['Ticket_Price']; ?></p>
           <p>Tickets Remaining: <?php echo ($row['Total_Tickets'] - $row['Tickets_Sold']); ?></p>
           <p>Select quantity: </p>
-          <input type="number" name="quantity" id="quantity" min="1" max="<?php echo ($row['Total_Tickets'] - $row['Tickets_Sold']); ?>" onchange="ticketPrice()"><br />
+          <input type="number" name="quantity" id="quantity" min="1" max="<?php echo ($row['Total_Tickets'] - $row['Tickets_Sold']); ?>" onchange="ticketPrice()" required ><br />
           <p id='total'>Your total: £0</p>
           <!-- TODO: add a payment method -->
         <input type="submit" value="Buy Tickets">
