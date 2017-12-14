@@ -133,10 +133,11 @@ function emailCheck() {
     return $email;
 }
 
+// Placeholder function for sending a reminder email
 function sendEmail($email) {
-  $msg = "Please have a look at Eventi, you have an event coming up";
-  $msg = wordwrap($msg,70);
-  mail($email,"Event Notification",$msg);
+  // $msg = "Please have a look at Eventi, you have an event coming up";
+  // $msg = wordwrap($msg,70);
+  // mail($email,"Event Notification",$msg);
 }
 
 ?>
