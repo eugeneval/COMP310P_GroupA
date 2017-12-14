@@ -1,7 +1,7 @@
 <?php
 
 require 'functions.php';
-require 'session.php';
+$username = checkCurrentUser();
 
 $event_ID = $_SESSION["event"];
 
