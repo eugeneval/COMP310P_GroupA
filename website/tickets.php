@@ -50,7 +50,7 @@ $result = mysqli_query($conn, $sql);
                          echo "<tr><td>".$row['Name']."</td><td>".$row['Start_DateTime']."</td><td>".$row['Ticket_Price']."</td><td><form target=\"_blank\" action=\"print_ticket.php\" method=\"post\" onsubmit=\"return ticketCookie(".$row['Ticket_ID'].")\"><input type=\"submit\" value=\"Print Ticket\" /></form></td></tr>";
                      }
                  }
-
+                   mysqli_close($conn);
                  ?>
              </tbody>
          </table>

@@ -8,8 +8,6 @@
 
 require 'functions.php';
 $username = checkCurrentUser();
-
-
 ?>
 
 <!DOCTYPE html>

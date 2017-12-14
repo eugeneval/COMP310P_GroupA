@@ -49,8 +49,6 @@ if (!$result || $result == false) {
     die(mysqli_error($conn));
 }
 
-mysqli_close($conn);
-
 ?>
 
  <!DOCTYPE html>
@@ -74,6 +72,7 @@ mysqli_close($conn);
          while ($row = mysqli_fetch_assoc($result)) {
              echo "<p>".$row['Rating']."/5<br /><small>".$row['Review']."</small><br />".$row['Name']."</p>";
          }
+         mysqli_close($conn);
           ?>
           <h3>Leave a review:</h3>
           <form action="event_reviews.php" method="post" onsubmit="return eventCookie(<?php echo $event_ID ?>)">

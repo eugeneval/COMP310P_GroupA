@@ -5,11 +5,8 @@
 * Version: 1.0                                                                 *
 * Authors: Eugene Valetsky - George Imafidon - Syed Ismail Ahmad               *
 *******************************************************************************/
-
 require 'functions.php';
 $username = checkCurrentUser();
-
-
 ?>
 
  <!DOCTYPE html>

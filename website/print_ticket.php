@@ -5,6 +5,7 @@
 * Version: 1.0                                                                 *
 * Authors: Eugene Valetsky - George Imafidon - Syed Ismail Ahmad               *
 *******************************************************************************/
+
 require 'functions.php';
 require('libraries/fpdf/fpdf.php');
 $ticket_ID = $_COOKIE["ticket"];

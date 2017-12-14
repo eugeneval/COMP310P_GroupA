@@ -1,10 +1,9 @@
 <?php
-
 /*******************************************************************************
 * Eventi                                                                       *
 *                                                                              *
-* Version: 1.0                                                                 *
-* Authors: Eugene Valetsky - George Imafidon - Syed Ismail Ahmad               *
+* Version: 1.0                                                                 *                                                       *
+* Authors: Syed Ismail Ahmad - Eugene Valetsky - George Imafidon               *                              *
 *******************************************************************************/
 
 /////COMMENTS////////////////////////////////
@@ -15,6 +14,9 @@
 //However, this means the system will only work with a
 //large enough user base.
 /////////////////////////////////////////////
+
+$email = emailCheck();
+sendEmail($email);
 
 function test_input($data) {
     $data = trim($data);
@@ -119,14 +121,16 @@ function emailCheck() {
         $event_time = $row['Start_DateTime'];
         $int_event_time = strtotime($event_time);
         $User_ID = $row['User_ID'];
+        $email = $row['Email'];
 
         if (time() - $int_event_time <= 86400) {
-          sendEmail($row['Email']);
+          sendEmail($email);
+          $sql = "UPDATE tickets
+                  SET Sent_Email = 1
+                  WHERE User_ID = $User_ID;";
         }
-        $sql = "UPDATE tickets
-                SET Sent_Email = 1
-                WHERE User_ID = $User_ID;";
     }
+    return $email;
 }
 
 function sendEmail($email) {
