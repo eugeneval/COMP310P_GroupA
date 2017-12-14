@@ -1,4 +1,12 @@
 <?php
+/////COMMENTS////////////////////////////////
+//Email is sent when the emailcheck function is called.
+//This can be embedded into the login and main page of
+//Eventi so that when anyone logs in or loads the event
+//page the system will send the corresponding email.
+//However, this means the system will only work with a
+//large enough user base.
+/////////////////////////////////////////////
 
 function test_input($data) {
     $data = trim($data);
@@ -86,6 +94,37 @@ function db_connect() {
     }
     return $conn;
 
+}
+
+function emailCheck() {
+      $conn = db_connect();
+      $sql = "SELECT DISTINCT u.Email, e.Start_DateTime, t.User_ID
+              FROM events e
+              JOIN tickets t ON t.Event_ID = e.Event_ID
+              JOIN user u ON u.User_ID = t.User_ID
+              WHERE t.Sent_Email = 0";
+
+      $result = mysqli_query($conn, $sql);
+
+      while($row = mysqli_fetch_array($result)){
+
+        $event_time = $row['Start_DateTime'];
+        $int_event_time = strtotime($event_time);
+        $User_ID = $row['User_ID'];
+
+        if (time() - $int_event_time <= 60*60*24) {
+          sendEmail($row['Email']);
+        }
+        $sql = "UPDATE tickets
+                SET Sent_Email = 1
+                WHERE User_ID = $User_ID;";
+    }
+}
+
+function sendEmail($email) {
+  $msg = "Please have a look at Eventi, you have an event coming up";
+  $msg = wordwrap($msg,70);
+  mail($email,"Event Notification",$msg);
 }
 
 ?>

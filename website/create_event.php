@@ -85,7 +85,7 @@ $result = mysqli_query($conn, $sql);
                 </select>
                 <br />
                 <!-- IDEA: Tags implemented as checkboxes maybe? -->
-                <p>Tags <small>use ctrl or cmd to select multiple tags</small></p>
+                <p>Tags <br /><small>use ctrl or cmd to select multiple tags</small></p>
                 <select multiple name="tags[]" size="10">
                     <option selected="true" disabled="disabled"></option>
                     <?php

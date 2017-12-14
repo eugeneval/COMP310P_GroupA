@@ -5,6 +5,16 @@
 * Version: 1.01                                                                *                                                       *
 * Authors: Syed Ismail Ahmad - Eugene Valetsky - George Imafidon               *                              *
 *******************************************************************************/
+/////COMMENTS////////////////////////////
+//This neural network is used to recommend events to Eventi's
+//user base. It works by taking six inputs such as age/gender/Interests
+//and from that optimising a neural network tailored to each event. It is
+//a simple multi-layer perceptron based network based on the sign activation
+//function. It has a tuneable training rate which will be optimised once we
+//have tested different configurations. It integrates with a SQL table in which
+//weights are stored and updated.
+/////////////////////////////////////////
+
 /*
   CREATE TABLE ml_w (
     id int NOT NULL AUTO_INCREMENT,
@@ -128,7 +138,7 @@ function perceptron_train($inputs, $desired_output, $weights1l, $weights2l, $two
   $error = $desired_output - $guess;
 
   $count = count($weights1l);
-      echo $weights1l[0]."  ";
+
   for ($i = 0; $i <= $count; $i++) {
       $weights1l[$i] += $learning_rate*$error*$inputs[$i];
   }
@@ -143,8 +153,6 @@ function perceptron_train($inputs, $desired_output, $weights1l, $weights2l, $two
   $result = mysqli_query($conn, $sql);
 
   //var_dump($mysqli->real_escape_string($sql));
-
-  echo "hi";
 
   if ($result) {
         echo "Record Updated";
