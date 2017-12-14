@@ -66,8 +66,12 @@ $result = mysqli_query($conn, $sql);
             <form action='tickets.php'>
                 <input type="submit" value="Your Tickets" />
             </form>
+            <form action='search.php'>
+                <input type="submit" value="Search" />
+            </form>
         </div>
         <div class="eventsList">
+            <!-- TODO: different tabs: this week, next week, upcoming, past events -->
             <?php
                 if (mysqli_num_rows($result) > 0) {
                     while($row = mysqli_fetch_assoc($result)) {
