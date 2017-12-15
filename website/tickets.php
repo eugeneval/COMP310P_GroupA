@@ -10,13 +10,12 @@ require 'functions.php';
 $username = checkCurrentUser();
 $user_ID = $_COOKIE["user_ID"];
 
+/*Generates a table with the ticket a user has booked*/
 $conn = db_connect();
 $sql = "SELECT e.Name, e.Ticket_Price, t.Ticket_ID, e.Start_DateTime FROM tickets t
-JOIN events e ON t.Event_ID = e.Event_ID
-WHERE t.User_ID = $user_ID AND e.End_DateTime > CURRENT_TIMESTAMP;";
+        JOIN events e ON t.Event_ID = e.Event_ID
+        WHERE t.User_ID = $user_ID AND e.End_DateTime > CURRENT_TIMESTAMP;";
 $result = mysqli_query($conn, $sql);
-
-
 ?>
 
  <!DOCTYPE html>
@@ -43,14 +42,17 @@ $result = mysqli_query($conn, $sql);
                  <th>Ticket</th>
              </thead>
              <tbody>
-                 <?php if (mysqli_num_rows($result) == 0) {
-                     echo "<tr><td>Sorry, you have no tickets at the moment!</td></tr>";
-                 } else {
-                     while ($row = mysqli_fetch_assoc($result)) {
-                         echo "<tr><td>".$row['Name']."</td><td>".$row['Start_DateTime']."</td><td>".$row['Ticket_Price']."</td><td><form target=\"_blank\" action=\"print_ticket.php\" method=\"post\" onsubmit=\"return ticketCookie(".$row['Ticket_ID'].")\"><input type=\"submit\" value=\"Print Ticket\" /></form></td></tr>";
+                 <?php
+/*Error Handling - Shows user that they have no tickets if they have not purchased any*/
+                     if (mysqli_num_rows($result) == 0) {
+                         echo "<tr><td>Sorry, you have no tickets at the moment!</td></tr>";
                      }
-                 }
-                   mysqli_close($conn);
+                     else {
+                         while ($row = mysqli_fetch_assoc($result)) {
+                             echo "<tr><td>".$row['Name']."</td><td>".$row['Start_DateTime']."</td><td>".$row['Ticket_Price']."</td><td><form target=\"_blank\" action=\"print_ticket.php\" method=\"post\" onsubmit=\"return ticketCookie(".$row['Ticket_ID'].")\"><input type=\"submit\" value=\"Print Ticket\" /></form></td></tr>";
+                         }
+                     }
+                     mysqli_close($conn);
                  ?>
              </tbody>
          </table>

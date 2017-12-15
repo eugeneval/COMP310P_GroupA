@@ -10,7 +10,7 @@ require 'functions.php';
 require('libraries/fpdf/fpdf.php');
 $ticket_ID = $_COOKIE["ticket"];
 
-//$ticket_ID = 1;
+/*Print the PDF of the unique ticket for user to print*/
 
 $conn = db_connect();
 
