@@ -14,8 +14,7 @@ $username = checkCurrentUser();
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Eventi - Manage Event</title>
-        <!-- TODO: make title reflect currently selected event -->
+        <title>Eventi - Manage Events</title>
         <link href="styling.css" rel="stylesheet">
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     </head>
