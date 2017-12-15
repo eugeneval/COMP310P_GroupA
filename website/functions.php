@@ -127,8 +127,10 @@ function emailCheck() {
           $sql = "UPDATE tickets
                   SET Sent_Email = 1
                   WHERE User_ID = $User_ID;";
+          mysqli_query($conn, $sql);
         }
     }
+    mysqli_close($conn);
     sendEmail($email);
 }
 
