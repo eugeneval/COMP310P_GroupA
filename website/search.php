@@ -16,6 +16,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //$search is the value inputed in the search field by the user
     $search = "%".$search."%";
 
+    if (!$startTime) {
+        $startTime = "2000-01-01";
+    }
+    if (!$endTime) {
+        $endTime = "2050-01-01";
+    }
+
     $conn = db_connect();
 
 // Query for selecting the event ID, name, description, times, category and venue
@@ -63,9 +70,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
          <form action='search.php' method='post'>
              <div class="searchinput">
                  Search for events are happening between
-                 <input type="date" id="startDate" name="startDate" required/>
+                 <input type="date" id="startDate" name="startDate" />
                  and
-                 <input type="date" id="endDate" name="endDate" required/>
+                 <input type="date" id="endDate" name="endDate" />
                  <br />
                 And are about: <small>The name of the event, category, whatever!</small><br />
                  <input id="search" type="text" placeholder="Enter event info to filter" name="search"/>
