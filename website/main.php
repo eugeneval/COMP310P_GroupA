@@ -8,6 +8,7 @@
 
 require 'functions.php';
 $username = checkCurrentUser();
+$user_ID = $_COOKIE["user_ID"];
 
 $conn = db_connect();
 
@@ -70,9 +71,9 @@ if (!isset($_COOKIE["skippedInterests"])) {
             <button class="tablinks" onclick="openTab(event, 'this_week')">This Week</button>
             <button class="tablinks" onclick="openTab(event, 'next_week')">Next Week</button>
             <button class="tablinks" onclick="openTab(event, 'upcoming')">Upcoming</button>
+            <button class="tablinks" onclick="openTab(event, 'recommended')">Recommended</button>
         </div>
         <div class="eventsList" id="past_events">
-            <!-- TODO: different tabs: this week, next week, upcoming, past events -->
             <?php
             $sql = "SELECT Event_ID, Name, Description
             FROM events
@@ -94,7 +95,6 @@ if (!isset($_COOKIE["skippedInterests"])) {
              ?>
         </div>
         <div class="eventsList" id="this_week">
-            <!-- TODO: different tabs: this week, next week, upcoming, past events -->
             <?php
             $sql = "SELECT Event_ID, Name, Description
             FROM events
@@ -117,7 +117,6 @@ if (!isset($_COOKIE["skippedInterests"])) {
              ?>
         </div>
         <div class="eventsList" id="next_week">
-            <!-- TODO: different tabs: this week, next week, upcoming, past events -->
             <?php
             $sql = "SELECT Event_ID, Name, Description
             FROM events
@@ -140,11 +139,33 @@ if (!isset($_COOKIE["skippedInterests"])) {
              ?>
         </div>
         <div class="eventsList" id="upcoming">
-            <!-- TODO: different tabs: this week, next week, upcoming, past events -->
             <?php
             $sql = "SELECT Event_ID, Name, Description
             FROM events
             WHERE CAST(Start_DateTime AS DATE) >= DATE_ADD(CURRENT_DATE, INTERVAL +1 WEEK)
+            ORDER BY Start_DateTime ASC";
+            $result = mysqli_query($conn, $sql);
+                if (mysqli_num_rows($result) > 0) {
+                    while($row = mysqli_fetch_assoc($result)) {
+                        echo "<p>".$row['Name']."<br /><small>".$row['Description']."</small></p>";
+                        echo "<form action='event_details.php' onclick=\"return  eventCookie(".$row['Event_ID'].")\">
+                        <input type=\"submit\" value=\"Event Details\" />
+                        </form>";
+                    }
+                }
+                else {
+                    echo "0 results";
+                }
+
+             ?>
+        </div>
+        <div class="eventsList" id="recommended">
+            <?php
+            $sql = "SELECT e.Event_ID, e.Name, e.Description
+            FROM events e
+            JOIN category c ON e.Category_ID = c.Category_ID
+            JOIN user_category uc ON ec.Category_ID = c.Category_ID
+            WHERE uc.User_ID = $user_ID
             ORDER BY Start_DateTime ASC";
             $result = mysqli_query($conn, $sql);
                 if (mysqli_num_rows($result) > 0) {
