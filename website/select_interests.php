@@ -10,6 +10,8 @@ $username = checkCurrentUser();
 ?>
 
  <!DOCTYPE html>
+ <!--Allows user to skip or select interests (or categories) they are interested
+ in for the machine learning neural network to recommend events-->
  <html>
      <head>
          <meta charset="utf-8">
