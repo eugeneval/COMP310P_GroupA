@@ -15,8 +15,7 @@
 //large enough user base.
 /////////////////////////////////////////////
 
-$email = emailCheck();
-sendEmail($email);
+emailCheck();
 
 function test_input($data) {
     $data = trim($data);
@@ -130,14 +129,12 @@ function emailCheck() {
                   WHERE User_ID = $User_ID;";
         }
     }
-    return $email;
+    sendEmail($email);
 }
 
-// Placeholder function for sending a reminder email
+
 function sendEmail($email) {
-  // $msg = "Please have a look at Eventi, you have an event coming up";
-  // $msg = wordwrap($msg,70);
-  // mail($email,"Event Notification",$msg);
+    // This is a placeholder function for sending a reminder email
 }
 
 ?>
