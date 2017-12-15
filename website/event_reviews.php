@@ -27,6 +27,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
     }
+    /////COMMENTS////////////////////
+    //The below code will be activated once the neural network for each event is optimised.
+    //The final output $final_output produces a 1 if the network should recommend an event
+    //to the user.
+    /////////////////////////////////
+    //$id = $event_id;
+    //$output = perceptron($inputs, $id);
+    //$final_output = $output[4];
 }
 
 
