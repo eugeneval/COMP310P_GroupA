@@ -72,7 +72,6 @@ $result = mysqli_query($conn, $sql);
                 <p>Ticket Price</p> <input type="number" name="ticket_price" min="0.00" max="100.00" step="0.01" />
                 <p>Ticket Start Date/Time</p> <input type="datetime-local" name="ticket_start_date_time">
                 <p>Ticket End Date/Time</p> <input type="datetime-local" name="ticket_end_date_time">
-                <!-- TODO: JS to prevent end date being before end date -->
                 <p>Quantity</p> <input type="number" name="ticket_quantity" min="1" max="500">
                 <br />
             </fieldset>
