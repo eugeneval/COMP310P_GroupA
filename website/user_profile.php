@@ -27,40 +27,45 @@ $username = checkCurrentUser();
             </ul>
         </header>
         <h3>Profile</h3>
-        <!--Store and Fetch Profile Picture in PHP and SQL-->
+<!--Store and Fetch Profile Picture in PHP and SQL-->
 
         <img class="user_image" src="https://i.pinimg.com/736x/5b/9d/50/5b9d5065b8b90cf44433ae5d1e4db0b7.jpg"
         alt "My Profile Image" width "150" height ="150">
-
+        <br />
+<!--Allows the user to manage or create an event if they're a admin and log out-->
+        <input type=submit value='Manage Events' onclick="location.href = 'manage_event.php';" id="button" >
+        <input type=submit value='Create an Event' onclick="location.href = 'create_event.php';" id="button" >
+        <input type=submit value='Log Out' onclick="location.href = 'login.php';"id="button" >
         <div id="profile">
             <h4><u>Edit Interests</u></h4>
             <?php
 
             $conn = db_connect();
 
-            //!!!!!!!!!!!!!!!!!!!!!!!!!SQL Query Not Working!!!!!!!!
+/*Query to find the users interests (chosen categories) and list them alphabetically*/
             $sql = "SELECT  c.Name
-              FROM Category c
-              JOIN user_category uc ON uc.Category_ID = c.Category_ID
-              JOIN user u ON u.User_ID = uc.User_ID
-              WHERE u.username = '$username';";
+                    FROM Category c
+                    JOIN user_category uc ON uc.Category_ID = c.Category_ID
+                    JOIN user u ON u.User_ID = uc.User_ID
+                    WHERE u.username = '$username'
+                    ORDER BY c.Name;";
             $result = mysqli_query($conn, $sql);
 
             if($result){
-              echo '<table style="width:100%">
+                echo '<table style="width:100%">
                       <tr>
-                        <th>Interests</th>
+                          <th>Interests</th>
                       </tr>';
             while($row = mysqli_fetch_array($result)){
-              echo'<tr>
-                      <td>'.$row['Name'].'</td>';
-              echo '</tr>';
+                echo'<tr>
+                          <td>'.$row['Name'].'</td>';
+                echo '</tr>';
              }
              echo '</table>';
            }
            else{
-             echo "Database not found";
-             echo mysqli_error($conn);
+               echo "Database not found";
+               echo mysqli_error($conn);
            }
            mysqli_close();
 
@@ -69,50 +74,49 @@ $username = checkCurrentUser();
       </div>
 
       <div id="profile">
-          <h4><u>Attending</u></h4>
+          <h4><u>Booked Events</u></h4>
 
           <?php
-          $conn = db_connect();
-            $sql = "SELECT DISTINCT e.Name, e.Start_DateTime
-            FROM events e
-            JOIN tickets t ON t.Event_ID = e.Event_ID
-            JOIN user u ON u.User_ID = t.User_ID
-            WHERE u.username = '$username';";
-          $result = mysqli_query($conn, $sql);
+/*Query to find the users booked event(s) and list them uniquely by start date and time*/
+              $conn = db_connect();
+              $sql = "SELECT DISTINCT e.Name, e.Start_DateTime
+                      FROM events e
+                      JOIN tickets t ON t.Event_ID = e.Event_ID
+                      JOIN user u ON u.User_ID = t.User_ID
+                      WHERE u.username = '$username'
+                      ORDER BY e.Start_DateTime;";
+              $result = mysqli_query($conn, $sql);
 
-          if($result){
-          echo '<table style="width:100%">
-                  <tr>
-                    <th>Event Name</th>
-                  </tr>';
-          while($row = mysqli_fetch_array($result)){
-            echo'<tr>
-                    <td>'.$row['Name'].'</td>';
-            echo '</tr>';
-           }
-           echo '</table>';
-          }
-          else{
-           echo "Database not found";
-           echo mysqli_error($conn);
-         }
-         mysqli_close();
+              if($result){
+                  echo '<table style="width:100%">
+                            <tr>
+                                <th>Event Name</th>
+                            </tr>';
+                  while($row = mysqli_fetch_array($result)){
+                    echo'<tr>
+                              <td>'.$row['Name'].'</td>';
+                    echo '</tr>';
+                   }
+                    echo '</table>';
+              }
+              else{
+               echo "Database not found";
+               echo mysqli_error($conn);
+             }
+             mysqli_close();
          ?>
          <br />
       </div>
 
        <div id="profile">
-        <h4><u>Email Notifications</u></h4>
-        <label class="switch">
-            <input type="checkbox" checked>
-            <span class="slider round"></span>
-        </label>
-        <br /><br />
+<!--Allows user to enable or disable email notifications 24hours before an event-->
+            <h4><u>Email Notifications</u></h4>
+            <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider round"></span>
+            </label>
+            <br /><br />
         </div>
         <br /><br />
-        <button onclick="location.href = 'manage_event.php';" id="button" >Manage Events</button>
-        <button onclick="location.href = 'create_event.php';" id="button" >Create Events</button>
-        <button onclick="location.href = 'login.php';"id="button" >Log Out</button>
-
     </body>
 </html>
