@@ -15,22 +15,23 @@ $event_ID = $_COOKIE["event"];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $quantity = $_POST["quantity"];
 
+/*Query to add the users purchased ticket to the db*/
     $conn = db_connect();
     $sql = "INSERT INTO `tickets` (`User_ID`, `Event_ID`, `Ticket_Type_ID`)
-    VALUES ($user_ID, $event_ID, 1);";
-    for ($i=0; $i < $quantity; $i++) {
-        $result = mysqli_query($conn, $sql);
-        $newTicket[$i] = mysqli_insert_id($conn);
-        if (!$result || $result == false) {
-            die(mysqli_error($conn));
-        }
+            VALUES ($user_ID, $event_ID, 1);";
+            for ($i=0; $i < $quantity; $i++) {
+                $result = mysqli_query($conn, $sql);
+                $newTicket[$i] = mysqli_insert_id($conn);
+                if (!$result || $result == false) {
+                    die(mysqli_error($conn));
+                }
     }
 
 } else {
     header('Location: main.php');
 }
 ?>
-
+<!--Allows user to view and print their unique ticket -->
  <!DOCTYPE html>
  <html>
      <head>
@@ -59,8 +60,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                  <?php
                  foreach ($newTicket as $ticket_ID) {
                      $sql = "SELECT e.Name, e.Ticket_Price FROM tickets t
-                     JOIN events e ON t.Event_ID = e.Event_ID
-                     WHERE t.Ticket_ID = $ticket_ID ;";
+                             JOIN events e ON t.Event_ID = e.Event_ID
+                             WHERE t.Ticket_ID = $ticket_ID ;";
                      $result = mysqli_query($conn, $sql);
                      if (!$result || $result == false) {
                          die(mysqli_error($conn));
