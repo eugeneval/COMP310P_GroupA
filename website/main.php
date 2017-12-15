@@ -31,11 +31,6 @@ if (!isset($_COOKIE["skippedInterests"])) {
 }
 
 
-$sql = "SELECT *
-FROM events";
-$result = mysqli_query($conn, $sql);
-
-
  ?>
 
 <!DOCTYPE html>
@@ -70,9 +65,20 @@ $result = mysqli_query($conn, $sql);
                 <input type="submit" value="Search" />
             </form>
         </div>
-        <div class="eventsList">
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'past_events')">Past Events</button>
+            <button class="tablinks" onclick="openTab(event, 'this_week')">This Week</button>
+            <button class="tablinks" onclick="openTab(event, 'next_week')">Next Week</button>
+            <button class="tablinks" onclick="openTab(event, 'upcoming')">Upcoming</button>
+        </div>
+        <div class="eventsList" id="past_events">
             <!-- TODO: different tabs: this week, next week, upcoming, past events -->
             <?php
+            $sql = "SELECT Event_ID, Name, Description
+            FROM events
+            WHERE CAST(Start_DateTime AS DATE) <= CURRENT_DATE
+            ORDER BY Start_DateTime ASC";
+            $result = mysqli_query($conn, $sql);
                 if (mysqli_num_rows($result) > 0) {
                     while($row = mysqli_fetch_assoc($result)) {
                         echo "<p>".$row['Name']."<br /><small>".$row['Description']."</small></p>";
@@ -84,11 +90,99 @@ $result = mysqli_query($conn, $sql);
                 else {
                     echo "0 results";
                 }
-                mysqli_close($conn);
+
+             ?>
+        </div>
+        <div class="eventsList" id="this_week">
+            <!-- TODO: different tabs: this week, next week, upcoming, past events -->
+            <?php
+            $sql = "SELECT Event_ID, Name, Description
+            FROM events
+            WHERE CAST(Start_DateTime AS DATE) >= CURRENT_DATE
+            AND CAST(Start_DateTime AS DATE) <= DATE_ADD(CURRENT_DATE, INTERVAL +1 WEEK)
+            ORDER BY Start_DateTime ASC";
+            $result = mysqli_query($conn, $sql);
+                if (mysqli_num_rows($result) > 0) {
+                    while($row = mysqli_fetch_assoc($result)) {
+                        echo "<p>".$row['Name']."<br /><small>".$row['Description']."</small></p>";
+                        echo "<form action='event_details.php' onclick=\"return  eventCookie(".$row['Event_ID'].")\">
+                        <input type=\"submit\" value=\"Event Details\" />
+                        </form>";
+                    }
+                }
+                else {
+                    echo "0 results";
+                }
+
+             ?>
+        </div>
+        <div class="eventsList" id="next_week">
+            <!-- TODO: different tabs: this week, next week, upcoming, past events -->
+            <?php
+            $sql = "SELECT Event_ID, Name, Description
+            FROM events
+            WHERE CAST(Start_DateTime AS DATE) >= DATE_ADD(CURRENT_DATE, INTERVAL +1 WEEK)
+            AND CAST(Start_DateTime AS DATE) <= DATE_ADD(CURRENT_DATE, INTERVAL +2 WEEK)
+            ORDER BY Start_DateTime ASC";
+            $result = mysqli_query($conn, $sql);
+                if (mysqli_num_rows($result) > 0) {
+                    while($row = mysqli_fetch_assoc($result)) {
+                        echo "<p>".$row['Name']."<br /><small>".$row['Description']."</small></p>";
+                        echo "<form action='event_details.php' onclick=\"return  eventCookie(".$row['Event_ID'].")\">
+                        <input type=\"submit\" value=\"Event Details\" />
+                        </form>";
+                    }
+                }
+                else {
+                    echo "0 results";
+                }
+
+             ?>
+        </div>
+        <div class="eventsList" id="upcoming">
+            <!-- TODO: different tabs: this week, next week, upcoming, past events -->
+            <?php
+            $sql = "SELECT Event_ID, Name, Description
+            FROM events
+            WHERE CAST(Start_DateTime AS DATE) >= DATE_ADD(CURRENT_DATE, INTERVAL +1 WEEK)
+            ORDER BY Start_DateTime ASC";
+            $result = mysqli_query($conn, $sql);
+                if (mysqli_num_rows($result) > 0) {
+                    while($row = mysqli_fetch_assoc($result)) {
+                        echo "<p>".$row['Name']."<br /><small>".$row['Description']."</small></p>";
+                        echo "<form action='event_details.php' onclick=\"return  eventCookie(".$row['Event_ID'].")\">
+                        <input type=\"submit\" value=\"Event Details\" />
+                        </form>";
+                    }
+                }
+                else {
+                    echo "0 results";
+                }
+
              ?>
         </div>
 
+        <?php mysqli_close($conn) ?>
+
     </body>
+    <script>
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+
+        tabcontent = document.getElementsByClassName("eventsList");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        tablinks = document.getElementsByClassName("eventsList");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+    </script>
     <script src="javascript/login.js"></script>
     <script src="javascript/navigation.js"></script>
 </html>
