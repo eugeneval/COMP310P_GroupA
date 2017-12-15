@@ -43,6 +43,7 @@ $username = checkCurrentUser();
                   <th>Ticket Price</th>
                   <th>Likes</th>
                   <th>Participants</th>
+                  <th>Edit</th>
                 </tr>';
         while($row = mysqli_fetch_array($result)){
           echo '<tr>
@@ -52,6 +53,9 @@ $username = checkCurrentUser();
                   <td>'.$row['Num_Thumbs_Up'].'</td>
                   <td><form action=\'participants_list.php\' onsubmit="return eventCookie('.$row['Event_ID'].')">
                   <input type="submit" value="Participants" />
+                  </form> </td>
+                  <td><form action=\'edit_event.php\' onsubmit="return eventCookie('.$row['Event_ID'].')">
+                  <input type="submit" value="Edit" />
                   </form> </td>';
           echo '</tr>';
           $row_count = $row_count + 1;

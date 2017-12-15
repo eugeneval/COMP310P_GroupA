@@ -72,8 +72,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tags = $_POST["tags"];
 
     $conn = db_connect();
-    $sql = "INSERT INTO `events` (`Name`, `Description`, `Start_DateTime`, `End_DateTime`, `Total_Tickets`, `Ticket_Sale_Start_DateTime`, `Ticket_Sale_End_DateTime`, `Ticket_Price`, `Category_ID`, `Organiser_User_ID`, `Venue_ID`)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    if ($_COOKIE["edit"]) {
+        $sql = "UPDATE events
+        SET Name = ?, Description = ?, Start_DateTime = ?, End_DateTime = ?, Total_Tickets = ?, Ticket_Sale_Start_DateTime = ?, Ticket_Sale_End_DateTime = ?, Ticket_Price = ?, Category_ID = ?, Organiser_User_ID = ?, Venue_ID = ?
+        WHERE Event_ID = $event_ID";
+    } else {
+        $sql = "INSERT INTO `events` (`Name`, `Description`, `Start_DateTime`, `End_DateTime`, `Total_Tickets`, `Ticket_Sale_Start_DateTime`, `Ticket_Sale_End_DateTime`, `Ticket_Price`, `Category_ID`, `Organiser_User_ID`, `Venue_ID`)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    }
+
     if (!($stmt = mysqli_prepare($conn, $sql))) {
         die("Event SQL query preparation error: ".mysqli_error($conn));
     } else if (!(mysqli_stmt_bind_param($stmt, "sssssssssss", $event_name, $description, $start_date_time, $end_date_time, $ticket_quantity, $ticket_start_date_time, $ticket_end_date_time, $ticket_price, $category_ID, $_COOKIE["user_ID"],$venue_ID))) {
@@ -81,13 +88,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else if (!(mysqli_stmt_execute($stmt))) {
         die("Event SQL query execution error: ".mysqli_error($conn));
     } else {
-        $eventCreation .= "New event succesfully created!";
+        if ($_COOKIE["edit"]) {
+            $eventCreation .= "Event succesfully updated!";
+        } else {
+            $eventCreation .= "New event succesfully created!";
+        }
         $event_ID = mysqli_insert_id($conn);
     }
     mysqli_stmt_close($stmt);
 
     if ($tags) {
         $tag_ID;
+        if ($_COOKIE["edit"]) {
+            $sql = "DELETE FROM event_tag WHERE Event_ID = $event_ID";
+            mysqli_query($conn, $sql);
+        }
         $sql = "INSERT INTO `event_tag` (`Event_ID`, `Tag_ID`) VALUES (?, ?)";
         if (!($stmt = mysqli_prepare($conn, $sql))) {
             die("Tags SQL query preparation error: ".mysqli_error($conn));
