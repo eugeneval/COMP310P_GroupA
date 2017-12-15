@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
              <tbody>
                  <?php
                  foreach ($newTicket as $ticket_ID) {
-                     $sql = "SELECT e.Name, e.Ticket_Price FROM tickets t
+                     $sql = "SELECT e.Name, e.Ticket_Price, e.Start_DateTime FROM tickets t
                              JOIN events e ON t.Event_ID = e.Event_ID
                              WHERE t.Ticket_ID = $ticket_ID ;";
                      $result = mysqli_query($conn, $sql);

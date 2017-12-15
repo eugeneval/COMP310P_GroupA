@@ -38,8 +38,6 @@ $result = mysqli_query($conn, $sql);
                 <p>Description</p><textarea name="description" rows="8" cols="29" required></textarea>
                 <p>Start Date/Time</p> <input type="datetime-local" name="start_date_time" required>
                 <p>End Date/Time</p> <input type="datetime-local" name="end_date_time" required>
-                <!-- TODO: add default times? current year, etc. -->
-                <p>Video URL</p> <input type="url" name="video_url" pattern="https?://.+" />
             </fieldset>
             <br />
             <fieldset>
@@ -64,11 +62,6 @@ $result = mysqli_query($conn, $sql);
             <fieldset>
                 <legend>Ticket Information</legend>
 
-                <p>Types of Tickets</p>
-                <select name="ticket_type" size="1" onchange="newVenue()">
-                    <option value="1">1</option>
-                </select>
-                <p>Ticket Name</p> <input type="text" name="ticket_name">
                 <p>Ticket Price</p> <input type="number" name="ticket_price" min="0.00" max="100.00" step="0.01" />
                 <p>Ticket Start Date/Time</p> <input type="datetime-local" name="ticket_start_date_time">
                 <p>Ticket End Date/Time</p> <input type="datetime-local" name="ticket_end_date_time">
@@ -107,11 +100,11 @@ $result = mysqli_query($conn, $sql);
                 <br />
             </fieldset>
             <br />
-            <fieldset>
+            <!-- <fieldset>
                 <legend>Upload Event Image</legend>
                 <input type='file' />
                 <br><img id="myImg" src="#"  />
-            </fieldset>
+            </fieldset> -->
             <br />
             <input type="submit" value="Save"><n/>
             <input type="reset" value="Clear">

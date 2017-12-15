@@ -229,6 +229,33 @@ INSERT INTO `user` (`User_ID`, `Admin_Priveleges`, `Name`, `Username`, `Password
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `user_category`
+--
+
+CREATE TABLE `user_category` (
+  `User_ID` int(5) UNSIGNED NOT NULL,
+  `Category_ID` int(5) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user_category`
+--
+
+INSERT INTO `user_category` (`User_ID`, `Category_ID`) VALUES
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 6),
+(1, 7),
+(1, 8),
+(1, 9),
+(1, 10),
+(1, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user_tag`
 --
 
