@@ -29,8 +29,14 @@ $row = mysqli_fetch_assoc($result);
 if (mysqli_num_rows($result) == 0) {
     $eventCreation .= "This event doesn't exist!";
 }
+/////COMMENTS//////////////////////
+//The code below trains the neural network for the specific event bought event using the users data.
+///////////////////////////////////
+//$id = $event_id;
+//$train_array = perceptron($inputs, $event_ID);
+//$perceptron_train = perceptron_train($inputs, 1, $train_array[0], $train_array[1], $train_array[2], $train_array[3], $event_ID);
 //mysqli_close($conn);
-//////////////////////////////////////////
+
 ?>
 
 <!DOCTYPE html>
