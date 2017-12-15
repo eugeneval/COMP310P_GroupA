@@ -7,6 +7,9 @@
 *******************************************************************************/
 require 'functions.php';
 $username = checkCurrentUser();
+$conn = db_connect();
+$sql = "";
+$result = mysqli_query($conn, $sql);
 ?>
 
  <!DOCTYPE html>
@@ -29,19 +32,27 @@ $username = checkCurrentUser();
          </header>
          <p>Select all of your interests for Eventi: </p>
          <form method="post" action='main.php'>
-              Arts <input type="checkbox" name="Arts" value="Arts"><br />
-              Business <input type="checkbox" name="Business" value="Business"><br />
-              Entrepreneurship <input type="checkbox" name="Entrepreneurship" value="Entrepreneurship"><br />
-              Finance <input type="checkbox" name="Finance" value="Finance"><br />
-              Marketing <input type="checkbox" name="Marketing" value="Marketing"><br />
-              Networking <input type="checkbox" name="Networking" value="Networking"><br />
-              Performance <input type="checkbox" name="Performance" value="Performance"><br />
-              Personal Development <input type="checkbox" name="Personal Development" value="Personal Development"><br / />
-              Technology <input type="checkbox" name="Technology" value="Arts"><br />
-              Workshops <input type="checkbox" name="Workshops" value="Workshops"><br />
-              <p><input type="submit" value="Submit" disabled></p>
-              <input type="submit" value="Skip choosing interests" />
-              <input type="hidden" name="skippedInterests" value=1 />
+             <fieldset>
+                 <legend>Categorisation</legend>
+                 <p>Select all of your interests for Eventi<br /><br /><small>use ctrl or cmd to select multiple tags</small></p>
+                 <select multiple name="category" size="10">
+                     <option selected="true" disabled="disabled"></option>
+                     <?php
+
+                         $sql = "SELECT * FROM category";
+                         $result = mysqli_query($conn, $sql);
+                         while ($row = mysqli_fetch_assoc($result)) {
+                             echo "<option value=\"".$row['Category_ID']."\">".$row['Name']."</option>";
+                         }
+                         mysqli_close($conn);
+                      ?>
+                 </select>
+                 <br />
+             </fieldset>
+             <p><input type="submit" value="Submit" enabled></p>
+             <input type="submit" value="Skip choosing interests" />
+             <input type="hidden" name="skippedInterests" value=1 />
          </form>
+
      </body>
  </html>
