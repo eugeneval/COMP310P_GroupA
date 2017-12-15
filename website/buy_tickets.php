@@ -6,8 +6,6 @@
 * Authors: Syed Ismail Ahmad - Eugene Valetsky - George Imafidon               *                              *
 *******************************************************************************/
 
-
-/////////////////////////////////////////
 require 'functions.php';
 $username = checkCurrentUser();
 
@@ -19,7 +17,12 @@ if (!$event_ID) {
 }
 
 $conn = db_connect();
-$sql = "SELECT e.Name, v.Name AS 'Venue_Name', e.Ticket_Price, e.Total_Tickets, COUNT(t.Ticket_ID) AS 'Tickets_Sold' FROM events e JOIN venue v ON v.Venue_ID = e.Venue_ID JOIN tickets t ON t.Event_ID = e.Event_ID WHERE e.Event_ID = '$event_ID'";
+//Query to find the event name, venue and tickets sold
+$sql = "SELECT e.Name, v.Name AS 'Venue_Name', e.Ticket_Price, e.Total_Tickets, COUNT(t.Ticket_ID) AS 'Tickets_Sold'
+        FROM events e
+        JOIN venue v ON v.Venue_ID = e.Venue_ID
+        JOIN tickets t ON t.Event_ID = e.Event_ID
+        WHERE e.Event_ID = '$event_ID'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 
@@ -75,9 +78,9 @@ if (mysqli_num_rows($result) == 0) {
           <p>Tickets Remaining: <?php echo ($row['Total_Tickets'] - $row['Tickets_Sold']); ?></p>
           <p>Select quantity: </p>
           <input type="number" name="quantity" id="quantity" min="1" max="<?php echo ($row['Total_Tickets'] - $row['Tickets_Sold']); ?>" onchange="ticketPrice()" required ><br />
-          <p id='total'>Your total: £0</p>
+          <p id='total' step="0.01" >Your total: £0</p>
 
-        <input type="submit" value="Buy Tickets">
+          <input type="submit" value="Buy Tickets">
       </form>
 
     </body>
