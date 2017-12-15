@@ -33,8 +33,12 @@ $username = checkCurrentUser();
         alt "My Profile Image" width "150" height ="150">
         <br />
 <!--Allows the user to manage or create an event if they're a admin and log out-->
-        <input type=submit value='Manage Events' onclick="location.href = 'manage_event.php';" id="button" >
-        <input type=submit value='Create an Event' onclick="location.href = 'create_event.php';" id="button" >
+        <form action='manage_event.php' onsubmit="return check_admin()">
+            <input type="submit" value="Manage Events" id="newEvent"/>
+        </form>
+        <form action='create_event.php' onsubmit="return check_admin()">
+            <input type="submit" value="Create New Event" id="newEvent"/>
+        </form>
         <input type=submit value='Log Out' onclick="location.href = 'login.php';"id="button" >
         <div id="profile">
             <h4><u>Edit Interests</u></h4>
@@ -119,4 +123,6 @@ $username = checkCurrentUser();
         </div>
         <br /><br />
     </body>
+    <script src="libraries/js.cookie.js"></script>
+    <script src="libraries/p5.min.js"></script>
 </html>
