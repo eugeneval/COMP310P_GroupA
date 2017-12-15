@@ -6,7 +6,7 @@
 * Authors: Syed Ismail Ahmad - Eugene Valetsky - George Imafidon               *                              *
 *******************************************************************************/
 
-/////COMMENTS////////////////////////////
+/////COMMENTS///////////////////////////////////////////////////////////////////
 //This neural network classifier is used to recommend events to Eventi's
 //user base. It works by taking six inputs such as age/gender/Interests
 //and from that optimising a neural network tailored to each event. It is
@@ -14,25 +14,25 @@
 //function. It has a tuneable training rate which will be optimised once we
 //have tested different configurations. It integrates with the ml_w SQL table
 //in which weights are stored and updated.
-/////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 /*
   CREATE TABLE ml_w (
     id int NOT NULL AUTO_INCREMENT,
-    oneonel1 DECIMAL,
-    oneonel2 DECIMAL,
-    oneonel3 DECIMAL,
-    oneonel4 DECIMAL,
-    oneonel5 DECIMAL,
-    oneonel6 DECIMAL,
-    onetwol1 DECIMAL,
-    onetwol2 DECIMAL,
-    onetwol3 DECIMAL,
-    onetwol4 DECIMAL,
-    onetwol5 DECIMAL,
-    onetwol6 DECIMAL,
-    twoonel1 DECIMAL,
-    twotwol1 DECIMAL,
+    oneonel1 DECIMAL DEFAULT 1,
+    oneonel2 DECIMAL DEFAULT -1,
+    oneonel3 DECIMAL DEFAULT 1,
+    oneonel4 DECIMAL DEFAULT -1,
+    oneonel5 DECIMAL DEFAULT 1,
+    oneonel6 DECIMAL DEFAULT -1,
+    onetwol1 DECIMAL DEFAULT 1,
+    onetwol2 DECIMAL DEFAULT -1,
+    onetwol3 DECIMAL DEFAULT 1,
+    onetwol4 DECIMAL DEFAULT -1,
+    onetwol5 DECIMAL DEFAULT 1,
+    onetwol6 DECIMAL DEFAULT -1,
+    twoonel1 DECIMAL DEFAULT 1,
+    twotwol1 DECIMAL DEFAULT 1,
     PRIMARY KEY (id));
 
 //////////////////////////////////////////
@@ -60,22 +60,24 @@
 //////////////////////////////////////////
 
 ////FEED FORWARD//////////////////////////
-//$output = perceptron($inputs);
+//$id = $event_id;
+//$output = perceptron($inputs, $id);
 //$final_output = $output[4];
 //////////////////////////////////////////
 
 ////TRAIN NETWORK/////////////////////////
-//$train_array = perceptron($inputs);
-//$perceptron_train = perceptron_train($inputs, 1, $train_array[0], $train_array[1], $train_array[2], $train_array[3]);
+//$id = $event_id;
+//$train_array = perceptron($inputs, $id);
+//$perceptron_train = perceptron_train($inputs, 1, $train_array[0], $train_array[1], $train_array[2], $train_array[3], $id);
 //////////////////////////////////////////
 ?>
 
 <?php
-function perceptron($inputs){
+function perceptron($inputs,$id){
 
 ////SQL CONNECTION////////////////////////
 $conn = db_connect();
-$sql = "SELECT * FROM ml_w WHERE id=1";
+$sql = "SELECT * FROM ml_w WHERE id=$id";
 $result = mysqli_query($conn, $sql);
 
 while($row = mysqli_fetch_assoc($result)) {
@@ -131,7 +133,7 @@ function perceptron_feedforward($inputs, $weights) {
 ?>
 
 <?php
-function perceptron_train($inputs, $desired_output, $weights1l, $weights2l, $twoonel1, $twotwol1) {
+function perceptron_train($inputs, $desired_output, $weights1l, $weights2l, $twoonel1, $twotwol1, $id) {
   $learning_rate = 0.02;
   $perceptron_array = perceptron($inputs);
   $guess = $perceptron_array[4];
@@ -149,7 +151,7 @@ function perceptron_train($inputs, $desired_output, $weights1l, $weights2l, $two
   $sql = "UPDATE ml_w
           SET oneonel1 = $weights1l[0], oneonel2 = $weights1l[1], oneonel3 = $weights1l[2],
               oneonel4 = $weights1l[3], oneonel5 = $weights1l[4], oneonel6 = $weights1l[5]
-          WHERE id=1;";
+          WHERE id=$id;";
   $result = mysqli_query($conn, $sql);
 
   //var_dump($mysqli->real_escape_string($sql));
@@ -173,7 +175,7 @@ function perceptron_train($inputs, $desired_output, $weights1l, $weights2l, $two
   $sql = "UPDATE ml_w
           SET onetwol1 = $weights2l[0], onetwol2 = $weights2l[1], onetwol3 = $weights2l[2],
               onetwol4 = $weights2l[3], onetwol5 = $weights2l[4], onetwol6 = $weights2l[5]
-          WHERE id=1;";
+          WHERE id=$id;";
 
   $result = mysqli_query($conn, $sql);
 
@@ -184,7 +186,7 @@ function perceptron_train($inputs, $desired_output, $weights1l, $weights2l, $two
 
   $sql = "UPDATE ml_w
           SET twoonel1 = $twoonel1, twotwol1 = $twotwol1;
-          WHERE id=1;";
+          WHERE id=$id;";
   $result = mysqli_query($conn, $sql);
   mysqli_close($conn);
 }
