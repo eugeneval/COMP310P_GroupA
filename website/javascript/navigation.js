@@ -5,9 +5,9 @@ function eventCookie(event_id) {
     return true;
 }
 
-function editEventCookie(event_id) {
+function eventEditCookie(event_id) {
     Cookies.set('edit', true, { expires: 0.0001 });
-    eventCookie(event_id);
+    Cookies.set('event', event_id);
     return true;
 }
 

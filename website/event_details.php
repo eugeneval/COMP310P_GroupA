@@ -16,7 +16,7 @@ require 'functions.php';
 $username = checkCurrentUser();
 
 $event_ID = $_COOKIE["event"];
-setcookie("event", "", time()-1);
+
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     if (isset($_GET['thumbs_up'])) {
@@ -92,8 +92,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $eventCreation .= "Event succesfully updated!";
         } else {
             $eventCreation .= "New event succesfully created!";
+            $event_ID = mysqli_insert_id($conn);
         }
-        $event_ID = mysqli_insert_id($conn);
     }
     mysqli_stmt_close($stmt);
 

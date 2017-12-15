@@ -36,7 +36,7 @@ $event = mysqli_fetch_assoc($result_event);
                 <li class="menubar"><a href="login.php">Logout</a></li>
             </ul>
         </header>
-        <form action="event_details.php" method="post" action="eventEditCookie(<?php echo $event_ID ?>)">
+        <form action="event_details.php" method="post" onsubmit="return eventEditCookie(<?php echo $event_ID ?>)">
             <fieldset>
                 <legend>Event Details</legend>
                 <p>Event Name</p> <input type="text" name="event_name" value="<?php echo $event['Name'] ?>" >
